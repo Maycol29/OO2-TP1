@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'username',
 		'password',
-		'creationDate'
+		'creationDate',
+		'followers'
 	],
 	#category : #'OO2 Tp1-model'
 }
@@ -14,9 +15,15 @@ User class >> newUsername: aUsername password: aPassword [
 	^ self new username: aUsername password: aPassword
 ]
 
+{ #category : #accessing }
+User >> addFollower:aUser [
+	followers add:aUser.
+]
+
 { #category : #initialization }
 User >> initialize [
 	creationDate := DateAndTime  today .
+	followers:=OrderedCollection new.
 	
 	
 ]
@@ -29,6 +36,11 @@ User >> password [
 { #category : #accessing }
 User >> password: anObject [
 	password := anObject
+]
+
+{ #category : #accessing }
+User >> username [
+^username
 ]
 
 { #category : #initialization }
