@@ -15,6 +15,16 @@ Answer class >> newText: aText author: anUser [
 	^ self new text: aText author: anUser
 ]
 
+{ #category : #accessing }
+Answer >> addVoteA:aVote [
+votes add:aVote.
+]
+
+{ #category : #accessing }
+Answer >> author [ 
+^author
+]
+
 { #category : #initialization }
 Answer >> initialize [ 
 	replyDate := DateAndTime today.

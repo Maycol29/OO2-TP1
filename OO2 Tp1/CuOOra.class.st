@@ -30,8 +30,8 @@ topics add:aTopic.
 ]
 
 { #category : #accessing }
-CuOOra >> addUser:anUser [
-users add:anUser.
+CuOOra >> addUser:aUser [
+users add:aUser.
 
 ]
 
@@ -46,6 +46,11 @@ CuOOra >> initialize [
 users:=OrderedCollection new.
 topics:=OrderedCollection new.
 
+]
+
+{ #category : #accessing }
+CuOOra >> interestingTopicOf:aUser [
+^ topics detectMax: [ :each | each mostInteresting:aUser  ]. 
 ]
 
 { #category : #accessing }

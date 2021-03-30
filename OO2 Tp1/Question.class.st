@@ -20,11 +20,21 @@ instance text: aText userQuestion: anUser topics: allTopics
 
 ]
 
+{ #category : #adding }
+Question >> addVoteQ:aVote [
+votes add:aVote
+]
+
 { #category : #accessing }
 Question >> answers [
 ^answers
 
 
+]
+
+{ #category : #accessing }
+Question >> answersBy:aUser [ 
+^answers select:[:each | each author == aUser username ]
 ]
 
 { #category : #accessing }
@@ -47,6 +57,11 @@ Question >> questionTopics [
 
 
 
+]
+
+{ #category : #accessing }
+Question >> sumInteresting:aUser [ 
+^(self questionBy:aUser) + (self answersBy: aUser).
 ]
 
 { #category : #accessing }

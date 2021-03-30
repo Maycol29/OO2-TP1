@@ -24,6 +24,11 @@ questions add:aQuestion
 ]
 
 { #category : #accessing }
+Topic >> answersInTopic:aUser [ 
+^questions sumNumbers:[:each | each answersBy:aUser ].
+]
+
+{ #category : #accessing }
 Topic >> deleteQuestion:aQuestion [
 (aQuestion questionTopics)do:[:each | each questions remove:aQuestion].
 aQuestion answers removeAll.
@@ -36,6 +41,11 @@ Topic >> description [
 
 
 
+]
+
+{ #category : #accessing }
+Topic >> mostInteresting:aUser [
+^(self questionsInTopic:aUser size) + (self answersInTopic:aUser size).
 ]
 
 { #category : #accessing }
@@ -59,4 +69,9 @@ Topic >> questions [
 ^questions
 
 
+]
+
+{ #category : #accessing }
+Topic >> questionsInTopic:aUser [ 
+^questions select:[:each | each author == aUser username ]
 ]
