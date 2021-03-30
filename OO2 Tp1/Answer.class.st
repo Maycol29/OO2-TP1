@@ -27,10 +27,3 @@ Answer >> text: aText author: anUser [
 	text := aText.
 	author := anUser
 ]
-
-{ #category : #initialization }
-Answer >> text: aText replyDate: aDateAndTime author: anUser [ 
-	text := aText.
-	replyDate := aDateAndTime.
-	author := anUser
-]
