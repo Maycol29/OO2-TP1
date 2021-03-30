@@ -22,6 +22,11 @@ Vote >> belongsTo: anUser date: aDate feedback: aFeedback [
 	belongsTo := anUser
 ]
 
+{ #category : #accessing }
+Vote >> feedback [ 
+	^feedback
+]
+
 { #category : #initialization }
 Vote >> initialize [
 	date := DateAndTime  today .

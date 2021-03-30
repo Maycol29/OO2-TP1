@@ -37,6 +37,11 @@ Question >> creationDate [
 ]
 
 { #category : #accessing }
+Question >> orderedAnswers [
+	^ answers asSortedCollection: [:answer1 :answer2 |  answer1 score  <= answer2 score]
+]
+
+{ #category : #accessing }
 Question >> questionTopics [
 ^questionTopics
 

@@ -22,6 +22,22 @@ Answer >> initialize [
 	
 ]
 
+{ #category : #accesing }
+Answer >> negativeScore [ 
+	^votes size - (self positiveScore).
+]
+
+{ #category : #accesing }
+Answer >> positiveScore [
+	^votes select: [:vote| (vote feedback)]
+	
+]
+
+{ #category : #accesing }
+Answer >> score [ 
+	^(self positiveScore - self negativeScore). 
+]
+
 { #category : #initialization }
 Answer >> text: aText author: anUser [ 
 	text := aText.

@@ -21,16 +21,6 @@ User >> initialize [
 	
 ]
 
-{ #category : #accessing }
-User >> password [
-	^ password
-]
-
-{ #category : #accessing }
-User >> password: anObject [
-	password := anObject
-]
-
 { #category : #initialization }
 User >> username: aUsername password: aPassword [
 	username:= aUsername .
