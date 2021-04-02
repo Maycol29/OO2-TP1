@@ -60,6 +60,13 @@ CuOOra >> topics [
 ]
 
 { #category : #accessing }
+CuOOra >> userWithUsername: anUsername protectedBy: aPassword [
+	^ users
+		detect: [ :each | each username  = anUsername  & (each password = aPassword) ]
+		ifNone: [ nil ]
+]
+
+{ #category : #accessing }
 CuOOra >> users [
 ^users
 

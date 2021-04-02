@@ -60,11 +60,6 @@ Question >> questionTopics [
 ]
 
 { #category : #accessing }
-Question >> sumInteresting:aUser [ 
-^(self questionBy:aUser) + (self answersBy: aUser).
-]
-
-{ #category : #accessing }
 Question >> text [
 ^text
 

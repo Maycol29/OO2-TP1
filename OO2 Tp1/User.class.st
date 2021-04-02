@@ -4,8 +4,8 @@ Class {
 	#instVars : [
 		'username',
 		'password',
-		'creationDate',
-		'followers'
+		'followers',
+		'posts'
 	],
 	#category : #'OO2 Tp1-model'
 }
@@ -22,10 +22,34 @@ User >> addFollower:aUser [
 
 { #category : #initialization }
 User >> initialize [
-	creationDate := DateAndTime  today .
-	followers:=OrderedCollection new.
-	
-	
+	followers := OrderedCollection new.
+	posts := OrderedCollection new
+]
+
+{ #category : #accessing }
+User >> password [
+	^ password
+]
+
+{ #category : #accessing }
+User >> password: anObject [
+	password := anObject
+]
+
+{ #category : #accessing }
+User >> post: aPost [
+	posts add: aPost 
+]
+
+{ #category : #accessing }
+User >> posts [
+	^ posts
+]
+
+{ #category : #accessing }
+User >> postsInNetwork [
+	^ (followers flatCollect: [ :each | each posts ]) , posts
+		asSortedCollection: [ :a :b | a timeStamp > b timeStamp ]
 ]
 
 { #category : #accessing }
