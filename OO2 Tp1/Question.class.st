@@ -36,6 +36,11 @@ Question >> orderedAnswers [
 ]
 
 { #category : #acccessing }
+Question >> scoreAnswersBy:aUser [
+^answers sumNumbers:[:each | each score ]
+]
+
+{ #category : #acccessing }
 Question >> topics [
 ^topics
 ]

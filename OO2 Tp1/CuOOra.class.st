@@ -70,6 +70,11 @@ CuOOra >> questionBy: anUser [
 	topics flatCollect: [ :topic | topic questionsInTopicBy: anUser ]
 ]
 
+{ #category : #acccessing }
+CuOOra >> scoreOfTheUser:aUser [ 
+^topics sumNumbers: [ :topic | topic scoreOfTheUser:aUser ]
+]
+
 { #category : #accessing }
 CuOOra >> topics [
 ^topics

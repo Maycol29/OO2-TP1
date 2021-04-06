@@ -5,7 +5,8 @@ Class {
 		'username',
 		'password',
 		'followers',
-		'interestTopics'
+		'interestTopics',
+		'creationDate'
 	],
 	#category : #'OO2 Tp1-model'
 }
@@ -37,6 +38,7 @@ User >> followers [
 User >> initialize [ 
 	followers := Set new.
 	interestTopics := OrderedCollection new.
+	creationDate:=DateAndTime today.
 ]
 
 { #category : #accessing }

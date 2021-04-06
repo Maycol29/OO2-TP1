@@ -35,11 +35,6 @@ Topic >> initialize [
 	questions:=OrderedCollection new.
 ]
 
-{ #category : #accessing }
-Topic >> mostInteresting:aUser [
-^(self questionsInTopicBy:aUser size) + (self answersInTopicBy:aUser size).
-]
-
 { #category : #initialization }
 Topic >> name:aName description:aDescription [
 name:=aName.
@@ -56,4 +51,23 @@ Topic >> questions [
 { #category : #accessing }
 Topic >> questionsInTopicBy:aUser [ 
 ^questions select:[:each | each author == aUser username ]
+]
+
+{ #category : #accessing }
+Topic >> scoreOfTheAnswersBy:aUser [
+^questions sumNumbers: [:each | each scoreAnswersBy:aUser ].
+]
+
+{ #category : #accessing }
+Topic >> scoreOfTheQuestionBy:aUser [
+^questions sumNumbers:[:each | each score ]
+]
+
+{ #category : #accessing }
+Topic >> scoreOfTheUser:aUser [
+|scoreQ scoreA scoreV|
+scoreQ:=(self questionsInTopicBy:aUser)size * 20. 
+scoreA:=(self answersInTopicBy:aUser)size * 50 .
+scoreV :=  (self scoreOfTheAnswersBy:aUser) + (self scoreOfTheAnswersBy: aUser).
+^(scoreA+scoreQ+scoreV) 
 ]
