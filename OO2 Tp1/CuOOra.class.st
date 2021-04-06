@@ -35,9 +35,9 @@ users add:aUser.
 
 ]
 
-{ #category : #accessing }
-CuOOra >> amountOfQuestionsBy: aUser [
-	(topics collect: [:topic| topic questionsInTopicBy: aUser ])size .
+{ #category : #acccessing }
+CuOOra >> answersBy: anUser [
+	topics flatCollect: [ :topic | topic answersInTopicBy: anUser ]
 ]
 
 { #category : #accessing }
