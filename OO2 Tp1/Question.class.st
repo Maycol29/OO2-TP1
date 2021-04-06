@@ -2,11 +2,20 @@ Class {
 	#name : #Question,
 	#superclass : #Post,
 	#instVars : [
+		'title',
 		'answers',
 		'topics'
 	],
 	#category : #'OO2 Tp1-model'
 }
+
+{ #category : #'instance creation' }
+Question class >> newAuthor: aUser text: aString date: aDateAndTime Title:aTiple [
+|instancePost|
+instancePost :=self newAuthor: aUser text: aString date: aDateAndTime.
+instancePost title:aTiple.
+^instancePost
+]
 
 { #category : #adding }
 Question >> addAnswer:anAnswer [
@@ -38,6 +47,16 @@ Question >> orderedAnswers [
 { #category : #acccessing }
 Question >> scoreAnswersBy:aUser [
 ^answers sumNumbers:[:each | each score ]
+]
+
+{ #category : #acccessing }
+Question >> title [
+^title
+]
+
+{ #category : #acccessing }
+Question >> title:aTitle [
+title:=aTitle
 ]
 
 { #category : #acccessing }

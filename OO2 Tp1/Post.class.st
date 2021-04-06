@@ -11,12 +11,6 @@ Class {
 }
 
 { #category : #initialization }
-Post class >> newAuthor: aUser date: aDateAndTime [
-
-^self new author: aUser date: aDateAndTime.
-]
-
-{ #category : #initialization }
 Post class >> newAuthor: aUser text: aString date: aDateAndTime [
 
 ^self new author: aUser text: aString date: aDateAndTime.

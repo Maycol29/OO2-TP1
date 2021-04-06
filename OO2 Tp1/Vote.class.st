@@ -10,8 +10,8 @@ Class {
 }
 
 { #category : #initialization }
-Vote class >> newUser: anUser date: aDate value: aValue [
-	^self new user: anUser date: aDate value: aValue
+Vote class >> newBelongsTo: aUser date: aDate value: aValue [
+	^self new belongsTo: aUser date: aDate value: aValue
 ]
 
 { #category : #initialization }
