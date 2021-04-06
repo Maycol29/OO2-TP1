@@ -8,6 +8,11 @@ Class {
 	#category : #'OO2 Tp1-model'
 }
 
+{ #category : #adding }
+Question >> addAnswer:anAnswer [
+answers add: anAnswer .
+]
+
 { #category : #acccessing }
 Question >> answers [ 
 ^answers

@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'username',
 		'password',
-		'followers'
+		'followers',
+		'interestTopics'
 	],
 	#category : #'OO2 Tp1-model'
 }
@@ -22,6 +23,11 @@ User >> addFollower: aUser [
 	followers add: aUser
 ]
 
+{ #category : #adding }
+User >> addInterestTopic:aTopic [
+interestTopics add:aTopic
+]
+
 { #category : #accessing }
 User >> followers [
 ^followers 
@@ -30,6 +36,7 @@ User >> followers [
 { #category : #initialization }
 User >> initialize [ 
 	followers := Set new.
+	interestTopics := OrderedCollection new.
 ]
 
 { #category : #accessing }

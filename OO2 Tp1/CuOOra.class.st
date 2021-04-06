@@ -48,7 +48,7 @@ aQuestion votes removeAll.
 ]
 
 { #category : #accessing }
-CuOOra >> getTopicQuestion:aTopic [    "deberia pasarla x parametro un topico q existe"
+CuOOra >> getTopicQuestions:aTopic [    "deberia pasarla x parametro un topico q existe"
 ^aTopic questions.
 
 ]
@@ -63,6 +63,11 @@ topics:=OrderedCollection new.
 { #category : #accessing }
 CuOOra >> interestingTopicOf:aUser [
 ^ topics detectMax: [ :each | each mostInteresting:aUser  ]. 
+]
+
+{ #category : #accessing }
+CuOOra >> questionBy: anUser [
+	topics flatCollect: [ :topic | topic questionsInTopicBy: anUser ]
 ]
 
 { #category : #accessing }
