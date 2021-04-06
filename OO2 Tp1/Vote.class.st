@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'date',
 		'value',
-		'author'
+		'belongsTo'
 	],
 	#category : #'OO2 Tp1-model'
 }
@@ -15,18 +15,18 @@ Vote class >> newUser: anUser date: aDate value: aValue [
 ]
 
 { #category : #initialization }
+Vote >> belongsTo: anUser date: aDate value: aValue [
+	date := aDate.
+	value:= aValue .
+	belongsTo := anUser
+]
+
+{ #category : #initialization }
 Vote >> initialize [ 
 	date := DateAndTime today.
 ]
 
-{ #category : #initialization }
-Vote >> user: anUser date: aDate value: aValue [
-	date := aDate.
-	value := aValue .
-	author := anUser
-]
-
 { #category : #accessing }
-Vote >> value [
+Vote >> value [ 
 ^value
 ]
