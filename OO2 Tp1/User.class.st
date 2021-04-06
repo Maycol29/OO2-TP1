@@ -4,26 +4,32 @@ Class {
 	#instVars : [
 		'username',
 		'password',
-		'followers',
-		'posts'
+		'followers'
 	],
 	#category : #'OO2 Tp1-model'
 }
 
-{ #category : #'instance creation' }
+{ #category : #initialization }
 User class >> newUsername: aUsername password: aPassword [
 	^ self new username: aUsername password: aPassword
 ]
 
 { #category : #accessing }
-User >> addFollower:aUser [
-	followers add:aUser.
+User >> addFollower: aUser [
+	| previousFollower |
+	previousFollower := followers detect: [ :follower | follower username  = aUser username ].
+	previousFollower ifNotNil: [ followers remove: previousFollower ].
+	followers add: aUser
+]
+
+{ #category : #accessing }
+User >> followers [
+^followers 
 ]
 
 { #category : #initialization }
-User >> initialize [
-	followers := OrderedCollection new.
-	posts := OrderedCollection new
+User >> initialize [ 
+	followers := Set new.
 ]
 
 { #category : #accessing }
@@ -32,29 +38,8 @@ User >> password [
 ]
 
 { #category : #accessing }
-User >> password: anObject [
-	password := anObject
-]
-
-{ #category : #accessing }
-User >> post: aPost [
-	posts add: aPost 
-]
-
-{ #category : #accessing }
-User >> posts [
-	^ posts
-]
-
-{ #category : #accessing }
-User >> postsInNetwork [
-	^ (followers flatCollect: [ :each | each posts ]) , posts
-		asSortedCollection: [ :a :b | a timeStamp > b timeStamp ]
-]
-
-{ #category : #accessing }
-User >> username [
-^username
+User >> username [ 
+	^username 
 ]
 
 { #category : #initialization }

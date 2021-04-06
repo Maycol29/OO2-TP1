@@ -9,58 +9,41 @@ Class {
 	#category : #'OO2 Tp1-model'
 }
 
-{ #category : #'instance creation' }
+{ #category : #initialization }
 Topic class >> newName:aName description:aDescription [
-|instance|
-instance :=self new.
-instance name:aName description:aDescription.
 
+ ^self new name:aName description:aDescription.
 ]
 
 { #category : #accessing }
 Topic >> addQuestion:aQuestion [
 questions add:aQuestion
-
 ]
 
 { #category : #accessing }
-Topic >> answersInTopic:aUser [ 
-^questions sumNumbers:[:each | each answersBy:aUser ].
-]
-
-{ #category : #accessing }
-Topic >> deleteQuestion:aQuestion [
-(aQuestion questionTopics)do:[:each | each questions remove:aQuestion].
-aQuestion answers removeAll.
-aQuestion votes removeAll.
+Topic >> answersInTopicBy:aUser [ 
+^questions select: [:each | each answersBy:aUser ].
 ]
 
 { #category : #accessing }
 Topic >> description [
 ^description
+]
 
-
-
+{ #category : #initialization }
+Topic >> initialize [ 
+	questions:=OrderedCollection new.
 ]
 
 { #category : #accessing }
 Topic >> mostInteresting:aUser [
-^(self questionsInTopic:aUser size) + (self answersInTopic:aUser size).
+^(self questionsInTopicBy:aUser size) + (self answersInTopicBy:aUser size).
 ]
 
-{ #category : #accessing }
-Topic >> name [
-^name
-
-
-
-]
-
-{ #category : #initalize }
+{ #category : #initialization }
 Topic >> name:aName description:aDescription [
 name:=aName.
 description:=aDescription.
-questions:=OrderedCollection new.
 
 ]
 
@@ -68,10 +51,9 @@ questions:=OrderedCollection new.
 Topic >> questions [
 ^questions
 
-
 ]
 
 { #category : #accessing }
-Topic >> questionsInTopic:aUser [ 
+Topic >> questionsInTopicBy:aUser [ 
 ^questions select:[:each | each author == aUser username ]
 ]

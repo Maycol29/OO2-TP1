@@ -36,6 +36,18 @@ users add:aUser.
 ]
 
 { #category : #accessing }
+CuOOra >> amountOfQuestionsBy: aUser [
+	(topics collect: [:topic| topic questionsInTopicBy: aUser ])size .
+]
+
+{ #category : #accessing }
+CuOOra >> deleteQuestion:aQuestion [
+(aQuestion topics)do:[:each | each questions remove:aQuestion].
+aQuestion answers removeAll.
+aQuestion votes removeAll.
+]
+
+{ #category : #accessing }
 CuOOra >> getTopicQuestion:aTopic [    "deberia pasarla x parametro un topico q existe"
 ^aTopic questions.
 

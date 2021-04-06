@@ -1,5 +1,5 @@
 Class {
-	#name : #PostFAFA,
+	#name : #Post,
 	#superclass : #Object,
 	#instVars : [
 		'author',
@@ -11,47 +11,53 @@ Class {
 }
 
 { #category : #initialization }
-PostFAFA class >> newAuthor: aUser date: aDateAndTime [
+Post class >> newAuthor: aUser date: aDateAndTime [
 
 ^self new author: aUser date: aDateAndTime.
 ]
 
 { #category : #initialization }
-PostFAFA class >> newAuthor: aUser text: aString date: aDateAndTime [
+Post class >> newAuthor: aUser text: aString date: aDateAndTime [
 
 ^self new author: aUser text: aString date: aDateAndTime.
 ]
 
 { #category : #accessing }
-PostFAFA >> addVote: aVote [
+Post >> addVote: aVote [
 	(votes detect: [ :vote | vote user = aVote user ])
 		ifNotNil: [ :it | votes remove: it ].
 	votes add: aVote
 ]
 
 { #category : #accessing }
-PostFAFA >> author [ 
+Post >> author [ 
 ^author
 ]
 
 { #category : #initialization }
-PostFAFA >> author: aUser text: aString date: aDateAndTime [
+Post >> author: aUser text: aString date: aDateAndTime [
 	author := aUser.
 	date := aDateAndTime
 ]
 
 { #category : #accessing }
-PostFAFA >> date [ 
+Post >> date [ 
 ^date
 ]
 
 { #category : #initialization }
-PostFAFA >> initialize [ 
+Post >> initialize [ 
 	date := DateAndTime today.
 	votes := Set new.
 ]
 
 { #category : #accessing }
-PostFAFA >> votes [
+Post >> text [
+^text
+
+]
+
+{ #category : #accessing }
+Post >> votes [
 ^votes
 ]

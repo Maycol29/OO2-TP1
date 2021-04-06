@@ -17,10 +17,10 @@ SingInComponent >> name: anObject [
 	name := anObject
 ]
 
-{ #category : #rendering }
+{ #category : #utility }
 SingInComponent >> registerAndLogin [
 	| theUser |
-	theUser := User newUsername: username password: password.
+	theUser :=  User newUsername: username password: password.
 	self model addUser: theUser.
 	self proceedWith: theUser
 ]

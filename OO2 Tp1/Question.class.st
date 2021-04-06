@@ -1,93 +1,36 @@
 Class {
 	#name : #Question,
-	#superclass : #Object,
+	#superclass : #Post,
 	#instVars : [
-		'text',
-		'creationDate',
-		'questionTopics',
-		'userQuestion',
 		'answers',
-		'votes'
+		'topics'
 	],
 	#category : #'OO2 Tp1-model'
 }
 
-{ #category : #'instance creation' }
-Question class >> newText:aText user:anUser topics:allTopics [        "recibe una coleccion de topicos"
-|instance|
-instance :=self new.
-instance text: aText userQuestion: anUser topics: allTopics
-
-]
-
-{ #category : #adding }
-Question >> addVoteQ:aVote [
-votes add:aVote
-]
-
-{ #category : #accessing }
-Question >> answers [
+{ #category : #acccessing }
+Question >> answers [ 
 ^answers
-
-
 ]
 
-{ #category : #accessing }
+{ #category : #acccessing }
 Question >> answersBy:aUser [ 
 ^answers select:[:each | each author == aUser username ]
 ]
 
-{ #category : #accessing }
-Question >> creationDate [
-^creationDate
-
-
-
-
+{ #category : #initialization }
+Question >> initialize [ 
+	super initialize.
+	answers := OrderedCollection new.
+	topics  := Set new.
 ]
 
-{ #category : #accessing }
+{ #category : #acccessing }
 Question >> orderedAnswers [
 	^ answers asSortedCollection: [:answer1 :answer2 |  answer1 score  <= answer2 score]
 ]
 
-{ #category : #accessing }
-Question >> questionTopics [
-^questionTopics
-
-
-
-]
-
-{ #category : #accessing }
-Question >> text [
-^text
-
-]
-
-{ #category : #initialize }
-Question >> text: aText userQuestion: anUser topics: allTopics [
-	text := aText.
-	userQuestion := anUser.
-	questionTopics := allTopics.
-	creationDate := Date today.
-	answers := OrderedCollection.
-	votes := OrderedCollection
-]
-
-{ #category : #accessing }
-Question >> userQuestion [
-^userQuestion
-
-
-]
-
-{ #category : #accessing }
-Question >> votes [
-^votes
-
-
-
-
-
+{ #category : #acccessing }
+Question >> topics [
+^topics
 ]

@@ -3,31 +3,30 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'date',
-		'feedback',
-		'belongsTo'
+		'value',
+		'author'
 	],
 	#category : #'OO2 Tp1-model'
 }
 
 { #category : #initialization }
-Vote class >> newBelongsTo: anUser Date: aDateAndTime feedback: aFeedback [
-
-^ self new belongsTo: anUser date: aDateAndTime  feedback: aFeedback 
+Vote class >> newUser: anUser date: aDate value: aValue [
+	^self new user: anUser date: aDate value: aValue
 ]
 
 { #category : #initialization }
-Vote >> belongsTo: anUser date: aDate feedback: aFeedback [
+Vote >> initialize [ 
+	date := DateAndTime today.
+]
+
+{ #category : #initialization }
+Vote >> user: anUser date: aDate value: aValue [
 	date := aDate.
-	feedback := aFeedback.
-	belongsTo := anUser
+	value := aValue .
+	author := anUser
 ]
 
 { #category : #accessing }
-Vote >> feedback [ 
-	^feedback
-]
-
-{ #category : #initialization }
-Vote >> initialize [
-	date := DateAndTime  today .
+Vote >> value [
+^value
 ]
