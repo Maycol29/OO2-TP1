@@ -5,7 +5,7 @@ Class {
 		'topic',
 		'newTopics'
 	],
-	#category : #'OO2 Tp1-tag'
+	#category : #'OO2 Tp1-ui'
 }
 
 { #category : #adding }
