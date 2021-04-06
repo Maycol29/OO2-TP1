@@ -24,7 +24,7 @@ User >> addFollower: aUser [
 	followers add: aUser
 ]
 
-{ #category : #adding }
+{ #category : #accessing }
 User >> addInterestTopic:aTopic [
 interestTopics add:aTopic
 ]
