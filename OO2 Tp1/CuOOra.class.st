@@ -36,8 +36,8 @@ users add:aUser.
 ]
 
 { #category : #acccessing }
-CuOOra >> answersBy: anUser [
-	topics flatCollect: [ :topic | topic answersInTopicBy: anUser ]
+CuOOra >> answersBy: aUser [
+	topics flatCollect: [ :topic | topic answersInTopicBy: aUser ]
 ]
 
 { #category : #accessing }
@@ -66,7 +66,7 @@ CuOOra >> interestingTopicOf:aUser [
 ]
 
 { #category : #accessing }
-CuOOra >> questionBy: anUser [
+CuOOra >> questionsBy: anUser [
 	topics flatCollect: [ :topic | topic questionsInTopicBy: anUser ]
 ]
 
