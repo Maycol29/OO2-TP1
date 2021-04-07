@@ -9,7 +9,7 @@ Class {
 
 { #category : #callbacks }
 UserFinderComponent >> befriend: anUser [
-	self session user addFollower: anUser
+	self session user addFollowing: anUser
 ]
 
 { #category : #initialization }
@@ -44,8 +44,8 @@ UserFinderComponent >> renderSearchResultsOn: aCanvas [
 	users
 		ifEmpty: [ aCanvas
 				paragraph: 'Sorry... no matches... no friends for you this time.' ]
-		"ifNotEmpty:
-			[ self renderUsers: users on: aCanvas ]"
+		ifNotEmpty:
+			[ self renderUsers: users on: aCanvas ]
 ]
 
 { #category : #rendering }
@@ -53,7 +53,7 @@ UserFinderComponent >> renderUsers: users on: aCanvas [
 	^ aCanvas
 		unorderedList: [ users
 				do: [ :each | 
-					(self session user canBefriend: each)
+					(self session user isNotFollowing: each)
 						ifTrue: [ aCanvas
 								listItem: [ aCanvas
 										text: each name;

@@ -41,6 +41,14 @@ User >> initialize [
 	creationDate:=DateAndTime today.
 ]
 
+{ #category : #testing }
+User >> isNotFollowing: aUser [
+
+(following detect: [:user| user == aUser ]) ifNil: [ ^true ].
+^false
+
+]
+
 { #category : #accessing }
 User >> password [
 	^ password
