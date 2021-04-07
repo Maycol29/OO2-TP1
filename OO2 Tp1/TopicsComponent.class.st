@@ -14,14 +14,6 @@ topic ifNotNil: [ newTopics add:topic ].
 topic:=nil.
 ]
 
-{ #category : #adding }
-TopicsComponent >> addTopicToSystem [
-|systemTopics|
-systemTopics :=CuOOra soleInstance topics.
-systemTopics addAll:(newTopics reject:[:each | systemTopics detect: each]).
-self call:self createPost.
-]
-
 { #category : #accessing }
 TopicsComponent >> createPost [
 self call:NewPostComponent new.
@@ -53,15 +45,6 @@ TopicsComponent >> renderContentOn: aCanvas [
 			self renderAddTopicButtonsOn: aCanvas.
 			self renderAddTopicSystemButtonOn:aCanvas ]
 	
-]
-
-{ #category : #rendering }
-TopicsComponent >> renderInputElementsOn:aCanvas [
-	aCanvas heading: 'Topics related to question'. 
-	aCanvas paragraph
-		with: [ aCanvas strong with: 'Topic'.
-			aCanvas space.
-			aCanvas textInput on: #topic of: self ].
 ]
 
 { #category : #accessing }

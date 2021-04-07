@@ -11,7 +11,7 @@ MainComponent >> createNewPost [
 
 { #category : #callbacks }
 MainComponent >> findFriend [
-	self call: FriendsFinderComponent new
+	self call: UserFinderComponent new
 ]
 
 { #category : #rendering }
@@ -19,21 +19,21 @@ MainComponent >> renderContentOn: aCanvas [
 	aCanvas heading: 'Welcome ' , self session user username.
 	self renderPostsOn: aCanvas.
 	aCanvas horizontalRule.
-	"self renderFriendsOn: aCanvas."
+	self renderFriendsOn: aCanvas.
 	aCanvas horizontalRule.
-	self renderLogoutButtonOn: aCanvas
+	self renderLogoutButtonOn: aCanvas.
 ]
 
 { #category : #rendering }
 MainComponent >> renderFriendsOn: aCanvas [
 	aCanvas heading
 		level: 2;
-		with: 'Friends'.
+		with: 'Following'.
 	aCanvas
-		unorderedList: [ self session user friends do: [ :each | aCanvas listItem: each name ] ].
+		unorderedList: [ self session user following do: [ :each | aCanvas listItem: each username ] ].
 	aCanvas anchor
 		callback: [ self findFriend ];
-		with: [ aCanvas button: 'Find friends' ]
+		with: [ aCanvas button: 'Find User' ]
 ]
 
 { #category : #rendering }

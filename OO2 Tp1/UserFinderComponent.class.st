@@ -1,5 +1,5 @@
 Class {
-	#name : #FriendsFinderComponent,
+	#name : #UserFinderComponent,
 	#superclass : #WAComponent,
 	#instVars : [
 		'searchText'
@@ -8,18 +8,18 @@ Class {
 }
 
 { #category : #callbacks }
-FriendsFinderComponent >> befriend: anUser [
-	self session user befriend: anUser
+UserFinderComponent >> befriend: anUser [
+	self session user addFollower: anUser
 ]
 
 { #category : #initialization }
-FriendsFinderComponent >> initialize [
+UserFinderComponent >> initialize [
 	super initialize.
 	searchText := ''
 ]
 
 { #category : #rendering }
-FriendsFinderComponent >> renderContentOn: aCanvas [
+UserFinderComponent >> renderContentOn: aCanvas [
 	self renderSearchFormOn: aCanvas.
 	self renderSearchResultsOn: aCanvas.
 	aCanvas horizontalRule.
@@ -29,7 +29,7 @@ FriendsFinderComponent >> renderContentOn: aCanvas [
 ]
 
 { #category : #rendering }
-FriendsFinderComponent >> renderSearchFormOn: aCanvas [
+UserFinderComponent >> renderSearchFormOn: aCanvas [
 	aCanvas
 		form: [ aCanvas textInput on: #searchText of: self.
 			aCanvas space.
@@ -37,19 +37,19 @@ FriendsFinderComponent >> renderSearchFormOn: aCanvas [
 ]
 
 { #category : #rendering }
-FriendsFinderComponent >> renderSearchResultsOn: aCanvas [
+UserFinderComponent >> renderSearchResultsOn: aCanvas [
 	| users |
 	searchText ifEmpty: [ ^ self ]. 
 	users := CuOOra soleInstance usersMatchingNamePart: searchText.
 	users
 		ifEmpty: [ aCanvas
 				paragraph: 'Sorry... no matches... no friends for you this time.' ]
-		ifNotEmpty:
-			[ self renderUsers: users on: aCanvas ]
+		"ifNotEmpty:
+			[ self renderUsers: users on: aCanvas ]"
 ]
 
 { #category : #rendering }
-FriendsFinderComponent >> renderUsers: users on: aCanvas [
+UserFinderComponent >> renderUsers: users on: aCanvas [
 	^ aCanvas
 		unorderedList: [ users
 				do: [ :each | 
@@ -64,11 +64,11 @@ FriendsFinderComponent >> renderUsers: users on: aCanvas [
 ]
 
 { #category : #accessing }
-FriendsFinderComponent >> searchText [
+UserFinderComponent >> searchText [
 	^ searchText
 ]
 
 { #category : #accessing }
-FriendsFinderComponent >> searchText: anObject [
+UserFinderComponent >> searchText: anObject [
 	searchText := anObject
 ]

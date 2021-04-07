@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'username',
 		'password',
-		'followers',
+		'following',
 		'interestTopics',
 		'creationDate'
 	],
@@ -17,11 +17,11 @@ User class >> newUsername: aUsername password: aPassword [
 ]
 
 { #category : #accessing }
-User >> addFollower: aUser [
+User >> addFollowing: aUser [
 	| previousFollower |
-	previousFollower := followers detect: [ :follower | follower username  = aUser username ].
-	previousFollower ifNotNil: [ followers remove: previousFollower ].
-	followers add: aUser
+	previousFollower := following detect: [ :follower | follower username  = aUser username ].
+	previousFollower ifNotNil: [ following remove: previousFollower ].
+	following add: aUser
 ]
 
 { #category : #accessing }
@@ -30,13 +30,13 @@ interestTopics add:aTopic
 ]
 
 { #category : #accessing }
-User >> followers [
-^followers 
+User >> following [
+^following 
 ]
 
 { #category : #initialization }
 User >> initialize [ 
-	followers := Set new.
+	following := Set new.
 	interestTopics := OrderedCollection new.
 	creationDate:=DateAndTime today.
 ]
