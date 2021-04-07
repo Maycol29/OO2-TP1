@@ -40,7 +40,7 @@ FriendsFinderComponent >> renderSearchFormOn: aCanvas [
 FriendsFinderComponent >> renderSearchResultsOn: aCanvas [
 	| users |
 	searchText ifEmpty: [ ^ self ]. 
-	users := SimpleNet soleInstance usersMatchingNamePart: searchText.
+	users := CuOOra soleInstance usersMatchingNamePart: searchText.
 	users
 		ifEmpty: [ aCanvas
 				paragraph: 'Sorry... no matches... no friends for you this time.' ]

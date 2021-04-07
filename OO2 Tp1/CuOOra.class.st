@@ -93,3 +93,10 @@ CuOOra >> users [
 ^users
 
 ]
+
+{ #category : #accessing }
+CuOOra >> usersMatchingNamePart: aString [
+	^ users
+		select:
+			[ :each | each username asLowercase includesSubstring: aString asLowercase ]
+]
