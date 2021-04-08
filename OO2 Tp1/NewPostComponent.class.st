@@ -10,18 +10,24 @@ Class {
 }
 
 { #category : #utility }
-NewPostComponent >> addTopicToSystem [
-|systemTopics|
-systemTopics :=CuOOra soleInstance topics.
-systemTopics addAll:(newTopics reject:[:each | systemTopics detect: each]).
-self call:self createPost.
+NewPostComponent >> addTopicToSystem:topicsList [
+CuOOra soleInstance addTopicList:(topicsList reject:[:each | CuOOra soleInstance topics detect: each]).
+
 ]
 
 { #category : #callbacks }
 NewPostComponent >> post [
-	postText ifEmpty: [ ^ self ].
+	| topicsList |
+	postText ifEmpty: [ self answer ].
+	topicsList := topics findTokens: ','.
+	self addTopicToSystem: topicsList.
 	self session user
-		post: (Post text: postText , ' (' , self session user name , ')').
+		addQuestion:
+			(Question
+				newAuthor: self session user username
+				text: postText
+				title: title
+				topics: topicsList , ' (' , self session user name , ')').
 	self answer
 ]
 
@@ -39,25 +45,44 @@ NewPostComponent >> postText: anObject [
 NewPostComponent >> renderContentOn: aCanvas [
 	aCanvas heading: 'New Question'.
 	aCanvas horizontalRule.
-	aCanvas form: [ aCanvas strong with: 'Title'.
+	aCanvas paragraph: [ aCanvas strong with: 'Title'.
 			aCanvas space.
-			aCanvas textInput on: #title of: self ].
+			aCanvas textInput on: #title of: self .
 	aCanvas break.
-	aCanvas
-		form: [ (aCanvas textArea on: #postText of: self)
+	(aCanvas textArea on: #postText of: self)
 				columns: 80;
 				rows: 5.
 			aCanvas break.
 			self renderInputElementsOn: aCanvas.
 			aCanvas submitButton
-				callback: [ self post ];
-				with: 'Post' ]
+				callback: [ self post];
+				with:'Post' ]
 ]
 
 { #category : #rendering }
 NewPostComponent >> renderInputElementsOn: aCanvas [
 	aCanvas
-		form: [ aCanvas strong with: 'Topics related to question'.
+		paragraph: [ aCanvas strong with: 'Topics related to question'.
 			aCanvas space.
 			aCanvas textInput on: #topics of: self ]
+]
+
+{ #category : #accessing }
+NewPostComponent >> title [ 
+^title
+]
+
+{ #category : #accessing }
+NewPostComponent >> title: aTitle [
+	title := aTitle
+]
+
+{ #category : #accessing }
+NewPostComponent >> topics [
+^topics
+]
+
+{ #category : #accessing }
+NewPostComponent >> topics:aTopics [
+topics:=aTopics
 ]

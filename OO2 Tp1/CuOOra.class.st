@@ -24,8 +24,8 @@ CuOOra class >> soleInstance [
 ]
 
 { #category : #accessing }
-CuOOra >> addTopic:aTopic [
-topics add:aTopic.
+CuOOra >> addTopicList:aTopics [
+topics addAll:aTopics.
 
 ]
 

@@ -6,7 +6,7 @@ Class {
 
 { #category : #callbacks }
 MainComponent >> createNewPost [
-	self call: TopicsComponent new
+	self call: NewPostComponent new
 ]
 
 { #category : #callbacks }

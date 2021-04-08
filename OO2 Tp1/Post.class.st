@@ -11,9 +11,9 @@ Class {
 }
 
 { #category : #initialization }
-Post class >> newAuthor: aUser text: aString date: aDateAndTime [
+Post class >> newAuthor: aUser text: aString [ 
 
-^self new author: aUser text: aString date: aDateAndTime.
+^self new author: aUser text: aString.
 ]
 
 { #category : #accessing }
@@ -29,9 +29,9 @@ Post >> author [
 ]
 
 { #category : #initialization }
-Post >> author: aUser text: aString date: aDateAndTime [
+Post >> author: aUser text: aString [ 
 	author := aUser.
-	date := aDateAndTime
+	text:=aString
 ]
 
 { #category : #accessing }

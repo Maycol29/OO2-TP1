@@ -10,10 +10,10 @@ Class {
 }
 
 { #category : #'instance creation' }
-Question class >> newAuthor: aUser text: aString date: aDateAndTime Title:aTiple [
+Question class >> newAuthor: aUser text: aString title:aTiple topics:anOrderedCollection [
 |instancePost|
-instancePost :=self newAuthor: aUser text: aString date: aDateAndTime.
-instancePost title:aTiple.
+instancePost :=self newAuthor: aUser text: aString.
+instancePost title:aTiple topics: anOrderedCollection .
 ^instancePost
 ]
 
@@ -55,8 +55,9 @@ Question >> title [
 ]
 
 { #category : #acccessing }
-Question >> title:aTitle [
-title:=aTitle
+Question >> title:aTitle topics:anOrderedCollection [
+title:=aTitle.
+topics addAll:anOrderedCollection.
 ]
 
 { #category : #acccessing }
