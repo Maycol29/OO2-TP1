@@ -18,9 +18,6 @@ User class >> newUsername: aUsername password: aPassword [
 
 { #category : #accessing }
 User >> addFollowing: aUser [
-	| previousFollower |
-	previousFollower := following detect: [ :follower | follower username  = aUser username ].
-	previousFollower ifNotNil: [ following remove: previousFollower ].
 	following add: aUser
 ]
 
@@ -36,16 +33,17 @@ User >> following [
 
 { #category : #initialization }
 User >> initialize [ 
-	following := Set new.
+	following := OrderedCollection new.
 	interestTopics := OrderedCollection new.
 	creationDate:=DateAndTime today.
 ]
 
 { #category : #testing }
-User >> isNotFollowing: aUser [
+User >> isFollowing: aUser [
+(aUser == self) ifFalse: [ ^(following includes: aUser) ].
+^true
 
-(following detect: [:user| user == aUser ]) ifNil: [ ^true ].
-^false
+
 
 ]
 

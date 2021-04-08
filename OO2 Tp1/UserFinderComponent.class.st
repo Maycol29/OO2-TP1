@@ -53,14 +53,14 @@ UserFinderComponent >> renderUsers: users on: aCanvas [
 	^ aCanvas
 		unorderedList: [ users
 				do: [ :each | 
-					(self session user isNotFollowing: each)
-						ifTrue: [ aCanvas
+					(self session user isFollowing: each)
+						ifFalse: [ aCanvas
 								listItem: [ aCanvas
-										text: each name;
+										text: each username;
 										space.
 									aCanvas anchor
 										callback: [ self befriend: each ];
-										with: [ aCanvas button: 'Befriend' ] ] ] ] ]
+										with: [ aCanvas button: 'Follow' ] ] ] ] ]
 ]
 
 { #category : #accessing }
