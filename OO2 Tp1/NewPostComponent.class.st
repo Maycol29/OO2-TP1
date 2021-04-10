@@ -9,25 +9,23 @@ Class {
 	#category : #'OO2 Tp1-ui'
 }
 
-{ #category : #utility }
-NewPostComponent >> addTopicToSystem:topicsList [
-CuOOra soleInstance addTopicList:(topicsList reject:[:each | CuOOra soleInstance topics detect: each]).
-
+{ #category : #accessing }
+NewPostComponent >> model [
+	^ CuOOra soleInstance
 ]
 
 { #category : #callbacks }
 NewPostComponent >> post [
-	| topicsList |
+	| topicList|
 	postText ifEmpty: [ self answer ].
-	topicsList := topics findTokens: ','.
-	self addTopicToSystem: topicsList.
-	self session user
-		addQuestion:
+	topicList :=self model createTopics: (topics findTokens: ',').
+	self model
+		addQuestionToSistem:
 			(Question
-				newAuthor: self session user username
+				newAuthor: (self session user username)
 				text: postText
 				title: title
-				topics: topicsList , ' (' , self session user name , ')').
+				topics: topicList).
 	self answer
 ]
 
@@ -45,18 +43,21 @@ NewPostComponent >> postText: anObject [
 NewPostComponent >> renderContentOn: aCanvas [
 	aCanvas heading: 'New Question'.
 	aCanvas horizontalRule.
-	aCanvas paragraph: [ aCanvas strong with: 'Title'.
+	aCanvas
+		form: [ aCanvas strong with:'Title'.
 			aCanvas space.
 			aCanvas textInput on: #title of: self .
-	aCanvas break.
-	(aCanvas textArea on: #postText of: self)
+			aCanvas break.
+			aCanvas break.
+			aCanvas strong with:'Description'.
+			(aCanvas textArea on: #postText of: self)
 				columns: 80;
 				rows: 5.
 			aCanvas break.
 			self renderInputElementsOn: aCanvas.
 			aCanvas submitButton
-				callback: [ self post];
-				with:'Post' ]
+				callback: [ self post ];
+				with: 'Post' ]
 ]
 
 { #category : #rendering }

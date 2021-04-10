@@ -36,7 +36,7 @@ Question >> answersBy:aUser [
 Question >> initialize [ 
 	super initialize.
 	answers := OrderedCollection new.
-	topics  := Set new.
+	topics  := OrderedCollection new.
 ]
 
 { #category : #acccessing }

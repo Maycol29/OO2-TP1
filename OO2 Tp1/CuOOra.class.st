@@ -23,7 +23,12 @@ CuOOra class >> soleInstance [
 
 ]
 
-{ #category : #accessing }
+{ #category : #adding }
+CuOOra >> addQuestionToSistem: aQuestion [
+	(aQuestion topics) do: [ :topic | topic addQuestion: aQuestion ]
+]
+
+{ #category : #adding }
 CuOOra >> addTopicList:aTopics [
 topics addAll:aTopics.
 
@@ -38,6 +43,22 @@ users add:aUser.
 { #category : #acccessing }
 CuOOra >> answersBy: aUser [
 	topics flatCollect: [ :topic | topic answersInTopicBy: aUser ]
+]
+
+{ #category : #adding }
+CuOOra >> createTopics: topicNames [
+	|  topicExist topicList |
+	topicExist:= OrderedCollection new.
+	topicList := OrderedCollection new.
+	(topicNames
+	do:[ :N | 
+			topics
+				detect: [ :each | each name = N ]
+				ifFound:[:it | topicExist add: it ]
+				ifNone: [ topicList add: (Topic newName: N) ] ]).
+	self addTopicList:topicList .
+	topicList addAll:topicExist.
+	^topicList
 ]
 
 { #category : #accessing }

@@ -10,14 +10,20 @@ Class {
 }
 
 { #category : #initialization }
+Topic class >> newName:aName [ "description:aDescription"
+
+ ^self new name:aName "description:aDescription".
+]
+
+{ #category : #initialization }
 Topic class >> newName:aName description:aDescription [
 
  ^self new name:aName description:aDescription.
 ]
 
 { #category : #accessing }
-Topic >> addQuestion:aQuestion [
-questions add:aQuestion
+Topic >> addQuestion: aQuestion [
+	questions add: aQuestion
 ]
 
 { #category : #accessing }
@@ -33,6 +39,16 @@ Topic >> description [
 { #category : #initialization }
 Topic >> initialize [ 
 	questions:=OrderedCollection new.
+]
+
+{ #category : #accessing }
+Topic >> name [ 
+^name
+]
+
+{ #category : #accessing }
+Topic >> name:aName [ 
+name:=aName.
 ]
 
 { #category : #initialization }
