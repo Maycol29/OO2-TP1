@@ -3,7 +3,8 @@ Class {
 	#superclass : #WAComponent,
 	#instVars : [
 		'question',
-		'reply'
+		'reply',
+		'vamo'
 	],
 	#category : #'OO2 Tp1-ui'
 }
@@ -18,6 +19,7 @@ AnswersComponent >> createAnswer: aQuestion [
 { #category : #initialize }
 AnswersComponent >> initialize [ 
 super initialize.
+vamo:=false.
 ]
 
 { #category : #callback }
@@ -43,14 +45,14 @@ question:=aQuestion.
 ]
 
 { #category : #rendering }
-AnswersComponent >> renderAnswers:aCanvas [
-aCanvas
-		unorderedList: [ (question orderedAnswers)
-			do: [ :each | 
-			aCanvas paragraph
-								style: 'font-size: 20px';
+AnswersComponent >> renderAnswers: aCanvas [
+	aCanvas
+		unorderedList: [ question orderedAnswers
+				do: [ :each | 
+					aCanvas paragraph
+						style: 'font-size: 20px';
 						with: [ aCanvas text: 'Answer By '.
-							aCanvas strong with: each author.
+							aCanvas strong with: each author username.
 							aCanvas break.
 							aCanvas text: each text.
 							aCanvas break.
@@ -59,22 +61,26 @@ aCanvas
 							aCanvas text: 'Likes'.
 							aCanvas text: ' | '.
 							aCanvas text: each negativeScore.
-							aCanvas anchor 
-							style:'color: green';
-							callback:[self positiveLike:each];
-							with:'Like'.
+							aCanvas anchor
+								style: 'color: green';
+								callback: [ self positiveLike: each ];
+								with: 'Like'.
 							aCanvas text: ' | '.
-							aCanvas anchor 
-							style:'color: red';
-							callback:[self negativeLike:each];
-							with:'Dislike'.]]].
-				aCanvas text:'No more answers'.
-				aCanvas break.
-				aCanvas submitButton 
-		callback: [ self renderCreateAnAnswer:aCanvas ];
-		with: 'Create new answer'.
-			
-				
+							aCanvas anchor
+								style: 'color: red';
+								callback: [ self negativeLike: each ];
+								with: 'Dislike' ] ] ].
+	aCanvas text: 'No more answers'.
+	aCanvas break.
+	aCanvas
+		submitButton   
+		callback: [self vamo:true];
+		with:'reply'.
+	aCanvas break.
+	vamo
+		ifFalse: [ ^ self ].
+	vamo
+		ifTrue: [ self renderCreateAnAnswer: aCanvas ].
 ]
 
 { #category : #rendering }
@@ -89,18 +95,17 @@ AnswersComponent >> renderContentOn: aCanvas [
 
 { #category : #rendering }
 AnswersComponent >> renderCreateAnAnswer: aCanvas [
-	self renderQuestion: aCanvas
-	"(aCanvas textArea on: #reply of: self)
+	(aCanvas textArea on: #reply of: self)
 		columns: 50;
-		rows: 5."
-	"aCanvas break."
-	"aCanvas
+		rows: 5.
+	aCanvas break.
+	aCanvas submitButton 
 		callback: [ self answer ];
-		with: [ aCanvas button with: 'Cancel' ].
-	aCanvas space."
-	"aCanvas
+		with: 'Cancel' .
+	aCanvas space.
+	aCanvas submitButton
 		callback: [ self createAnswer:question  ];
-		with: [ aCanvas button with: 'Confirm post' ]"
+		with:'Confirm post' .
 ]
 
 { #category : #rendering }
@@ -160,4 +165,14 @@ AnswersComponent >> reply [
 { #category : #accesing }
 AnswersComponent >> reply:aReply [ 
 reply:=aReply 
+]
+
+{ #category : #accessing }
+AnswersComponent >> vamo [
+^vamo
+]
+
+{ #category : #accessing }
+AnswersComponent >> vamo:vac [
+vamo:=vac
 ]
