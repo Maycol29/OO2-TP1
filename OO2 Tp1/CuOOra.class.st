@@ -68,6 +68,12 @@ aQuestion answers removeAll.
 aQuestion votes removeAll.
 ]
 
+{ #category : #utility }
+CuOOra >> getPostInNetwork:aCollection [
+^(((topics flatCollect: [:topic | topic getPosts:aCollection ])asSet) asSortedCollection: [ :a :b | a date > b date ])
+"puse reject asiq arreglar eso era para ir testeando"
+]
+
 { #category : #accessing }
 CuOOra >> getTopicQuestions:aTopic [    "deberia pasarla x parametro un topico q existe"
 ^aTopic questions.

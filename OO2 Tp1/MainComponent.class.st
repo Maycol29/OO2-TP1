@@ -14,6 +14,11 @@ MainComponent >> findFriend [
 	self call: UserFinderComponent new
 ]
 
+{ #category : #model }
+MainComponent >> model [ 
+^CuOOra soleInstance 
+]
+
 { #category : #rendering }
 MainComponent >> renderContentOn: aCanvas [
 	aCanvas heading: 'Welcome ' , self session user username.
@@ -47,7 +52,46 @@ MainComponent >> renderLogoutButtonOn: aCanvas [
 
 { #category : #rendering }
 MainComponent >> renderPostsOn: aCanvas [
-		aCanvas anchor
+	aCanvas heading
+		level: 2;
+		with: 'Following Posts'.
+	self renderQuestion: aCanvas .
+	aCanvas anchor
 		callback: [ self createNewPost ];
 		with: [ aCanvas button: 'Create new post' ]
+]
+
+{ #category : #rendering }
+MainComponent >> renderQuestion: aCanvas [
+	aCanvas
+		unorderedList: [ (self model getPostInNetwork: self session user following)
+				do: [ :each | 
+					aCanvas paragraph
+						with:
+							[ aCanvas heading
+								level: 2;
+								with: each title ] .
+							aCanvas paragraph 
+								style: 'font-size: 20px';
+						with: [ aCanvas text: 'Do it for:'.
+							aCanvas strong with: each author.
+							aCanvas break.
+							aCanvas text: 'Description:'.
+							aCanvas space.
+							aCanvas text: each text.
+							aCanvas break.
+							aCanvas text: 'Topics:'.
+							each topics
+								do: [ :topic | 
+									aCanvas text: '_' , topic name , '_'.
+									aCanvas space ].
+							aCanvas break.	
+							each positiveScore.
+							aCanvas space.
+							aCanvas text: 'Likes'.
+							aCanvas text: ' | '.
+							each negativeScore .
+							aCanvas space.
+							aCanvas text: 'Dislikes'. 
+							aCanvas horizontalRule  ] ] ]
 ]

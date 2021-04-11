@@ -47,12 +47,12 @@ Post >> initialize [
 
 { #category : #accessing }
 Post >> negativeScore [ 
-	^votes size - (self positiveScore).
+	^(votes size - (self positiveScore)).
 ]
 
 { #category : #accessing }
 Post >> positiveScore [
-	^votes select: [:vote| (vote value)]
+	^(votes select: [:vote| (vote value)])ifNil: [^0]
 ]
 
 { #category : #accessing }
