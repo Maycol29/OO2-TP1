@@ -10,15 +10,24 @@ Class {
 }
 
 { #category : #initialization }
-Vote class >> newBelongsTo: aUser date: aDate value: aValue [
-	^self new belongsTo: aUser date: aDate value: aValue
+Vote class >> newBelongsTo: aUser value: aValue [
+	^self new belongsTo: aUser value: aValue
+]
+
+{ #category : #accessing }
+Vote >> belongsTo [
+^belongsTo
 ]
 
 { #category : #initialization }
-Vote >> belongsTo: anUser date: aDate value: aValue [
-	date := aDate.
+Vote >> belongsTo: anUser value: aValue [
 	value:= aValue .
 	belongsTo := anUser
+]
+
+{ #category : #accessing }
+Vote >> date [
+^date
 ]
 
 { #category : #initialization }

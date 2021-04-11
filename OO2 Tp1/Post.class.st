@@ -18,9 +18,11 @@ Post class >> newAuthor: aUser text: aString [
 
 { #category : #accessing }
 Post >> addVote: aVote [
-	(votes detect: [ :vote | vote user = aVote user ])
-		ifNotNil: [ :it | votes remove: it ].
+	votes detect: [ :vote | vote belongsTo = aVote belongsTo ]
+		ifFound: [ :it | votes remove: it].
 	votes add: aVote
+	
+	
 ]
 
 { #category : #accessing }
@@ -42,7 +44,7 @@ Post >> date [
 { #category : #initialization }
 Post >> initialize [ 
 	date := DateAndTime today.
-	votes := Set new.
+	votes := OrderedCollection new.
 ]
 
 { #category : #accessing }
@@ -52,7 +54,7 @@ Post >> negativeScore [
 
 { #category : #accessing }
 Post >> positiveScore [
-	^(votes select: [:vote| (vote value)])ifNil: [^0]
+	^(votes select: [:vote| (vote value)])size
 ]
 
 { #category : #accessing }

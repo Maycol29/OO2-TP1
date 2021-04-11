@@ -36,11 +36,6 @@ Topic >> description [
 ^description
 ]
 
-{ #category : #accessing }
-Topic >> getPosts:aCollection [
-^questions reject:[:quest | quest author includes: aCollection]
-]
-
 { #category : #initialization }
 Topic >> initialize [ 
 	questions:=OrderedCollection new.

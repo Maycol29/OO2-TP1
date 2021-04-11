@@ -70,8 +70,7 @@ aQuestion votes removeAll.
 
 { #category : #utility }
 CuOOra >> getPostInNetwork:aCollection [
-^(((topics flatCollect: [:topic | topic getPosts:aCollection ])asSet) asSortedCollection: [ :a :b | a date > b date ])
-"puse reject asiq arreglar eso era para ir testeando"
+^((aCollection flatCollect:[:each| self questionsBy: each]) asSet) asSortedCollection: [ :a :b | a date > b date ].
 ]
 
 { #category : #accessing }
@@ -94,7 +93,7 @@ CuOOra >> interestingTopicOf:aUser [
 
 { #category : #accessing }
 CuOOra >> questionsBy: anUser [
-	topics flatCollect: [ :topic | topic questionsInTopicBy: anUser ]
+	^topics flatCollect: [ :topic | topic questionsInTopicBy: anUser ]
 ]
 
 { #category : #accessing }

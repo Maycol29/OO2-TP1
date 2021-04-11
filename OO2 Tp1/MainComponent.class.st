@@ -19,6 +19,18 @@ MainComponent >> model [
 ^CuOOra soleInstance 
 ]
 
+{ #category : #callbacks }
+MainComponent >> negativeLike: aQuestion [
+	aQuestion
+		addVote: (Vote newBelongsTo: self session user username value: false)
+]
+
+{ #category : #callbacks }
+MainComponent >> positiveLike: aQuestion [
+	aQuestion
+		addVote: (Vote newBelongsTo: self session user username value: true)
+]
+
 { #category : #rendering }
 MainComponent >> renderContentOn: aCanvas [
 	aCanvas heading: 'Welcome ' , self session user username.
@@ -86,12 +98,23 @@ MainComponent >> renderQuestion: aCanvas [
 									aCanvas text: '_' , topic name , '_'.
 									aCanvas space ].
 							aCanvas break.	
-							each positiveScore.
+							aCanvas text:each positiveScore.
 							aCanvas space.
 							aCanvas text: 'Likes'.
 							aCanvas text: ' | '.
-							each negativeScore .
+							aCanvas text:each negativeScore.
 							aCanvas space.
 							aCanvas text: 'Dislikes'. 
-							aCanvas horizontalRule  ] ] ]
+							aCanvas break.	
+							aCanvas anchor 
+							style:'color: green';
+							callback:[self positiveLike:each];
+							with:'Like'.
+							aCanvas text: ' | '.
+							aCanvas anchor 
+							style:'color: red';
+							callback:[self negativeLike:each];
+							with:'Dislike'.
+							aCanvas horizontalRule  
+							] ] ]
 ]
