@@ -29,7 +29,7 @@ Question >> answers [
 
 { #category : #acccessing }
 Question >> answersBy:aUser [ 
-^answers select:[:each | each author == aUser username ]
+^answers select:[:each | each author == aUser  ]
 ]
 
 { #category : #acccessing }

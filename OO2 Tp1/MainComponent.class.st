@@ -86,7 +86,7 @@ MainComponent >> renderQuestion: aCanvas [
 							aCanvas paragraph 
 								style: 'font-size: 20px';
 						with: [ aCanvas text: 'Do it for:'.
-							aCanvas strong with: each author.
+							aCanvas strong with: each author username.
 							aCanvas text: ' | '.
 							aCanvas text: each cantAnswers .
 							aCanvas space.

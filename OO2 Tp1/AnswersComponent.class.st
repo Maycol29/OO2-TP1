@@ -11,7 +11,7 @@ Class {
 { #category : #callback }
 AnswersComponent >> createAnswer: aQuestion [
 	aQuestion
-		addAnswer: (Answer newAuthor: self session user username text: reply).
+		addAnswer: (Answer newAuthor: self session user text: reply).
 	self answer
 ]
 

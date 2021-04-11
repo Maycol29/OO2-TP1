@@ -66,7 +66,7 @@ Topic >> questions [
 
 { #category : #accessing }
 Topic >> questionsInTopicBy:aUser [ 
-^questions select:[:each | each author == aUser username ]
+^questions select:[:each | each author == aUser  ]
 ]
 
 { #category : #accessing }
