@@ -67,12 +67,12 @@ aCanvas
 							aCanvas anchor 
 							style:'color: red';
 							callback:[self negativeLike:each];
-							with:'Dislike'.
-							aCanvas horizontalRule]]].
+							with:'Dislike'.]]].
 				aCanvas text:'No more answers'.
-				aCanvas submitButton
-				callback: [ self renderCreateAnAnswer:aCanvas ];
-				with: aCanvas button with: 'Create new answer'.
+				aCanvas break.
+				aCanvas submitButton 
+		callback: [ self renderCreateAnAnswer:aCanvas ];
+		with: 'Create new answer'.
 			
 				
 ]
@@ -89,19 +89,18 @@ AnswersComponent >> renderContentOn: aCanvas [
 
 { #category : #rendering }
 AnswersComponent >> renderCreateAnAnswer: aCanvas [
-	aCanvas horizontalRule.
-	aCanvas strong with: 'Answer'.
-	(aCanvas textArea on: #reply of: self)
+	self renderQuestion: aCanvas
+	"(aCanvas textArea on: #reply of: self)
 		columns: 50;
-		rows: 5.
-	aCanvas break.
-	aCanvas
+		rows: 5."
+	"aCanvas break."
+	"aCanvas
 		callback: [ self answer ];
 		with: [ aCanvas button with: 'Cancel' ].
-	aCanvas space.
-	aCanvas
+	aCanvas space."
+	"aCanvas
 		callback: [ self createAnswer:question  ];
-		with: [ aCanvas button with: 'Confirm post' ]
+		with: [ aCanvas button with: 'Confirm post' ]"
 ]
 
 { #category : #rendering }
