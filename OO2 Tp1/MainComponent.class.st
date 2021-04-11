@@ -85,7 +85,7 @@ MainComponent >> renderQuestion: aCanvas [
 								with: post title ] .
 							aCanvas paragraph 
 								style: 'font-size: 20px';
-						with: [ aCanvas text: 'Do it for:'.
+						with: [ aCanvas text: 'Asked by: '.
 							aCanvas strong with:[  
 								aCanvas anchor 
 								callback: [ self showProfileOf: post author ]; 

@@ -19,8 +19,8 @@ profileUser := aUser
 
 { #category : #rendering }
 UserProfileComponent >> renderContentOn: aCanvas [
-	aCanvas heading: [profileUser username  , ' questions. ' , aCanvas anchor
-										callback: [ self befriend: profileUser];
-										with: [ aCanvas button: 'Follow' ] ].
-	
+	aCanvas heading: profileUser username, ' questions'.
+	aCanvas anchor
+		callback: [ self befriend: profileUser ];
+		with: [ aCanvas button: 'Follow' ]
 ]
