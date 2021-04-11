@@ -73,9 +73,9 @@ aCanvas
 { #category : #rendering }
 AnswersComponent >> renderContentOn: aCanvas [
 	aCanvas heading:'CuOOra'.
-	aCanvas
+"	aCanvas
 		form: [ self renderQuestion: aCanvas.
-			self renderAnswers: aCanvas.]
+			self renderAnswers: aCanvas.]"
 
 
 ]

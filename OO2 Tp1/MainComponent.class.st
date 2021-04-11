@@ -89,7 +89,7 @@ MainComponent >> renderQuestion: aCanvas [
 							aCanvas strong with:[  
 								aCanvas anchor 
 								callback: [ self showProfileOf: post author ]; 
-								with:[ aCanvas button: post author username ]  ].
+								with:post author username ].
 							aCanvas text: ' | '.
 							aCanvas text: post cantAnswers .
 							aCanvas space.
@@ -133,7 +133,7 @@ MainComponent >> renderQuestion: aCanvas [
 
 { #category : #callbacks }
 MainComponent >> seeAnswers:aQuestion [
-self call:[ AnswersComponent new  ].
+self call:[ AnswersComponent new "question:aQuestion" ].
 ]
 
 { #category : #callbacks }
