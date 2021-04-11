@@ -99,7 +99,7 @@ MainComponent >> renderQuestion: aCanvas [
 							aCanvas space.
 							aCanvas text: post text.
 							aCanvas break.
-							aCanvas text: 'Topics:'.
+							aCanvas text: 'Topics: '.
 							post topics do: 
 								[ :topic | 
 									aCanvas text: ' ',topic name , ' '.
