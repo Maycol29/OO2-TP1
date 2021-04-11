@@ -32,6 +32,11 @@ Question >> answersBy:aUser [
 ^answers select:[:each | each author == aUser username ]
 ]
 
+{ #category : #acccessing }
+Question >> cantAnswers [
+^answers size.
+]
+
 { #category : #initialization }
 Question >> initialize [ 
 	super initialize.

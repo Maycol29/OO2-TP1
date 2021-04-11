@@ -87,15 +87,19 @@ MainComponent >> renderQuestion: aCanvas [
 								style: 'font-size: 20px';
 						with: [ aCanvas text: 'Do it for:'.
 							aCanvas strong with: each author.
+							aCanvas text: ' | '.
+							aCanvas text: each cantAnswers .
+							aCanvas space.
+							aCanvas text: 'answers'.
 							aCanvas break.
 							aCanvas text: 'Description:'.
 							aCanvas space.
 							aCanvas text: each text.
 							aCanvas break.
 							aCanvas text: 'Topics:'.
-							each topics
-								do: [ :topic | 
-									aCanvas text: '_' , topic name , '_'.
+							each topics do: 
+								[ :topic | 
+									aCanvas text: ' ',topic name , ' '.
 									aCanvas space ].
 							aCanvas break.	
 							aCanvas text:each positiveScore.
