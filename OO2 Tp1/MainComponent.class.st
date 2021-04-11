@@ -77,52 +77,55 @@ MainComponent >> renderPostsOn: aCanvas [
 MainComponent >> renderQuestion: aCanvas [
 	aCanvas
 		unorderedList: [ (self model getPostInNetwork: self session user following)
-				do: [ :each | 
+				do: [ :post | 
 					aCanvas paragraph
 						with:
 							[ aCanvas heading
 								level: 2;
-								with: each title ] .
+								with: post title ] .
 							aCanvas paragraph 
 								style: 'font-size: 20px';
 						with: [ aCanvas text: 'Do it for:'.
-							aCanvas strong with: each author.
+							aCanvas strong with:[  
+								aCanvas anchor 
+								callback: [ self showProfileOf: post author ]; 
+								with:[ aCanvas button: post author username ]  ].
 							aCanvas text: ' | '.
-							aCanvas text: each cantAnswers .
+							aCanvas text: post cantAnswers .
 							aCanvas space.
 							aCanvas text: 'answers'.
 							aCanvas break.
 							aCanvas text: 'Description:'.
 							aCanvas space.
-							aCanvas text: each text.
+							aCanvas text: post text.
 							aCanvas break.
 							aCanvas text: 'Topics:'.
-							each topics do: 
+							post topics do: 
 								[ :topic | 
 									aCanvas text: ' ',topic name , ' '.
 									aCanvas space ].
 							aCanvas break.	
-							aCanvas text:each positiveScore.
+							aCanvas text: post positiveScore.
 							aCanvas space.
 							aCanvas text: 'Likes'.
 							aCanvas text: ' | '.
-							aCanvas text:each negativeScore.
+							aCanvas text: post negativeScore.
 							aCanvas space.
 							aCanvas text: 'Dislikes'. 
 							aCanvas break.	
 							aCanvas anchor 
 							style:'color: green';
-							callback:[self positiveLike:each];
+							callback:[self positiveLike:post];
 							with:'Like'.
 							aCanvas text: ' | '.
 							aCanvas anchor 
 							style:'color: red';
-							callback:[self negativeLike:each];
+							callback:[self negativeLike:post];
 							with:'Dislike'.
 							aCanvas break.
 							aCanvas anchor 
 							style:'color: black';
-							callback:[self seeAnswers:each];
+							callback:[self seeAnswers:post];
 							with:'See Answers'.
 							aCanvas horizontalRule  
 							] ] ]
@@ -131,4 +134,14 @@ MainComponent >> renderQuestion: aCanvas [
 { #category : #callbacks }
 MainComponent >> seeAnswers:aQuestion [
 self call:[ AnswersComponent new  ].
+]
+
+{ #category : #callbacks }
+MainComponent >> showProfileOf: aUser [
+|instance|
+
+instance := UserProfileComponent new .
+instance profileUser: aUser.
+^instance.
+
 ]
