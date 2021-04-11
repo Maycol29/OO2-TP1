@@ -142,6 +142,6 @@ MainComponent >> showProfileOf: aUser [
 
 instance := UserProfileComponent new .
 instance profileUser: aUser.
-^instance.
+self call: instance.
 
 ]
