@@ -22,7 +22,7 @@ NewPostComponent >> post [
 	self model
 		addQuestionToSistem:
 			(Question
-				newAuthor: (self session user username)
+				newAuthor: (self session user)
 				text: postText
 				title: title
 				topics: topicList).

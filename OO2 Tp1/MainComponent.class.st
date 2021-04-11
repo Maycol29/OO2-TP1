@@ -20,14 +20,14 @@ MainComponent >> model [
 ]
 
 { #category : #callbacks }
-MainComponent >> negativeLike: aQuestion [
-	aQuestion
+MainComponent >> negativeLike: aVote [
+	aVote
 		addVote: (Vote newBelongsTo: self session user username value: false)
 ]
 
 { #category : #callbacks }
-MainComponent >> positiveLike: aQuestion [
-	aQuestion
+MainComponent >> positiveLike: aVote [
+	aVote
 		addVote: (Vote newBelongsTo: self session user username value: true)
 ]
 
@@ -119,6 +119,16 @@ MainComponent >> renderQuestion: aCanvas [
 							style:'color: red';
 							callback:[self negativeLike:each];
 							with:'Dislike'.
+							aCanvas break.
+							aCanvas anchor 
+							style:'color: black';
+							callback:[self seeAnswers:each];
+							with:'See Answers'.
 							aCanvas horizontalRule  
 							] ] ]
+]
+
+{ #category : #callbacks }
+MainComponent >> seeAnswers:aQuestion [
+self call:[ AnswersComponent new  ].
 ]
