@@ -15,6 +15,11 @@ AnswersComponent >> createAnswer: aQuestion [
 	self answer
 ]
 
+{ #category : #initialize }
+AnswersComponent >> initialize [ 
+super initialize.
+]
+
 { #category : #callback }
 AnswersComponent >> negativeLike: aVote [
 	aVote
@@ -65,17 +70,19 @@ aCanvas
 							with:'Dislike'.
 							aCanvas horizontalRule]]].
 				aCanvas text:'No more answers'.
-				aCanvas callback:[self createAnAnswer:aCanvas];
-							with:[aCanvas button with: 'Create new answer' ].
+				aCanvas submitButton
+				callback: [ self renderCreateAnAnswer:aCanvas ];
+				with: aCanvas button with: 'Create new answer'.
+			
 				
 ]
 
 { #category : #rendering }
 AnswersComponent >> renderContentOn: aCanvas [
 	aCanvas heading:'CuOOra'.
-"	aCanvas
+	aCanvas
 		form: [ self renderQuestion: aCanvas.
-			self renderAnswers: aCanvas.]"
+			self renderAnswers: aCanvas.]
 
 
 ]
@@ -107,7 +114,10 @@ aCanvas paragraph
 							aCanvas paragraph 
 								style: 'font-size: 20px';
 						with: [ aCanvas text: 'Do it for:'.
-							aCanvas strong with: question author.
+							aCanvas strong with:[  
+								aCanvas anchor 
+								callback: [ self showProfileOf: question author ]; 
+								with: question author username ].
 							aCanvas text: ' | '.
 							aCanvas text: question cantAnswers .
 							aCanvas space.
@@ -117,13 +127,13 @@ aCanvas paragraph
 							aCanvas space.
 							aCanvas text: question text.
 							aCanvas break.
-							aCanvas text: 'Topics:'.
+							aCanvas text: 'Topics: '.
 							question topics do: 
 								[ :topic | 
 									aCanvas text: ' ',topic name , ' '.
 									aCanvas space ].
 							aCanvas break.	
-							aCanvas text: aCanvas question positiveScore.
+							aCanvas text: question positiveScore.
 							aCanvas space.
 							aCanvas text: 'Likes'.
 							aCanvas text: ' | '.
@@ -140,8 +150,7 @@ aCanvas paragraph
 							style:'color: red';
 							callback:[self negativeLike:question];
 							with:'Dislike'.
-							aCanvas horizontalRule  
-							] 
+							aCanvas break ].
 ]
 
 { #category : #accesing }

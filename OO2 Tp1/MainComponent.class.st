@@ -132,8 +132,11 @@ MainComponent >> renderQuestion: aCanvas [
 ]
 
 { #category : #callbacks }
-MainComponent >> seeAnswers:aQuestion [
-self call:[ AnswersComponent new "question:aQuestion" ].
+MainComponent >> seeAnswers: aQuestion [
+	| instance |
+	instance := AnswersComponent new.
+	instance question: aQuestion .
+	self call: instance
 ]
 
 { #category : #callbacks }
