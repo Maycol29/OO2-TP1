@@ -93,7 +93,7 @@ CuOOra >> interestingTopicOf:aUser [
 
 { #category : #accessing }
 CuOOra >> questionsBy: anUser [
-	^topics flatCollect: [ :topic | topic questionsInTopicBy: anUser ]
+	^(topics flatCollect: [ :topic | topic questionsInTopicBy: anUser ])asSet.
 ]
 
 { #category : #accessing }
@@ -103,8 +103,16 @@ CuOOra >> topics [
 ]
 
 { #category : #accessing }
-CuOOra >> totalScoreOf:aUser [ 
-^topics sumNumbers: [ :topic | topic scoreOf:aUser ]
+CuOOra >> totalScoreOf: aUser [
+	| scoreQ scoreA scoreV |
+	scoreQ := ((topics
+		select: [ :each | each questionsInTopicBy: aUser ] asSet)
+		asOrderedCollection) size * 20.
+	scoreA := ((topics select: [ :each | each answersInTopicBy: aUser ])
+		asSet asOrderedCollection) size * 50.
+	scoreV := topics
+		sumNumbers: [ :each | each scoreOfTheAnswersBy: aUser ].
+	^ scoreA + scoreQ + scoreV
 ]
 
 { #category : #accessing }

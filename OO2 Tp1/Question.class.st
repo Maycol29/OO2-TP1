@@ -46,7 +46,7 @@ Question >> initialize [
 
 { #category : #acccessing }
 Question >> orderedAnswers [
-	^ answers asSortedCollection: [:answer1 :answer2 |  answer1 score  <= answer2 score]
+	^ answers asSortedCollection: [:answer1 :answer2 |  answer1 score  >= answer2 score]
 ]
 
 { #category : #acccessing }

@@ -54,6 +54,9 @@ AnswersComponent >> renderAnswers: aCanvas [
 
 { #category : #rendering }
 AnswersComponent >> renderContentOn: aCanvas [
+	|dato|
+	dato:=QuestionComponent new question: question parent:parent .
+	dato seeA:true.
 	aCanvas heading: 'CuOOra'.
 	aCanvas horizontalRule.
 	aCanvas

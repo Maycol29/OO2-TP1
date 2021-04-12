@@ -44,17 +44,21 @@ NewPostComponent >> renderContentOn: aCanvas [
 	aCanvas heading: 'New Question'.
 	aCanvas horizontalRule.
 	aCanvas
-		form: [ aCanvas strong with:'Title'.
+		form: [ aCanvas strong with: 'Title'.
 			aCanvas space.
-			aCanvas textInput on: #title of: self .
+			aCanvas textInput on: #title of: self.
 			aCanvas break.
 			aCanvas break.
-			aCanvas strong with:'Description'.
+			aCanvas strong with: 'Description'.
+			aCanvas break.
 			(aCanvas textArea on: #postText of: self)
 				columns: 80;
 				rows: 5.
 			aCanvas break.
 			self renderInputElementsOn: aCanvas.
+			aCanvas submitButton 
+				callback: [ self answer ];
+				with: 'Back' .
 			aCanvas submitButton
 				callback: [ self post ];
 				with: 'Post' ]

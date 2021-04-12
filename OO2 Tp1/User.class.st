@@ -52,6 +52,11 @@ User >> password [
 	^ password
 ]
 
+{ #category : #removing }
+User >> removeFollowing:anUser [
+following remove:anUser
+]
+
 { #category : #accessing }
 User >> username [ 
 	^username 

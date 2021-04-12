@@ -2,20 +2,26 @@ Class {
 	#name : #UserFinderComponent,
 	#superclass : #WAComponent,
 	#instVars : [
-		'searchText'
+		'searchText',
+		'parent'
 	],
 	#category : #'OO2 Tp1-ui'
 }
-
-{ #category : #callbacks }
-UserFinderComponent >> befriend: anUser [
-	self session user addFollowing: anUser
-]
 
 { #category : #initialization }
 UserFinderComponent >> initialize [
 	super initialize.
 	searchText := ''
+]
+
+{ #category : #accessing }
+UserFinderComponent >> parent [
+^parent
+]
+
+{ #category : #accessing }
+UserFinderComponent >> parent:aComponent [
+parent:=aComponent .
 ]
 
 { #category : #rendering }
@@ -55,12 +61,14 @@ UserFinderComponent >> renderUsers: users on: aCanvas [
 				do: [ :each | 
 					(self session user isFollowing: each)
 						ifFalse: [ aCanvas
-								listItem: [ aCanvas
-										text: each username;
-										space.
+								listItem: [
 									aCanvas anchor
-										callback: [ self befriend: each ];
-										with: [ aCanvas button: 'Follow' ] ] ] ] ]
+										callback: [ parent showProfileOf: each ];
+										with: (each username)  .
+					aCanvas space.
+					aCanvas anchor
+						callback: [ parent befriend: each ];
+						with: [ aCanvas button: 'Follow' ] ] ]]]
 ]
 
 { #category : #accessing }

@@ -5,18 +5,28 @@ Class {
 }
 
 { #category : #callbacks }
+MainComponent >> befriend: anUser [
+	self session user addFollowing: anUser
+]
+
+{ #category : #callbacks }
 MainComponent >> createNewPost [
 	self call: NewPostComponent new
 ]
 
 { #category : #callbacks }
 MainComponent >> findFriend [
-	self call: UserFinderComponent new
+	self call: (UserFinderComponent new parent:self) .
 ]
 
 { #category : #model }
 MainComponent >> model [ 
 ^CuOOra soleInstance 
+]
+
+{ #category : #callbacks }
+MainComponent >> notBefriend:anUser [
+self session user removeFollowing:anUser .
 ]
 
 { #category : #rendering }
@@ -35,7 +45,11 @@ MainComponent >> renderFriendsOn: aCanvas [
 		level: 2;
 		with: 'Following'.
 	aCanvas
-		unorderedList: [ self session user following do: [ :each | aCanvas listItem: each username ] ].
+		unorderedList: [ self session user following
+				do: [ :each | 
+					aCanvas
+						listItem:[aCanvas anchor callback: [ self showProfileOf: each ];
+						with: (each username) ]] ].
 	aCanvas anchor
 		callback: [ self findFriend ];
 		with: [ aCanvas button: 'Find User' ]
@@ -72,8 +86,8 @@ MainComponent >> renderPostsOn: aCanvas [
 ]
 
 { #category : #callbacks }
-MainComponent >> seeAnswers:aQuestion [ 
-	| instance |
+MainComponent >> seeAnswers:aQuestion [
+| instance |
 	instance := AnswersComponent new.
 	instance question: aQuestion parent:self .
 	self call: instance .

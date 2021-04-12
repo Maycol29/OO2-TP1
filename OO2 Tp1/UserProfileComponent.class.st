@@ -3,14 +3,15 @@ Class {
 	#superclass : #WAComponent,
 	#instVars : [
 		'profileUser',
-		'parent'
+		'parent',
+		'follow'
 	],
 	#category : #'OO2 Tp1-ui'
 }
 
-{ #category : #callbacks }
-UserProfileComponent >> befriend: anUser [
-	self session user addFollowing: anUser
+{ #category : #accessing }
+UserProfileComponent >> follow [
+^follow
 ]
 
 { #category : #accessing }
@@ -39,12 +40,40 @@ UserProfileComponent >> renderContentOn: aCanvas [
 	aCanvas heading: 'CuOOra'.
 	aCanvas break.
 	aCanvas horizontalRule.
-	aCanvas heading: profileUser username , ' questions'.
-	aCanvas anchor
-		callback: [ self befriend: profileUser ];
-		with: [ aCanvas button: 'Follow' ].
 	aCanvas
-		unorderedList: [ (self model questionsBy:(self session user))
-		do: [ :post | 
-					aCanvas render:(QuestionComponent new question: post parent:parent) ]].
+		heading: profileUser username , ' questions'.
+	aCanvas anchor
+		callback: [ self answer ];
+		with: [ aCanvas button: 'Back' ].
+	aCanvas space.
+	self renderFollowButton: aCanvas.
+	aCanvas
+		unorderedList: [ (self model questionsBy: profileUser)
+				do: [ :post | 
+					aCanvas
+						listItem: [ aCanvas
+								render: (QuestionComponent new question: post parent: parent) ] ] ]
+]
+
+{ #category : #rendering }
+UserProfileComponent >> renderFollow:aCanvas [
+aCanvas anchor
+		callback: [ parent befriend: profileUser ];
+		with: [ aCanvas button: 'Follow' ].
+]
+
+{ #category : #rendering }
+UserProfileComponent >> renderFollowButton: aCanvas [
+	follow:=self session user isFollowing:profileUser . 
+	follow
+		ifFalse: [ self renderFollow: aCanvas ].
+	follow
+		ifTrue: [ self renderUnfollow: aCanvas ]
+]
+
+{ #category : #rendering }
+UserProfileComponent >> renderUnfollow:aCanvas [
+aCanvas anchor
+		callback: [ parent notBefriend: profileUser ];
+		with: [ aCanvas button: 'Unfollow' ].
 ]
