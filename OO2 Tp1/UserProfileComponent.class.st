@@ -18,21 +18,9 @@ UserProfileComponent >> model [
 ^CuOOra soleInstance 
 ]
 
-{ #category : #callback }
-UserProfileComponent >> negativeLike: aVote [
-	aVote
-		addVote: (Vote newBelongsTo: self session user username value: false)
-]
-
 { #category : #accessing }
 UserProfileComponent >> parent [ 
 ^parent
-]
-
-{ #category : #callback }
-UserProfileComponent >> positiveLike: aVote [
-	aVote
-		addVote: (Vote newBelongsTo: self session user username value: true)
 ]
 
 { #category : #accessing }

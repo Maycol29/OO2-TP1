@@ -2,7 +2,6 @@ Class {
 	#name : #AnswersComponent,
 	#superclass : #PostComponent,
 	#instVars : [
-		'questionComponent',
 		'reply',
 		'vamo',
 		'seeR'
@@ -23,16 +22,6 @@ vamo:=false.
 seeR:=true.
 ]
 
-{ #category : #accessing }
-AnswersComponent >> questionComponent [
-^questionComponent 
-]
-
-{ #category : #accessing }
-AnswersComponent >> questionComponent:aComponent [
-questionComponent :=aComponent 
-]
-
 { #category : #rendering }
 AnswersComponent >> renderAnswers: aCanvas [
 	aCanvas
@@ -41,11 +30,12 @@ AnswersComponent >> renderAnswers: aCanvas [
 					aCanvas paragraph
 						style: 'font-size: 20px';
 						with: [ aCanvas text: 'Answer By '.
-							aCanvas strong with: each author username.
-							aCanvas break.
+							aCanvas anchor 
+								callback: [ parent showProfileOf: each author  ]; 
+								with: each author username ].
 							aCanvas text: each text.
 							aCanvas break.
-							super renderFeedback: aCanvas value:each]]].
+							super renderFeedback: aCanvas value:each]].
 	aCanvas text: 'No more answers'.
 	aCanvas break.
 	aCanvas submitButton 
@@ -67,7 +57,8 @@ AnswersComponent >> renderContentOn: aCanvas [
 	aCanvas heading: 'CuOOra'.
 	aCanvas horizontalRule.
 	aCanvas
-		form: [aCanvas render: (QuestionComponent new question:question). self renderAnswers: aCanvas]
+		form: [ aCanvas render: (QuestionComponent new question: question parent:parent).
+			self renderAnswers: aCanvas ]
 ]
 
 { #category : #rendering }

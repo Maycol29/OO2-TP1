@@ -75,7 +75,7 @@ MainComponent >> renderPostsOn: aCanvas [
 MainComponent >> seeAnswers:aQuestion [ 
 	| instance |
 	instance := AnswersComponent new.
-	instance question: aQuestion .
+	instance question: aQuestion parent:self .
 	self call: instance .
 	
 ]
