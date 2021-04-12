@@ -19,18 +19,6 @@ MainComponent >> model [
 ^CuOOra soleInstance 
 ]
 
-{ #category : #callbacks }
-MainComponent >> negativeLike: aVote [
-	aVote
-		addVote: (Vote newBelongsTo: self session user username value: false)
-]
-
-{ #category : #callbacks }
-MainComponent >> positiveLike: aVote [
-	aVote
-		addVote: (Vote newBelongsTo: self session user username value: true)
-]
-
 { #category : #rendering }
 MainComponent >> renderContentOn: aCanvas [
 	aCanvas heading: 'Welcome ' , self session user username.
@@ -54,6 +42,16 @@ MainComponent >> renderFriendsOn: aCanvas [
 ]
 
 { #category : #rendering }
+MainComponent >> renderLastQuestion: aCanvas [
+	aCanvas
+		unorderedList: [ (self model getPostInNetwork: self session user following)
+				do: [ :post | 
+					 "QuestionComponent new question: post"
+					aCanvas render: (QuestionComponent new question: post parent:self) .
+					"self viewAnswers: aCanvas question: post "] ]
+]
+
+{ #category : #rendering }
 MainComponent >> renderLogoutButtonOn: aCanvas [
 	aCanvas
 		paragraph: [ aCanvas anchor
@@ -67,76 +65,19 @@ MainComponent >> renderPostsOn: aCanvas [
 	aCanvas heading
 		level: 2;
 		with: 'Following Posts'.
-	self renderQuestion: aCanvas .
+	self renderLastQuestion: aCanvas .
 	aCanvas anchor
 		callback: [ self createNewPost ];
 		with: [ aCanvas button: 'Create new post' ]
 ]
 
-{ #category : #rendering }
-MainComponent >> renderQuestion: aCanvas [
-	aCanvas
-		unorderedList: [ (self model getPostInNetwork: self session user following)
-				do: [ :post | 
-					aCanvas paragraph
-						with:
-							[ aCanvas heading
-								level: 2;
-								with: post title ] .
-							aCanvas paragraph 
-								style: 'font-size: 20px';
-						with: [ aCanvas text: 'Asked by: '.
-							aCanvas strong with:[  
-								aCanvas anchor 
-								callback: [ self showProfileOf: post author ]; 
-								with:post author username ].
-							aCanvas text: ' | '.
-							aCanvas text: post cantAnswers .
-							aCanvas space.
-							aCanvas text: 'answers'.
-							aCanvas break.
-							aCanvas text: 'Description:'.
-							aCanvas space.
-							aCanvas text: post text.
-							aCanvas break.
-							aCanvas text: 'Topics: '.
-							post topics do: 
-								[ :topic | 
-									aCanvas text: ' ',topic name , ' '.
-									aCanvas space ].
-							aCanvas break.	
-							aCanvas text: post positiveScore.
-							aCanvas space.
-							aCanvas text: 'Likes'.
-							aCanvas text: ' | '.
-							aCanvas text: post negativeScore.
-							aCanvas space.
-							aCanvas text: 'Dislikes'. 
-							aCanvas break.	
-							aCanvas anchor 
-							style:'color: green';
-							callback:[self positiveLike:post];
-							with:'Like'.
-							aCanvas text: ' | '.
-							aCanvas anchor 
-							style:'color: red';
-							callback:[self negativeLike:post];
-							with:'Dislike'.
-							aCanvas break.
-							aCanvas anchor 
-							style:'color: black';
-							callback:[self seeAnswers:post];
-							with:'See Answers'.
-							aCanvas horizontalRule  
-							] ] ]
-]
-
 { #category : #callbacks }
-MainComponent >> seeAnswers: aQuestion [
+MainComponent >> seeAnswers:aQuestion [ 
 	| instance |
 	instance := AnswersComponent new.
 	instance question: aQuestion .
-	self call: instance
+	self call: instance .
+	
 ]
 
 { #category : #callbacks }
@@ -144,7 +85,7 @@ MainComponent >> showProfileOf: aUser [
 |instance|
 
 instance := UserProfileComponent new .
-instance profileUser: aUser.
+instance profileUser: aUser parent:self.
 self call: instance.
 
 ]

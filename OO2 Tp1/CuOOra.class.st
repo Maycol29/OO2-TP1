@@ -40,7 +40,7 @@ users add:aUser.
 
 ]
 
-{ #category : #acccessing }
+{ #category : #accessing }
 CuOOra >> answersBy: aUser [
 	topics flatCollect: [ :topic | topic answersInTopicBy: aUser ]
 ]
@@ -102,7 +102,7 @@ CuOOra >> topics [
 
 ]
 
-{ #category : #acccessing }
+{ #category : #accessing }
 CuOOra >> totalScoreOf:aUser [ 
 ^topics sumNumbers: [ :topic | topic scoreOf:aUser ]
 ]

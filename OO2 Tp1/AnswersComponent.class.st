@@ -1,10 +1,11 @@
 Class {
 	#name : #AnswersComponent,
-	#superclass : #WAComponent,
+	#superclass : #PostComponent,
 	#instVars : [
-		'question',
+		'questionComponent',
 		'reply',
-		'vamo'
+		'vamo',
+		'seeR'
 	],
 	#category : #'OO2 Tp1-ui'
 }
@@ -13,35 +14,23 @@ Class {
 AnswersComponent >> createAnswer: aQuestion [
 	aQuestion
 		addAnswer: (Answer newAuthor: self session user text: reply).
-	self answer
 ]
 
 { #category : #initialize }
 AnswersComponent >> initialize [ 
 super initialize.
 vamo:=false.
+seeR:=true.
 ]
 
-{ #category : #callback }
-AnswersComponent >> negativeLike: aVote [
-	aVote
-		addVote: (Vote newBelongsTo: self session user username value: false)
+{ #category : #accessing }
+AnswersComponent >> questionComponent [
+^questionComponent 
 ]
 
-{ #category : #callback }
-AnswersComponent >> positiveLike:aVote [
-	aVote
-		addVote: (Vote newBelongsTo: self session user username value: true)
-]
-
-{ #category : #accesing }
-AnswersComponent >> question [
-^question
-]
-
-{ #category : #accesing }
-AnswersComponent >> question: aQuestion [
-question:=aQuestion.
+{ #category : #accessing }
+AnswersComponent >> questionComponent:aComponent [
+questionComponent :=aComponent 
 ]
 
 { #category : #rendering }
@@ -56,26 +45,16 @@ AnswersComponent >> renderAnswers: aCanvas [
 							aCanvas break.
 							aCanvas text: each text.
 							aCanvas break.
-							aCanvas text: each positiveScore.
-							aCanvas space.
-							aCanvas text: 'Likes'.
-							aCanvas text: ' | '.
-							aCanvas text: each negativeScore.
-							aCanvas anchor
-								style: 'color: green';
-								callback: [ self positiveLike: each ];
-								with: 'Like'.
-							aCanvas text: ' | '.
-							aCanvas anchor
-								style: 'color: red';
-								callback: [ self negativeLike: each ];
-								with: 'Dislike' ] ] ].
+							super renderFeedback: aCanvas value:each]]].
 	aCanvas text: 'No more answers'.
 	aCanvas break.
-	aCanvas
+	aCanvas submitButton 
+		callback: [ self answer ];
+		with: 'Back' .
+	seeR ifTrue:[aCanvas
 		submitButton   
-		callback: [self vamo:true];
-		with:'reply'.
+		callback: [vamo:=true.seeR:=false.];
+		with:'reply'].
 	aCanvas break.
 	vamo
 		ifFalse: [ ^ self ].
@@ -85,12 +64,10 @@ AnswersComponent >> renderAnswers: aCanvas [
 
 { #category : #rendering }
 AnswersComponent >> renderContentOn: aCanvas [
-	aCanvas heading:'CuOOra'.
+	aCanvas heading: 'CuOOra'.
+	aCanvas horizontalRule.
 	aCanvas
-		form: [ self renderQuestion: aCanvas.
-			self renderAnswers: aCanvas.]
-
-
+		form: [aCanvas render: (QuestionComponent new question:question). self renderAnswers: aCanvas]
 ]
 
 { #category : #rendering }
@@ -100,61 +77,12 @@ AnswersComponent >> renderCreateAnAnswer: aCanvas [
 		rows: 5.
 	aCanvas break.
 	aCanvas submitButton 
-		callback: [ self answer ];
+		callback: [ seeR:=true.vamo:=false ];
 		with: 'Cancel' .
 	aCanvas space.
 	aCanvas submitButton
-		callback: [ self createAnswer:question  ];
+		callback: [ self createAnswer:question.seeR:=true.vamo:=false.reply:='' ];
 		with:'Confirm post' .
-]
-
-{ #category : #rendering }
-AnswersComponent >> renderQuestion: aCanvas [
-aCanvas paragraph
-						with:
-							[ aCanvas heading
-								level: 2;
-								with: question title ] .
-							aCanvas paragraph 
-								style: 'font-size: 20px';
-						with: [ aCanvas text: 'Do it for:'.
-							aCanvas strong with:[  
-								aCanvas anchor 
-								callback: [ self showProfileOf: question author ]; 
-								with: question author username ].
-							aCanvas text: ' | '.
-							aCanvas text: question cantAnswers .
-							aCanvas space.
-							aCanvas text: 'answers'.
-							aCanvas break.
-							aCanvas text: 'Description:'.
-							aCanvas space.
-							aCanvas text: question text.
-							aCanvas break.
-							aCanvas text: 'Topics: '.
-							question topics do: 
-								[ :topic | 
-									aCanvas text: ' ',topic name , ' '.
-									aCanvas space ].
-							aCanvas break.	
-							aCanvas text: question positiveScore.
-							aCanvas space.
-							aCanvas text: 'Likes'.
-							aCanvas text: ' | '.
-							aCanvas text: question negativeScore.
-							aCanvas space.
-							aCanvas text: 'Dislikes'. 
-							aCanvas break.	
-							aCanvas anchor 
-							style:'color: green';
-							callback:[self positiveLike:question];
-							with:'Like'.
-							aCanvas text: ' | '.
-							aCanvas anchor 
-							style:'color: red';
-							callback:[self negativeLike:question];
-							with:'Dislike'.
-							aCanvas break ].
 ]
 
 { #category : #accesing }

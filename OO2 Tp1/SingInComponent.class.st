@@ -40,8 +40,11 @@ SingInComponent >> renderInputElementsOn: aCanvas [
 
 { #category : #rendering }
 SingInComponent >> renderSignUpButtonOn: aCanvas [
+	aCanvas submitButton 
+		callback: [ self answer ];
+		with: 'Back' .
 	aCanvas submitButton
 		callback: [ self registerAndLogin ];
 		with: 'Register'.
-	aCanvas horizontalRule.
+	aCanvas horizontalRule
 ]

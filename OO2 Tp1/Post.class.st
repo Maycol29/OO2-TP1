@@ -3,8 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'author',
-		'date',
 		'text',
+		'date',
 		'votes'
 	],
 	#category : #'OO2 Tp1-model'
