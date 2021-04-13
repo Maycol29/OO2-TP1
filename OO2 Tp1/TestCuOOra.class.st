@@ -64,23 +64,48 @@ TestCuOOra >> setUp [
 ]
 
 { #category : #tests }
-TestCuOOra >> testAddQuestionToSystem [
+TestCuOOra >> testAddQuestionToSistem [
+self assert:sis topics isEmpty .
+sis addTopicList: (q3 topics).
+sis addQuestionToSistem: q3.
+self assert:t2 questions size equals: 1.
+self assert:t3 questions size equals: 1.
 ]
 
 { #category : #tests }
 TestCuOOra >> testAddTopicList [
+|ord|
+ord:=OrderedCollection new.
+self assert:sis topics isEmpty .
+ord add:t1.
+ord add:t2.
+sis addTopicList:ord.
+self assert: (sis topics) size equals: 2.
 ]
 
 { #category : #acccessing }
-TestCuOOra >> testAddUser [
-]
-
-{ #category : #acccessing }
-TestCuOOra >> testAddUserToSystem:aUser [
+TestCuOOra >> testAddUser [ 
+self assert: (sis users isEmpty) .
+sis addUser:u1. 
+self assert:sis users size equals:1.
 ]
 
 { #category : #tests }
 TestCuOOra >> testAnswersBy [
+|ord|
+ord:=OrderedCollection new.
+ord add:a1.
+sis addUser:u1. 
+sis addUser:u3. 
+sis addTopicList: (q3 topics).
+sis addTopicList: (q1 topics).
+sis addQuestionToSistem: q1.
+sis addQuestionToSistem: q3.
+q3 addAnswer: a1.
+self assert:(q3 answers) size equals:1.  
+
+self assert:(sis answersBy:u1) equals:ord. 
+"self deny:(sis answersBy:u1) equals:a3"
 ]
 
 { #category : #tests }
