@@ -135,6 +135,8 @@ TestCuOOra >> testDeleteQuestion [
 	
 	collection := Set new.	"Creo la coleccion esperada"
 	collection add: q2.
+	
+	
 ]
 
 { #category : #tests }
@@ -143,12 +145,16 @@ TestCuOOra >> testGetTopicQuestions [
 	topicList := OrderedCollection new.	"Crea una lista de Topic y los agrega en sistema"
 	topicList add: t1.
 	sis addTopicList: topicList.
+	
 	t1 addQuestion: q2.	"Agrega las Question a un Topic existente en CuOOra"
 	t1 addQuestion: q3.
+	
 	collection := OrderedCollection new.	"Creo la coleccion esperada"
 	collection add: q2.
 	collection add: q3.
+	
 	self assertCollection: (sis getTopicQuestions: t1) equals: collection.
+	
 	self assert: (sis getTopicQuestions: t2) isEmpty
 ]
 
