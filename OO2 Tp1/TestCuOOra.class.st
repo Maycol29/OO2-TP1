@@ -25,7 +25,8 @@ Class {
 { #category : #running }
 TestCuOOra >> setUp [
 	"Hooks that subclasses may override to define the fixture of test."
-
+	|ord|
+	ord:=OrderedCollection new.
 	sis := CuOOra new.
 	u1 := User newUsername: 'tobias' password: 1234.
 	u2 := User newUsername: 'lucio' password: 4321.
@@ -39,17 +40,19 @@ TestCuOOra >> setUp [
 		newAuthor: u1
 		text: 'Como programar mejor en ruby?'
 		title: 'Como mejorar la programacion en ruby?'
-		topics: t1.
+		topics: (t1) asOrderedCollection .
 	q2 := Question
 		newAuthor: u2
 		text: 'Tengo esta duda ya que quiero ir en temporada alta'
 		title: 'Cuando son vacaciones en EEUU?'
-		topics: t3.
+		topics: t3 asOrderedCollection.
+	ord add:t2.
+	ord add:t3.
 	q3 := Question
 		newAuthor: u3
 		text: 'Quiero irme de vacaciones y necesito saber el estado del lugar'
 		title: 'Como esta el estado del covid en Francia?'
-		topics: (t2 , t3) asOrderedCollection.
+		topics: ord .
 	a1:=Answer newAuthor:u1   text: 'Esta complicada la cosa en francia'.
 	a2:=Answer newAuthor:u3  text:'La temporada alta es en nuestras vacaciones de invierno si no me equivoco'.
 	a3:=Answer newAuthor:u2 text:'Ruby es un lenguaje complejo pero te recomiendo q leas la documentancion de francis drake'.
@@ -65,10 +68,20 @@ TestCuOOra >> testAddQuestionToSystem [
 
 { #category : #tests }
 TestCuOOra >> testAddTopicList [
+|ord|
+ord:=OrderedCollection new.
+self assert:sis topics isEmpty .
+ord add:t1.
+ord add:t2.
+sis addTopicList:ord.
+self assert: (sis topics) size equals: 2.
 ]
 
 { #category : #acccessing }
-TestCuOOra >> testAddUser [
+TestCuOOra >> testAddUser [ 
+self assert: (sis users isEmpty) .
+sis addUser:u1. 
+self assert:sis users size equals:1.
 ]
 
 { #category : #acccessing }
