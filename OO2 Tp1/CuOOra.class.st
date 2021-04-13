@@ -92,6 +92,13 @@ CuOOra >> interestingTopicOf:aUser [
 ]
 
 { #category : #accessing }
+CuOOra >> mostThanFive:aCollection [
+(self getPostInNetwork: aCollection) size >5 ifTrue:[^(self getPostInNetwork: aCollection)first:5].
+^self getPostInNetwork: aCollection
+
+]
+
+{ #category : #accessing }
 CuOOra >> questionsBy: anUser [
 	^(topics flatCollect: [ :topic | topic questionsInTopicBy: anUser ])asSet.
 ]

@@ -58,7 +58,7 @@ MainComponent >> renderFriendsOn: aCanvas [
 { #category : #rendering }
 MainComponent >> renderLastQuestion: aCanvas [
 	aCanvas
-		unorderedList: [ (self model getPostInNetwork: self session user following)
+		unorderedList: [ (self model mostThanFive:self session user following)
 				do: [ :post | 
 					 "QuestionComponent new question: post"
 					aCanvas render: (QuestionComponent new question: post parent:self) .
