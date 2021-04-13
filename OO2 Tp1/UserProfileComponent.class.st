@@ -46,7 +46,7 @@ UserProfileComponent >> renderContentOn: aCanvas [
 		callback: [ self answer ];
 		with: [ aCanvas button: 'Back' ].
 	aCanvas space.
-	self renderFollowButton: aCanvas.
+	(self session user == profileUser) ifFalse:[self renderFollowButton: aCanvas].
 	aCanvas
 		unorderedList: [ (self model questionsBy: profileUser)
 				do: [ :post | 
@@ -65,6 +65,7 @@ aCanvas anchor
 { #category : #rendering }
 UserProfileComponent >> renderFollowButton: aCanvas [
 	follow:=self session user isFollowing:profileUser . 
+	follow=profileUser ifTrue:[^self answer].
 	follow
 		ifFalse: [ self renderFollow: aCanvas ].
 	follow
