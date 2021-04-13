@@ -55,8 +55,8 @@ TestCuOOra >> setUp [
 		title: 'Como esta el estado del covid en Francia?'
 		topics: topics.
 	a1:=Answer newAuthor:u1   text: 'Esta complicada la cosa en francia'.
-	a2:=Answer newAuthor:u3  text:'La temporada alta es en nuestras vacaciones de invierno si no me equivoco'.
-	a3:=Answer newAuthor:u2 text:'Ruby es un lenguaje complejo pero te recomiendo q leas la documentancion de francis drake'.
+	a2:=Answer newAuthor:u2  text:'La temporada alta es en nuestras vacaciones de invierno si no me equivoco'.
+	a3:=Answer newAuthor:u3 text:'Ruby es un lenguaje complejo pero te recomiendo q leas la documentancion de francis drake'.
 	v1:=Vote newBelongsTo: u1 value: true.
 	v2:=Vote newBelongsTo: u2 value: false.
 	v3:=Vote newBelongsTo: u3 value: false.
@@ -92,19 +92,25 @@ self assert:sis users size equals:1.
 
 { #category : #tests }
 TestCuOOra >> testAnswersBy [
-|ord|
-ord:=OrderedCollection new.
-ord add:a1.
-sis addUser:u1. 
-sis addUser:u3. 
-sis addTopicList: (q3 topics).
-sis addTopicList: (q1 topics).
-sis addQuestionToSistem: q1.
-sis addQuestionToSistem: q3.
-q3 addAnswer: a1.
-self assert:(q3 answers) size equals:1.  
-
-self assert:(sis answersBy:u1) equals:ord. 
+|topicList collection|
+	topicList := OrderedCollection new.	"Crea una lista de Topic y los agrega en sistema"
+	topicList add: t1.
+	sis addTopicList: topicList.
+	
+	t1 addQuestion: q2.	"Agrega las Question a un Topic existente en CuOOra"
+	t1 addQuestion: q3.
+	
+	collection := OrderedCollection new.	"Creo la coleccion esperada"
+	collection add: a1.
+	
+	q2 addAnswer:a1.
+	q2 addAnswer:a3.
+	
+	self assertCollection: (sis answersBy: u1) equals: collection.
+	
+"	self denyCollection: (sis questionsBy: u3) equals: collection."
+	
+	"self assert: (sis questionsBy: u1) isEmpty"
 "self deny:(sis answersBy:u1) equals:a3"
 ]
 
