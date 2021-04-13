@@ -36,8 +36,9 @@ AnswersComponent >> renderAnswers: aCanvas [
 							aCanvas text: each text.
 							aCanvas break.
 							super renderFeedback: aCanvas value:each]].
-	aCanvas text: 'No more answers'.
-	aCanvas break.
+	aCanvas paragraph
+						style: 'font-size: 25px';
+						with:'No more answers'.
 	aCanvas submitButton 
 		callback: [ self answer ];
 		with: 'Back' .

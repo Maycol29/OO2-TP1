@@ -32,6 +32,7 @@ self session user removeFollowing:anUser .
 { #category : #rendering }
 MainComponent >> renderContentOn: aCanvas [
 	aCanvas heading: 'Welcome ' , self session user username.
+	self renderMyQuestion:aCanvas.
 	self renderPostsOn: aCanvas.
 	aCanvas horizontalRule.
 	self renderFriendsOn: aCanvas.
@@ -72,6 +73,14 @@ MainComponent >> renderLogoutButtonOn: aCanvas [
 				callback: [ self session user: nil.
 					self call: LogInComponent new ];
 				with: [ aCanvas button with: 'Logout' ] ]
+]
+
+{ #category : #rendering }
+MainComponent >> renderMyQuestion:aCanvas [
+aCanvas anchor
+		style: 'font-size: 25px; color:black';
+		callback: [ self showProfileOf: self session user];
+		with: 'My questions'.
 ]
 
 { #category : #rendering }
