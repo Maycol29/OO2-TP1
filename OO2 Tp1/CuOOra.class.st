@@ -92,7 +92,7 @@ CuOOra >> interestingTopicOf:aUser [
 ]
 
 { #category : #accessing }
-CuOOra >> questionsBy: anUser [
+CuOOra >> questionsBy: anUser [     
 	^(topics flatCollect: [ :topic | topic questionsInTopicBy: anUser ])asSet.
 ]
 
