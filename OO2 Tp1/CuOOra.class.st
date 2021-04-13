@@ -99,7 +99,7 @@ CuOOra >> mostThanFive:aCollection [
 ]
 
 { #category : #accessing }
-CuOOra >> questionsBy: anUser [
+CuOOra >> questionsBy: anUser [     
 	^(topics flatCollect: [ :topic | topic questionsInTopicBy: anUser ])asSet.
 ]
 
