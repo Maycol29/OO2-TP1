@@ -19,12 +19,12 @@ QuestionComponent >> renderContentOn: aCanvas [
 	aCanvas paragraph
 		with: [ aCanvas heading
 				level: 2;
-				with: [aCanvas anchor
+				with: [aCanvas anchor style:'color:darkviolet';
 					callback: [ parent seeAnswers: question ];
 				with: (question title) ]].
 	aCanvas paragraph
 		style: 'font-size: 20px';
-		with: [ aCanvas text: 'Asked by:'.
+		with: [ aCanvas text: 'Asked by: '.
 			aCanvas strong
 				with: [ aCanvas anchor
 						callback: [ parent showProfileOf: question author ];

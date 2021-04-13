@@ -41,8 +41,11 @@ NewPostComponent >> postText: anObject [
 
 { #category : #rendering }
 NewPostComponent >> renderContentOn: aCanvas [
-	aCanvas heading: 'New Question'.
+	aCanvas heading
+		style: ' background-color: black; color:white';
+		with: 'CuOOra '.
 	aCanvas horizontalRule.
+	aCanvas heading: 'New Question'.
 	aCanvas
 		form: [ aCanvas strong with: 'Title'.
 			aCanvas space.
@@ -56,9 +59,9 @@ NewPostComponent >> renderContentOn: aCanvas [
 				rows: 5.
 			aCanvas break.
 			self renderInputElementsOn: aCanvas.
-			aCanvas submitButton 
+			aCanvas submitButton
 				callback: [ self answer ];
-				with: 'Back' .
+				with: 'Back'.
 			aCanvas submitButton
 				callback: [ self post ];
 				with: 'Post' ]

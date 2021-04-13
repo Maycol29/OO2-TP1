@@ -31,6 +31,8 @@ self session user removeFollowing:anUser .
 
 { #category : #rendering }
 MainComponent >> renderContentOn: aCanvas [
+	aCanvas heading style:' background-color: black; color:white'; with:'CuOOra '.
+	aCanvas horizontalRule.
 	aCanvas heading: 'Welcome ' , self session user username.
 	self renderMyQuestion:aCanvas.
 	self renderPostsOn: aCanvas.
@@ -77,10 +79,17 @@ MainComponent >> renderLogoutButtonOn: aCanvas [
 
 { #category : #rendering }
 MainComponent >> renderMyQuestion:aCanvas [
-aCanvas anchor
-		style: 'font-size: 25px; color:black';
+aCanvas strong with: [ 
+	aCanvas anchor
+		style: 'font-size: 25px; color:darkorange';
 		callback: [ self showProfileOf: self session user];
-		with: 'My questions'.
+		with: 'My questions'].
+aCanvas break.
+aCanvas break.
+aCanvas anchor
+		callback: [ self createNewPost ];
+		with: [ aCanvas button: 'Create new post' ].
+aCanvas horizontalRule.
 ]
 
 { #category : #rendering }
@@ -89,9 +98,6 @@ MainComponent >> renderPostsOn: aCanvas [
 		level: 2;
 		with: 'Following Posts'.
 	self renderLastQuestion: aCanvas .
-	aCanvas anchor
-		callback: [ self createNewPost ];
-		with: [ aCanvas button: 'Create new post' ]
 ]
 
 { #category : #callbacks }

@@ -58,7 +58,7 @@ AnswersComponent >> renderContentOn: aCanvas [
 	|dato|
 	dato:=QuestionComponent new question: question parent:parent .
 	dato seeA:true.
-	aCanvas heading: 'CuOOra'.
+	aCanvas heading style:' background-color: black; color:white'; with:'CuOOra '.
 	aCanvas horizontalRule.
 	aCanvas
 		form: [ aCanvas render: (QuestionComponent new question: question parent:parent).

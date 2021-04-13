@@ -26,6 +26,9 @@ parent:=aComponent .
 
 { #category : #rendering }
 UserFinderComponent >> renderContentOn: aCanvas [
+	aCanvas heading style:' background-color: black; color:white'; with:'CuOOra '.
+	aCanvas horizontalRule.
+	aCanvas heading style:'color:black'; with:'User Finder '.
 	self renderSearchFormOn: aCanvas.
 	self renderSearchResultsOn: aCanvas.
 	aCanvas horizontalRule.
@@ -49,7 +52,7 @@ UserFinderComponent >> renderSearchResultsOn: aCanvas [
 	users := CuOOra soleInstance usersMatchingNamePart: searchText.
 	users
 		ifEmpty: [ aCanvas
-				paragraph: 'Sorry... no matches... no friends for you this time.' ]
+				paragraph: 'Sorry... no matches... try with another username.' ]
 		ifNotEmpty:
 			[ self renderUsers: users on: aCanvas ]
 ]

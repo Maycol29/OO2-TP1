@@ -37,8 +37,8 @@ parent:=aComponent.
 
 { #category : #rendering }
 UserProfileComponent >> renderContentOn: aCanvas [
-	aCanvas heading: 'CuOOra'.
-	aCanvas break.
+	aCanvas heading style:' background-color: black; color:white'; with:'CuOOra '.
+
 	aCanvas horizontalRule.
 	aCanvas
 		heading: profileUser username , ' questions'.
