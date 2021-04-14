@@ -262,7 +262,7 @@ self assertCollection: (users) equals: wantedCollection .
 "No debería devolver al User 'tobias' "
 self deny: (users anySatisfy: [:user| user == u1  ]).
 
-"Debería devolver vacio"
+"Debería devolver vacio, ya que ningún User contine 'w' "
 self assert: (sis usersMatchingNamePart: 'w') isEmpty .
 
 
