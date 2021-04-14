@@ -70,15 +70,6 @@ Topic >> questionsInTopicBy:aUser [
 ]
 
 { #category : #accessing }
-Topic >> scoreOf:aUser [
-|scoreQ scoreA scoreV|
-scoreQ:=(self questionsInTopicBy:aUser)size * 20. 
-scoreA:=(self answersInTopicBy:aUser)size * 50 .
-scoreV :=  (self scoreOfTheAnswersBy:aUser) + (self scoreOfTheAnswersBy: aUser).
-^(scoreA+scoreQ+scoreV) 
-]
-
-{ #category : #accessing }
 Topic >> scoreOfTheAnswersBy:aUser [
 ^questions sumNumbers: [:question | question scoreAnswersBy:aUser ].
 ]

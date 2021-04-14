@@ -82,11 +82,12 @@ TestTopic >> testAnswersInTopicsBy [
 	collection add: a2.
 	q3 addAnswer:a2.
 	q2 addAnswer:a1. 
-	self assertCollection:(t1 answersInTopicBy: u2) equals: collection.
 	
-	"self denyCollection: (t1 answersInTopicBy: u1) equals: collection."
+	self assert:((t1 answersInTopicBy: u2)includes:a2).
 	
-"	self assert: (t1 answersInTopicBy: u1) isEmpty"
+	self deny:((t1 answersInTopicBy: u2)includes:a1).
+	
+	self assert: (t1 answersInTopicBy: u3) isEmpty
 ]
 
 { #category : #tests }
@@ -102,4 +103,12 @@ TestTopic >> testQuestionsInTopicsBy [
 	self denyCollection: (t1 questionsInTopicBy: u1) equals: collection.
 	
 	self assert: (t1 questionsInTopicBy: u1) isEmpty
+]
+
+{ #category : #tests }
+TestTopic >> testScoreOfTheAnswersBy [
+]
+
+{ #category : #tests }
+TestTopic >> testScoreOfTheQuestionsBy [
 ]

@@ -101,21 +101,14 @@ TestCuOOra >> testAnswersBy [
 	t1 addQuestion: q2.	"Agrega las Question a un Topic existente en CuOOra"
 	t1 addQuestion: q3.
 	
-	collection := OrderedCollection new.	"Creo la coleccion esperada"
-	collection add: a1.
 	
 	q2 addAnswer:a1.
 	q2 addAnswer:a3.
 		
 	self assert:((sis answersBy:u1)includes:a1).
-"	self deny:((sis answersBy:u1)includes:a3)."
-	"self assert: (sis answersBy: u3) isEmpty."
+	self deny:((sis answersBy:u1)includes:a3).
+	self assert: (sis answersBy: u2) isEmpty.
 
-
-]
-
-{ #category : #tests }
-TestCuOOra >> testAnswersBy: aUser [
 ]
 
 { #category : #tests }
@@ -185,6 +178,19 @@ TestCuOOra >> testDeleteQuestion [
 	
 ]
 
+{ #category : #acccessing }
+TestCuOOra >> testGetPostInNetwork [
+
+
+]
+
+{ #category : #acccessing }
+TestCuOOra >> testGetRelevantQuestionBy [
+
+
+
+]
+
 { #category : #tests }
 TestCuOOra >> testGetTopicQuestions [
 	| topicList collection |
@@ -202,6 +208,13 @@ TestCuOOra >> testGetTopicQuestions [
 	self assertCollection: (sis getTopicQuestions: t1) equals: collection.
 	
 	self assert: (sis getTopicQuestions: t2) isEmpty
+]
+
+{ #category : #acccessing }
+TestCuOOra >> testMoreThanFive [
+
+
+
 ]
 
 { #category : #tests }
@@ -248,31 +261,8 @@ self deny: (sis userWithUsername: 'lucio' protectedBy: 4321)  equals: u1.
 self assert: (sis userWithUsername: 'gerardo' protectedBy: 'aguanteVelez') equals: nil.
 ]
 
-{ #category : #tests }
-TestCuOOra >> testUsersMatchingNamePart [
-|users wantedCollection|
-sis addUser: u1. "tobias"
-sis addUser: u2. "lucio"
-sis addUser: u3. "luna"
-
-users := sis usersMatchingNamePart: 'l'.
-
-
-wantedCollection := OrderedCollection new. "Coleccion esperada"
-wantedCollection add: u2. "lucio"
-wantedCollection add: u3. "luna"
-
-"Deberia devolver a los User 'lucio' y 'luna' "
-self assertCollection: (users) equals: wantedCollection .
-
-"No debería devolver al User 'tobias' "
-self deny: (users anySatisfy: [:user| user == u1  ]).
-
-"Debería devolver vacio, ya que ningún User contine 'w' "
-self assert: (sis usersMatchingNamePart: 'w') isEmpty .
-
-
-
+{ #category : #acccessing }
+TestCuOOra >> testUsersMatchingNamePart [ 
 
 
 
