@@ -28,7 +28,7 @@ Topic >> addQuestion: aQuestion [
 
 { #category : #accessing }
 Topic >> answersInTopicBy:aUser [ 
-^questions select: [:each | each answersBy:aUser ].
+^questions flatCollect: [:each | each answersBy:aUser ].
 ]
 
 { #category : #accessing }
@@ -55,14 +55,6 @@ name:=aName.
 Topic >> name:aName description:aDescription [
 name:=aName.
 description:=aDescription.
-
-]
-
-{ #category : #accessing }
-Topic >> nameTopicEquals:aTopicList [ 
-(aTopicList anySatisfy: [:each|each name = name ])ifTrue:[^questions].
-^nil
-
 
 ]
 

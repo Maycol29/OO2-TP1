@@ -45,8 +45,6 @@ QuestionComponent >> renderContentOn: aCanvas [
 					aCanvas space ].
 			aCanvas break.
 			super renderFeedback: aCanvas value: question.
-			aCanvas text:'Creation date '.
-			aCanvas text:question date.
 			aCanvas break.
 			aCanvas horizontalRule]
 ]

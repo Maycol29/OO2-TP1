@@ -106,13 +106,12 @@ TestCuOOra >> testAnswersBy [
 	
 	q2 addAnswer:a1.
 	q2 addAnswer:a3.
-	
-	self assertCollection: (sis answersBy: u1) equals: collection.
-	
-"	self denyCollection: (sis questionsBy: u3) equals: collection."
-	
-	"self assert: (sis questionsBy: u1) isEmpty"
-"self deny:(sis answersBy:u1) equals:a3"
+		
+	self assert:((sis answersBy:u1)includes:a1).
+"	self deny:((sis answersBy:u1)includes:a3)."
+	"self assert: (sis answersBy: u3) isEmpty."
+
+
 ]
 
 { #category : #tests }
@@ -207,7 +206,7 @@ TestCuOOra >> testGetTopicQuestions [
 
 { #category : #tests }
 TestCuOOra >> testQuestionsBy [
-	| topicList collection userM|
+	| topicList collection |
 	topicList := OrderedCollection new.	"Crea una lista de Topic y los agrega en sistema"
 	topicList add: t1.
 	sis addTopicList: topicList.
@@ -215,19 +214,15 @@ TestCuOOra >> testQuestionsBy [
 	t1 addQuestion: q2.	"Agrega las Question a un Topic existente en CuOOra"
 	t1 addQuestion: q3.
 	
-	collection := Set new.	"Creo la coleccion esperada"
+	collection := OrderedCollection new.	"Creo la coleccion esperada"
 	collection add: q2.
 	
-	"userM := User newUsername: 'Menem' password: 'unoAuno'."
 	
+	self assert:((sis questionsBy:u2)includes:q2).
+	self deny:((sis questionsBy:u2)includes:q3).
+	self assert: (sis questionsBy: u1) isEmpty.
 	
-	"self assert: (sis questionsBy: userM) isEmpty ."
-	
-	self assertCollection: (sis questionsBy: u2) equals: collection.
-	
-	self denyCollection: (sis questionsBy: u1) equals: collection.
-	
-	self assert: (sis questionsBy: u1) isEmpty
+
 	
 	
 	
@@ -235,6 +230,9 @@ TestCuOOra >> testQuestionsBy [
 
 { #category : #acccessing }
 TestCuOOra >> testTotalScoreOf [
+| bllala |
+bllala
+
 ]
 
 { #category : #tests }

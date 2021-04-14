@@ -43,7 +43,7 @@ Post >> date [
 
 { #category : #initialization }
 Post >> initialize [ 
-	date := DateAndTime today.
+	date := DateAndTime now.
 	votes := OrderedCollection new.
 ]
 

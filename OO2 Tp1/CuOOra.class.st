@@ -42,7 +42,9 @@ users add:aUser.
 
 { #category : #accessing }
 CuOOra >> answersBy: aUser [
-	^((topics flatCollect: [ :topic | topic answersInTopicBy: aUser ] asSet) asSortedCollection: [ :a :b | a score > b score ])
+	^ (((topics
+		flatCollect: [ :topic | topic answersInTopicBy: aUser ]) asSet)
+		asSortedCollection: [ :a :b | a score > b score ])
 ]
 
 { #category : #adding }
@@ -75,6 +77,14 @@ CuOOra >> getPostInNetwork:aCollection [
 ]
 
 { #category : #accessing }
+CuOOra >> getRelevantQuestionOf: anUser [
+^((anUser interestTopics) flatCollect:[:topic|topic questions])
+
+
+
+]
+
+{ #category : #accessing }
 CuOOra >> getTopicQuestions:aTopic [    "deberia pasarla x parametro un topico q existe"
 ^aTopic questions.
 
@@ -92,10 +102,9 @@ CuOOra >> mostThanFive:aCollection user:anUser [
 |allQuestions|
 allQuestions :=OrderedCollection new.
 allQuestions addAll:(self getPostInNetwork: aCollection)."post de amigos"
-allQuestions addAll:(self takeInterestingTopicOf: anUser)."post de interes propios"
+allQuestions addAll:(self getRelevantQuestionOf: anUser)."post de interes propios"
 allQuestions := (allQuestions asSet) asSortedCollection: [ :a :b | a date > b date ].
-((allQuestions) size >5 )ifTrue:[^(allQuestions)first:5].
-^allQuestions
+^(allQuestions takeFirst:5).
 
 ]
 
@@ -103,17 +112,6 @@ allQuestions := (allQuestions asSet) asSortedCollection: [ :a :b | a date > b da
 CuOOra >> questionsBy: anUser [
 	^ (topics flatCollect: [ :topic | topic questionsInTopicBy: anUser ])
 		asSet asSortedCollection: [ :a :b | a score > b score ]
-]
-
-{ #category : #accessing }
-CuOOra >> takeInterestingTopicOf: anUser [
-|allTopic|
-allTopic:=OrderedCollection new.
-(topics do: [:each| (each nameTopicEquals:(anUser interestTopics))
-	ifNotNil:[:it |allTopic addAll:it]]).
-^allTopic 
-
-
 ]
 
 { #category : #accessing }
