@@ -38,6 +38,11 @@ User >> initialize [
 	creationDate:=DateAndTime today.
 ]
 
+{ #category : #accessing }
+User >> interestTopics [
+^interestTopics
+]
+
 { #category : #testing }
 User >> isFollowing: aUser [
 (aUser == self) ifFalse: [ ^(following includes: aUser) ].

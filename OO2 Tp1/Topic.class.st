@@ -59,6 +59,14 @@ description:=aDescription.
 ]
 
 { #category : #accessing }
+Topic >> nameTopicEquals:aTopicList [ 
+(aTopicList anySatisfy: [:each|each name = name ])ifTrue:[^questions].
+^nil
+
+
+]
+
+{ #category : #accessing }
 Topic >> questions [
 ^questions
 
