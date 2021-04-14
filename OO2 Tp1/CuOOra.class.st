@@ -64,6 +64,7 @@ CuOOra >> createTopics: topicNames [
 { #category : #accessing }
 CuOOra >> deleteQuestion:aQuestion [
 (aQuestion topics)do:[:each | each questions remove:aQuestion].
+aQuestion deleteAnswersVotes .
 aQuestion answers removeAll.
 aQuestion votes removeAll.
 ]

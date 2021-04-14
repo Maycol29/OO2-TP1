@@ -37,6 +37,14 @@ Question >> cantAnswers [
 ^answers size.
 ]
 
+{ #category : #acccessing }
+Question >> deleteAnswersVotes [
+	answers do: [:answer| answer deleteAllVotes ]
+
+
+
+]
+
 { #category : #initialization }
 Question >> initialize [ 
 	super initialize.
