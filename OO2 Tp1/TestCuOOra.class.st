@@ -119,7 +119,22 @@ TestCuOOra >> testAnswersBy: aUser [
 ]
 
 { #category : #tests }
-TestCuOOra >> testCreateTopics: topicNames [
+TestCuOOra >> testCreateTopics [
+	|string|
+	sis topics add: t1 . "Topic 'programacion' (debería usar addTopicList)"
+	
+	string:= 'Tecnologia,programacion,pc'.
+	sis createTopics: (string findTokens: ','). "Ingreso una Collection de Strings"
+	
+	" 'programacion' es un Topic existente y no debería crearlo denuevo"
+	self assert: (sis topics includes: t1)	.
+		
+	"Se debe crear un Topic 'pc' y otro 'Tecnologia' "
+	self assert: (sis topics anySatisfy: [:topic| topic name = 'pc' ]) .
+	
+	self assert: (sis topics anySatisfy: [:topic| topic name = 'Tecnologia' ]) .
+
+
 ]
 
 { #category : #tests }
@@ -127,14 +142,45 @@ TestCuOOra >> testDeleteQuestion [
 
 	| topicList collection |
 	topicList := OrderedCollection new.	"Crea una lista de Topic y los agrega en sistema"
-	topicList add: t1.
+	topicList add: t2. "Covid 19"
+	topicList add: t3. "Vacaciones"
 	sis addTopicList: topicList.
 	
-	t1 addQuestion: q2.	"Agrega las Question a un Topic existente en CuOOra"
-	t1 addQuestion: q3.
+
+	q2 := Question
+		newAuthor: u2
+		text: 'Tengo esta duda ya que quiero ir en temporada alta'
+		title: 'Cuando son vacaciones en EEUU?'
+		topics: (t3) asOrderedCollection. "Vacaciones"
+		
+	q3 := Question
+		newAuthor: u3
+		text: 'Quiero irme de vacaciones y necesito saber el estado del lugar'
+		title: 'Como esta el estado del covid en Francia?'
+		topics: topicList.  "Vacaciones, Covid 19"
 	
-	collection := Set new.	"Creo la coleccion esperada"
+	
+	
+	t2 addQuestion: q3. 	"Topic 'Covid 19' tiene solo una Question"
+								
+	t3 addQuestion: q3.	"Topic Vacaciones tiene dos Question"
+	t3 addQuestion: q2.
+	
+	collection := OrderedCollection new. "Collection con solo q2(relacionada con 'Vacaciones')"
 	collection add: q2.
+	
+	
+	sis deleteQuestion: q3 . 
+	
+	"Si elimino q3 (relacionada con 'Covid 19' y 'Vacaciones' ), el Topic 'Vacaciones' debería tener solo q2"
+	self assertCollection: (t3 questions ) equals: collection . 
+	
+	"Si elimino q3, el Topic 'Covid 19' no deberia tener ninguna Question"
+	self assert: (t2 questions ) isEmpty 
+	
+	
+	
+	
 	
 	
 ]
@@ -194,4 +240,34 @@ self assert: (sis userWithUsername: 'lucio' protectedBy: 4321) equals: u2.
 self deny: (sis userWithUsername: 'lucio' protectedBy: 4321)  equals: u1.
 
 self assert: (sis userWithUsername: 'gerardo' protectedBy: 'aguanteVelez') equals: nil.
+]
+
+{ #category : #tests }
+TestCuOOra >> testUsersMatchingNamePart [
+|users wantedCollection|
+sis addUser: u1. "tobias"
+sis addUser: u2. "lucio"
+sis addUser: u3. "luna"
+
+users := sis usersMatchingNamePart: 'l'.
+
+
+wantedCollection := OrderedCollection new. "Coleccion esperada"
+wantedCollection add: u2. "lucio"
+wantedCollection add: u3. "luna"
+
+"Deberia devolver a los User 'lucio' y 'luna' "
+self assertCollection: (users) equals: wantedCollection .
+
+"No debería devolver al User 'tobias' "
+self deny: (users anySatisfy: [:user| user == u1  ]).
+
+"Debería devolver vacio, ya que ningún User contine 'w' "
+self assert: (sis usersMatchingNamePart: 'w') isEmpty .
+
+
+
+
+
+
 ]
