@@ -55,7 +55,7 @@ CuOOra >> createTopics: topicNames [
 			topics
 				detect: [ :each | each name = N ]
 				ifFound:[:it | topicExist add: it ]
-				ifNone: [ topicList add: (Topic newName: N) ] ]).
+				ifNone: [ topicList add: (Topic newName: N description:'') ] ]).
 	self addTopicList:topicList .
 	topicList addAll:topicExist.
 	^topicList
@@ -70,7 +70,7 @@ aQuestion votes removeAll.
 
 { #category : #utility }
 CuOOra >> getPostInNetwork:aCollection [
-^((aCollection flatCollect:[:each| self questionsBy: each]) asSet) asSortedCollection: [ :a :b | a date > b date ].
+^(aCollection flatCollect:[:each| self questionsBy: each]) 
 ]
 
 { #category : #accessing }
@@ -92,15 +92,32 @@ CuOOra >> interestingTopicOf:aUser [
 ]
 
 { #category : #accessing }
-CuOOra >> mostThanFive:aCollection [
-(self getPostInNetwork: aCollection) size >5 ifTrue:[^(self getPostInNetwork: aCollection)first:5].
-^self getPostInNetwork: aCollection
+CuOOra >> mostThanFive:aCollection user:anUser [
+|allQuestions|
+allQuestions :=OrderedCollection new.
+allQuestions addAll:(self getPostInNetwork: aCollection)."post de amigos"
+allQuestions addAll:(self takeInterestingTopicOf: anUser)."post de interes propios"
+allQuestions := (allQuestions asSet) asSortedCollection: [ :a :b | a date > b date ].
+((allQuestions) size >5 )ifTrue:[^(allQuestions)first:5].
+^allQuestions
 
 ]
 
 { #category : #accessing }
-CuOOra >> questionsBy: anUser [     
-	^(topics flatCollect: [ :topic | topic questionsInTopicBy: anUser ])asSet.
+CuOOra >> questionsBy: anUser [
+	^ (topics flatCollect: [ :topic | topic questionsInTopicBy: anUser ])
+		asSet asSortedCollection: [ :a :b | a score > b score ]
+]
+
+{ #category : #accessing }
+CuOOra >> takeInterestingTopicOf: anUser [
+|allTopic|
+allTopic:=OrderedCollection new.
+(topics do: [:each| (each nameTopicEquals:(anUser interestTopics))
+	ifNotNil:[:it |allTopic addAll:it]]).
+^allTopic 
+
+
 ]
 
 { #category : #accessing }

@@ -61,11 +61,12 @@ MainComponent >> renderFriendsOn: aCanvas [
 { #category : #rendering }
 MainComponent >> renderLastQuestion: aCanvas [
 	aCanvas
-		unorderedList: [ (self model mostThanFive:self session user following)
+		unorderedList: [ (self model
+				mostThanFive: (self session user following) user:(self session user) )
 				do: [ :post | 
-					 "QuestionComponent new question: post"
-					aCanvas render: (QuestionComponent new question: post parent:self) .
-					"self viewAnswers: aCanvas question: post "] ]
+					"QuestionComponent new question: post"
+					aCanvas render: (QuestionComponent new question: post parent: self)
+					"self viewAnswers: aCanvas question: post " ] ]
 ]
 
 { #category : #rendering }
@@ -96,7 +97,7 @@ aCanvas horizontalRule.
 MainComponent >> renderPostsOn: aCanvas [
 	aCanvas heading
 		level: 2;
-		with: 'Following Posts'.
+		with: 'Latest Posts'.
 	self renderLastQuestion: aCanvas .
 ]
 
