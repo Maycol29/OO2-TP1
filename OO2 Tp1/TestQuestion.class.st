@@ -32,9 +32,7 @@ TestQuestion >> setUp [
 	answer1 addVote: vote1.
 	answer1 addVote: vote2.
 	
-	
-	answer2 := Answer newAuthor: user2  text: 'Y bueno... vamo a juga'.
-	
+	answer2 := Answer newAuthor: user1  text: 'Y... es todo un tema'.
 ]
 
 { #category : #tests }
@@ -50,5 +48,29 @@ TestQuestion >> testAnswersBy [
 	self assert: [(question answersBy: user1) anySatisfy: [:answer| answer author == user1]].
 	
 	self assert: (question answersBy: user2) isEmpty.
+	
+]
+
+{ #category : #acccessing }
+TestQuestion >> testDeleteAnswersVotes [
+	question answers  do: [:answer| self assert: (answer votes) isEmpty ].
+
+	question addAnswer: answer1 .
+	question addAnswer: answer2 .
+	question deleteAnswersVotes.
+	
+	question answers  do: [:answer| self assert: (answer votes) isEmpty ]
+	
+]
+
+{ #category : #tests }
+TestQuestion >> testScoreAnswersBy [
+
+	self assert: [ (question scoreAnswersBy: user1) = 0 ].
+	question addAnswer: answer1.
+	question addAnswer: answer2.
+	
+	self assert: [ (question scoreAnswersBy: user1) = 2 ].
+	
 	
 ]

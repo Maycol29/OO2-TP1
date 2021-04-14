@@ -59,7 +59,7 @@ Question >> orderedAnswers [
 
 { #category : #acccessing }
 Question >> scoreAnswersBy:aUser [
-^answers sumNumbers:[:each | each score ]
+^(self answersBy: aUser) sumNumbers:[:each | each score ]
 ]
 
 { #category : #acccessing }
