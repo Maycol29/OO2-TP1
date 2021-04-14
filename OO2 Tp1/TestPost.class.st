@@ -1,7 +1,10 @@
 Class {
-	#name : #TestTopic,
+	#name : #TestPost,
 	#superclass : #TestCase,
 	#instVars : [
+		'u1',
+		'u2',
+		'u3',
 		't1',
 		't2',
 		't3',
@@ -13,20 +16,15 @@ Class {
 		'a3',
 		'v1',
 		'v2',
-		'v3',
-		'u1',
-		'u2',
-		'u3'
+		'v3'
 	],
 	#category : #'OO2 Tp1-test'
 }
 
 { #category : #running }
-TestTopic >> setUp [
+TestPost >> setUp [
 	"Hooks that subclasses may override to define the fixture of test."
 	|topics|
-	topics:=OrderedCollection new.
-	
 	u1 := User newUsername: 'tobias' password: 1234.
 	u2 := User newUsername: 'lucio' password: 4321.
 	u3 := User newUsername: 'luna' password: 'asdf'.
@@ -60,45 +58,17 @@ TestTopic >> setUp [
 	v1:=Vote newBelongsTo: u1 value: true.
 	v2:=Vote newBelongsTo: u2 value: false.
 	v3:=Vote newBelongsTo: u3 value: false.
-	 
 
 ]
 
 { #category : #tests }
-TestTopic >> testAddQuestion [
-self assert: ( t1 questions isEmpty) .
-t1 addQuestion:q1. 
-self assert:t1 questions size equals:1.
-self assert:((t1 questions) anySatisfy:[:each|each == q1]). 
-]
-
-{ #category : #tests }
-TestTopic >> testAnswersInTopicsBy [
-	|collection|
-	t1 addQuestion: q2.	"Agrega las Question a un Topic existente en CuOOra"
-	t1 addQuestion: q3.
-	
-	collection := OrderedCollection new.	"Creo la coleccion esperada"
-	collection add: a2.
-	q3 addAnswer:a2. 
-	self assertCollection: (t1 answersInTopicBy: u2) equals: collection.
-	
-	self denyCollection: (t1 answersInTopicBy: u1) equals: collection.
-	
-	self assert: (t1 answersInTopicBy: u1) isEmpty
-]
-
-{ #category : #tests }
-TestTopic >> testQuestionsInTopicsBy [
-	|collection|
-	t1 addQuestion: q2.	"Agrega las Question a un Topic existente en CuOOra"
-	t1 addQuestion: q3.
-	
-	collection := OrderedCollection new.	"Creo la coleccion esperada"
-	collection add: q2.
-	self assertCollection: (t1 questionsInTopicBy: u2) equals: collection.
-	
-	self denyCollection: (t1 questionsInTopicBy: u1) equals: collection.
-	
-	self assert: (t1 questionsInTopicBy: u1) isEmpty
+TestPost >> testAddVote [
+self assert: ( q1 votes isEmpty) .
+self assert: ( a1 votes isEmpty) .
+q1 addVote:v1.
+a1 addVote:v2. 
+self assert:a1 votes  size equals:1.
+self assert:q1 votes  size equals:1.
+self assert:((q1 votes ) anySatisfy:[:vote|vote == v1]). 
+self assert:((a1 votes ) anySatisfy:[:vote|vote == v2]). 
 ]
