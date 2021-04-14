@@ -32,7 +32,7 @@ Vote >> date [
 
 { #category : #initialization }
 Vote >> initialize [ 
-	date := DateAndTime today.
+	date := DateAndTime now.
 ]
 
 { #category : #accessing }

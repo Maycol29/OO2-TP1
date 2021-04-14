@@ -35,7 +35,7 @@ User >> following [
 User >> initialize [ 
 	following := OrderedCollection new.
 	interestTopics := OrderedCollection new.
-	creationDate:=DateAndTime today.
+	creationDate:=DateAndTime now.
 ]
 
 { #category : #accessing }
