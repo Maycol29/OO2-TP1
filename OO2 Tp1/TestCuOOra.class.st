@@ -227,7 +227,7 @@ TestCuOOra >> testQuestionsBy [
 ]
 
 { #category : #acccessing }
-TestCuOOra >> testTotalScoreOf:anUser [
+TestCuOOra >> testTotalScoreOf [
 ]
 
 { #category : #tests }

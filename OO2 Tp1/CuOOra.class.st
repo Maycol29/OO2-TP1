@@ -42,7 +42,7 @@ users add:aUser.
 
 { #category : #accessing }
 CuOOra >> answersBy: aUser [
-	topics flatCollect: [ :topic | topic answersInTopicBy: aUser ]
+	^((topics flatCollect: [ :topic | topic answersInTopicBy: aUser ] asSet) asSortedCollection: [ :a :b | a score > b score ])
 ]
 
 { #category : #adding }
@@ -125,11 +125,8 @@ CuOOra >> topics [
 { #category : #accessing }
 CuOOra >> totalScoreOf: aUser [
 	| scoreQ scoreA scoreV |
-	scoreQ := ((topics
-		select: [ :each | each questionsInTopicBy: aUser ] asSet)
-		asOrderedCollection) size * 20.
-	scoreA := ((topics select: [ :each | each answersInTopicBy: aUser ])
-		asSet asOrderedCollection) size * 50.
+	scoreQ :=(self questionsBy: aUser) size * 20.
+	scoreA := (self answersBy:aUser) size * 50.
 	scoreV := topics
 		sumNumbers: [ :each | each scoreOfTheAnswersBy: aUser ].
 	^ scoreA + scoreQ + scoreV

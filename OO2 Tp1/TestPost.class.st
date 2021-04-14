@@ -70,5 +70,32 @@ a1 addVote:v2.
 self assert:a1 votes  size equals:1.
 self assert:q1 votes  size equals:1.
 self assert:((q1 votes ) anySatisfy:[:vote|vote == v1]). 
-self assert:((a1 votes ) anySatisfy:[:vote|vote == v2]). 
+self assert:((a1 votes ) anySatisfy:[:vote|vote == v2]).
+q1 addVote: v1 .
+self assert:((q1 votes ) anySatisfy:[:vote|vote == v1]). 
+
+]
+
+{ #category : #tests }
+TestPost >> testNegativeScore [
+q1 addVote: v1.
+q1 addVote:v2.
+q1 addVote:v3.
+self assert:(q1 negativeScore) = 2.
+]
+
+{ #category : #tests }
+TestPost >> testPositiveScore [
+q1 addVote: v1.
+q1 addVote:v2.
+q1 addVote:v3.
+self assert:[(q1 positiveScore) = 1].
+]
+
+{ #category : #tests }
+TestPost >> testScore [
+q1 addVote: v1.
+q1 addVote:v2.
+q1 addVote:v3.
+self assert:(q1 score) =(-1).
 ]
