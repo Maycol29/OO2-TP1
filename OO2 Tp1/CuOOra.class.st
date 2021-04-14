@@ -88,11 +88,6 @@ topics:=OrderedCollection new.
 ]
 
 { #category : #accessing }
-CuOOra >> interestingTopicOf:aUser [
-^ topics detectMax: [ :each | each mostInteresting:aUser  ]. 
-]
-
-{ #category : #accessing }
 CuOOra >> mostThanFive:aCollection user:anUser [
 |allQuestions|
 allQuestions :=OrderedCollection new.

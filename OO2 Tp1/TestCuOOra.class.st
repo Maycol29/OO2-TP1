@@ -88,6 +88,7 @@ TestCuOOra >> testAddUser [
 self assert: (sis users isEmpty) .
 sis addUser:u1. 
 self assert:sis users size equals:1.
+self assert:(sis users anySatisfy:[:user|user == u1]). 
 ]
 
 { #category : #tests }
