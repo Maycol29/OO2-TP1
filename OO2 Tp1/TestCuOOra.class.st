@@ -119,7 +119,22 @@ TestCuOOra >> testAnswersBy: aUser [
 ]
 
 { #category : #tests }
-TestCuOOra >> testCreateTopics: topicNames [
+TestCuOOra >> testCreateTopics [
+	|string|
+	sis topics add: t1 . "Topic 'programacion' (debería usar addTopicList)"
+	
+	string:= 'Tecnologia,programacion,pc'.
+	sis createTopics: (string findTokens: ','). "Ingreso una Collection de Strings"
+	
+	" 'programacion' es un Topic existente y no debería crearlo denuevo"
+	self assert: (sis topics includes: t1)	.
+		
+	"Se debe crear un Topic 'pc' y otro 'Tecnologia' "
+	self assert: (sis topics anySatisfy: [:topic| topic name = 'pc' ]) .
+	
+	self assert: (sis topics anySatisfy: [:topic| topic name = 'Tecnologia' ]) .
+
+
 ]
 
 { #category : #tests }
@@ -151,13 +166,13 @@ TestCuOOra >> testDeleteQuestion [
 	t3 addQuestion: q3.	"Topic Vacaciones tiene dos Question"
 	t3 addQuestion: q2.
 	
-	collection := OrderedCollection new. "Collection con solo q2"
+	collection := OrderedCollection new. "Collection con solo q2(relacionada con 'Vacaciones')"
 	collection add: q2.
 	
 	
 	sis deleteQuestion: q3 . 
 	
-	"Si elimino q3 (relacionada con Covid 19), el Topic 'Vacaciones' debería tener solo q2"
+	"Si elimino q3 (relacionada con 'Covid 19' y 'Vacaciones' ), el Topic 'Vacaciones' debería tener solo q2"
 	self assertCollection: (t3 questions ) equals: collection . 
 	
 	"Si elimino q3, el Topic 'Covid 19' no deberia tener ninguna Question"
@@ -225,4 +240,34 @@ self assert: (sis userWithUsername: 'lucio' protectedBy: 4321) equals: u2.
 self deny: (sis userWithUsername: 'lucio' protectedBy: 4321)  equals: u1.
 
 self assert: (sis userWithUsername: 'gerardo' protectedBy: 'aguanteVelez') equals: nil.
+]
+
+{ #category : #tests }
+TestCuOOra >> testUsersMatchingNamePart [
+|users wantedCollection|
+sis addUser: u1. "tobias"
+sis addUser: u2. "lucio"
+sis addUser: u3. "luna"
+
+users := sis usersMatchingNamePart: 'l'.
+
+
+wantedCollection := OrderedCollection new. "Coleccion esperada"
+wantedCollection add: u2. "lucio"
+wantedCollection add: u3. "luna"
+
+"Deberia devolver a los User 'lucio' y 'luna' "
+self assertCollection: (users) equals: wantedCollection .
+
+"No debería devolver al User 'tobias' "
+self deny: (users anySatisfy: [:user| user == u1  ]).
+
+"Debería devolver vacio"
+self assert: (sis usersMatchingNamePart: 'w') isEmpty .
+
+
+
+
+
+
 ]
