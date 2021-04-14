@@ -88,7 +88,7 @@ scoreV :=  (self scoreOfTheAnswersBy:aUser) + (self scoreOfTheAnswersBy: aUser).
 
 { #category : #accessing }
 Topic >> scoreOfTheAnswersBy:aUser [
-^questions sumNumbers: [:each | each scoreAnswersBy:aUser ].
+^questions sumNumbers: [:question | question scoreAnswersBy:aUser ].
 ]
 
 { #category : #accessing }

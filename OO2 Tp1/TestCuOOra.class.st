@@ -207,7 +207,7 @@ TestCuOOra >> testGetTopicQuestions [
 
 { #category : #tests }
 TestCuOOra >> testQuestionsBy [
-	| topicList collection |
+	| topicList collection userM|
 	topicList := OrderedCollection new.	"Crea una lista de Topic y los agrega en sistema"
 	topicList add: t1.
 	sis addTopicList: topicList.
@@ -218,11 +218,18 @@ TestCuOOra >> testQuestionsBy [
 	collection := Set new.	"Creo la coleccion esperada"
 	collection add: q2.
 	
+	"userM := User newUsername: 'Menem' password: 'unoAuno'."
+	
+	
+	"self assert: (sis questionsBy: userM) isEmpty ."
+	
 	self assertCollection: (sis questionsBy: u2) equals: collection.
 	
 	self denyCollection: (sis questionsBy: u1) equals: collection.
 	
 	self assert: (sis questionsBy: u1) isEmpty
+	
+	
 	
 ]
 

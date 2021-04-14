@@ -58,8 +58,11 @@ Question >> orderedAnswers [
 ]
 
 { #category : #acccessing }
-Question >> scoreAnswersBy:aUser [
-^(self answersBy: aUser) sumNumbers:[:each | each score ]
+Question >> scoreAnswersBy: aUser [
+	| ans |
+	ans := self answersBy: aUser.
+	ans ifNotEmpty: [ ^ ans sumNumbers: [ :a | a score ] ].
+	^ 0
 ]
 
 { #category : #acccessing }
