@@ -127,14 +127,45 @@ TestCuOOra >> testDeleteQuestion [
 
 	| topicList collection |
 	topicList := OrderedCollection new.	"Crea una lista de Topic y los agrega en sistema"
-	topicList add: t1.
+	topicList add: t2. "Covid 19"
+	topicList add: t3. "Vacaciones"
 	sis addTopicList: topicList.
 	
-	t1 addQuestion: q2.	"Agrega las Question a un Topic existente en CuOOra"
-	t1 addQuestion: q3.
+
+	q2 := Question
+		newAuthor: u2
+		text: 'Tengo esta duda ya que quiero ir en temporada alta'
+		title: 'Cuando son vacaciones en EEUU?'
+		topics: (t3) asOrderedCollection. "Vacaciones"
+		
+	q3 := Question
+		newAuthor: u3
+		text: 'Quiero irme de vacaciones y necesito saber el estado del lugar'
+		title: 'Como esta el estado del covid en Francia?'
+		topics: topicList.  "Vacaciones, Covid 19"
 	
-	collection := Set new.	"Creo la coleccion esperada"
+	
+	
+	t2 addQuestion: q3. 	"Topic 'Covid 19' tiene solo una Question"
+								
+	t3 addQuestion: q3.	"Topic Vacaciones tiene dos Question"
+	t3 addQuestion: q2.
+	
+	collection := OrderedCollection new. "Collection con solo q2"
 	collection add: q2.
+	
+	
+	sis deleteQuestion: q3 . 
+	
+	"Si elimino q3 (relacionada con Covid 19), el Topic 'Vacaciones' debería tener solo q2"
+	self assertCollection: (t3 questions ) equals: collection . 
+	
+	"Si elimino q3, el Topic 'Covid 19' no deberia tener ninguna Question"
+	self assert: (t2 questions ) isEmpty 
+	
+	
+	
+	
 	
 	
 ]
