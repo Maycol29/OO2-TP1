@@ -71,11 +71,6 @@ aQuestion answers removeAll.
 aQuestion votes removeAll.
 ]
 
-{ #category : #utility }
-CuOOra >> getPostInNetwork:aCollection [
-^(aCollection flatCollect:[:each| self questionsBy: each]) 
-]
-
 { #category : #accessing }
 CuOOra >> getRelevantQuestionOf: anUser [
 ^((anUser interestTopics) flatCollect:[:topic|topic questions])
@@ -88,6 +83,11 @@ CuOOra >> getRelevantQuestionOf: anUser [
 CuOOra >> getTopicQuestions:aTopic [    "deberia pasarla x parametro un topico q existe"
 ^aTopic questions.
 
+]
+
+{ #category : #utility }
+CuOOra >> getUsersQuestions: aUserList [
+^(aUserList flatCollect:[:user| self questionsBy: user]) 
 ]
 
 { #category : #initialize }
