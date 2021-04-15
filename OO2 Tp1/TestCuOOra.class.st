@@ -185,7 +185,21 @@ TestCuOOra >> testGetPostInNetwork [
 ]
 
 { #category : #acccessing }
-TestCuOOra >> testGetRelevantQuestionBy [
+TestCuOOra >> testGetRelevantQuestionOf [
+|topicList|
+topicList := OrderedCollection new.
+topicList add: t1.
+topicList add: t2.
+topicList add: t3.
+
+t1 addQuestion: q2.
+
+u1 interestTopics: topicList .
+
+self assert: [( sis getRelevantQuestionOf: u1 ) includes: q2]
+
+
+
 
 
 

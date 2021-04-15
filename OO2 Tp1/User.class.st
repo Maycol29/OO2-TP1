@@ -43,6 +43,11 @@ User >> interestTopics [
 ^interestTopics
 ]
 
+{ #category : #accessing }
+User >> interestTopics: topicList [
+	interestTopics := topicList
+]
+
 { #category : #testing }
 User >> isFollowing: aUser [
 (aUser == self) ifFalse: [ ^(following includes: aUser) ].
