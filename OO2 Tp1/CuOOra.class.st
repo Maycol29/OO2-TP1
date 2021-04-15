@@ -125,8 +125,9 @@ CuOOra >> totalScoreOf: aUser [
 	| scoreQ scoreA scoreV |
 	scoreQ :=(self questionsBy: aUser) size * 20.
 	scoreA := (self answersBy:aUser) size * 50.
-	scoreV := topics
-		sumNumbers: [ :each | each scoreOfTheAnswersBy: aUser ].
+	scoreV := (topics
+		sumNumbers: [ :each | each scoreOfTheAnswersBy: aUser ])+(topics
+		sumNumbers: [ :each | each scoreOfTheQuestionsBy: aUser ]).
 	^ scoreA + scoreQ + scoreV
 ]
 

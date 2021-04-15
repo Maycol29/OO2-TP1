@@ -257,8 +257,16 @@ TestCuOOra >> testQuestionsBy [
 
 { #category : #acccessing }
 TestCuOOra >> testTotalScoreOf [
-| bllala |
-bllala
+|ord|
+ord:= OrderedCollection new.
+ord add:t1.
+sis addTopicList: ord.
+t1 addQuestion: q1.
+q1 addAnswer:a1.
+a1 addVote: v1.
+
+self assert:((sis totalScoreOf:u1 )= 71).
+self assert:((sis totalScoreOf:u2 )= 0).
 
 ]
 
