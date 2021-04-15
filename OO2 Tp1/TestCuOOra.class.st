@@ -267,7 +267,10 @@ sis addUser: u1 .
 sis addUser: u2 .
 sis addUser: u3 .
 
-self assert: [(sis usersMatchingNamePart: 'l') includes: u2].
+self assert: [(sis usersMatchingNamePart: 'l') includes: u2] .
+self assert: [(sis usersMatchingNamePart: 'l') includes: u2] .
+self deny: [(sis usersMatchingNamePart: 'l') includes: u3] .
+
 
 
 
