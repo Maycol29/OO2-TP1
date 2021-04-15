@@ -179,12 +179,6 @@ TestCuOOra >> testDeleteQuestion [
 ]
 
 { #category : #acccessing }
-TestCuOOra >> testGetPostInNetwork [
-
-
-]
-
-{ #category : #acccessing }
 TestCuOOra >> testGetRelevantQuestionOf [
 |topicList|
 topicList := OrderedCollection new.
@@ -222,6 +216,15 @@ TestCuOOra >> testGetTopicQuestions [
 	self assertCollection: (sis getTopicQuestions: t1) equals: collection.
 	
 	self assert: (sis getTopicQuestions: t2) isEmpty
+]
+
+{ #category : #acccessing }
+TestCuOOra >> testGetUsersQuestions [
+
+
+
+
+
 ]
 
 { #category : #acccessing }
