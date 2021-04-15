@@ -101,7 +101,7 @@ topics:=OrderedCollection new.
 CuOOra >> mostThanFive:aCollection user:anUser [
 |allQuestions|
 allQuestions :=OrderedCollection new.
-allQuestions addAll:(self getPostInNetwork: aCollection)."post de amigos"
+allQuestions addAll:(self getUsersQuestions: aCollection)."post de amigos"
 allQuestions addAll:(self getRelevantQuestionOf: anUser)."post de interes propios"
 allQuestions := (allQuestions asSet) asSortedCollection: [ :a :b | a date > b date ].
 ^(allQuestions takeFirst:5).
