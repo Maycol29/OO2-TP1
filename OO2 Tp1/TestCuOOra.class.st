@@ -262,7 +262,15 @@ self assert: (sis userWithUsername: 'gerardo' protectedBy: 'aguanteVelez') equal
 ]
 
 { #category : #acccessing }
-TestCuOOra >> testUsersMatchingNamePart [ 
+TestCuOOra >> testUsersMatchingNamePart [
+sis addUser: u1 .
+sis addUser: u2 .
+sis addUser: u3 .
+
+self assert: [(sis usersMatchingNamePart: 'l') includes: u2] .
+self assert: [(sis usersMatchingNamePart: 'l') includes: u3] .
+self deny: [(sis usersMatchingNamePart: 'l') includes: u1] .
+
 
 
 
