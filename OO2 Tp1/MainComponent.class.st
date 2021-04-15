@@ -34,7 +34,7 @@ MainComponent >> renderContentOn: aCanvas [
 	aCanvas heading style:' background-color: black; color:white'; with:'CuOOra '.
 	aCanvas horizontalRule.
 	aCanvas heading: 'Welcome ' , self session user username.
-	self renderMyQuestion:aCanvas.
+	self renderMyQuestions:aCanvas.
 	self renderPostsOn: aCanvas.
 	aCanvas horizontalRule.
 	self renderFriendsOn: aCanvas.
@@ -59,7 +59,7 @@ MainComponent >> renderFriendsOn: aCanvas [
 ]
 
 { #category : #rendering }
-MainComponent >> renderLastQuestion: aCanvas [
+MainComponent >> renderLastQuestions: aCanvas [
 	aCanvas
 		unorderedList: [ (self model
 				mostThanFive: (self session user following) user:(self session user) )
@@ -79,7 +79,7 @@ MainComponent >> renderLogoutButtonOn: aCanvas [
 ]
 
 { #category : #rendering }
-MainComponent >> renderMyQuestion:aCanvas [
+MainComponent >> renderMyQuestions:aCanvas [
 aCanvas strong with: [ 
 	aCanvas anchor
 		style: 'font-size: 25px; color:darkorange';
@@ -98,7 +98,7 @@ MainComponent >> renderPostsOn: aCanvas [
 	aCanvas heading
 		level: 2;
 		with: 'Latest Posts'.
-	self renderLastQuestion: aCanvas .
+	self renderLastQuestions: aCanvas .
 ]
 
 { #category : #callbacks }

@@ -3,7 +3,7 @@ Class {
 	#superclass : #PostComponent,
 	#instVars : [
 		'reply',
-		'vamo',
+		'showB',
 		'seeR'
 	],
 	#category : #'OO2 Tp1-ui'
@@ -18,7 +18,7 @@ AnswersComponent >> createAnswer: aQuestion [
 { #category : #initialize }
 AnswersComponent >> initialize [ 
 super initialize.
-vamo:=false.
+showB :=false.
 seeR:=true.
 ]
 
@@ -44,12 +44,12 @@ AnswersComponent >> renderAnswers: aCanvas [
 		with: 'Back' .
 	seeR ifTrue:[aCanvas
 		submitButton   
-		callback: [vamo:=true.seeR:=false.];
+		callback: [showB :=true.seeR:=false.];
 		with:'reply'].
 	aCanvas break.
-	vamo
+	showB
 		ifFalse: [ ^ self ].
-	vamo
+	showB
 		ifTrue: [ self renderCreateAnAnswer: aCanvas ].
 ]
 
@@ -72,11 +72,11 @@ AnswersComponent >> renderCreateAnAnswer: aCanvas [
 		rows: 5.
 	aCanvas break.
 	aCanvas submitButton 
-		callback: [ seeR:=true.vamo:=false ];
+		callback: [ seeR:=true.showB :=false ];
 		with: 'Cancel' .
 	aCanvas space.
 	aCanvas submitButton
-		callback: [ self createAnswer:question.seeR:=true.vamo:=false.reply:='' ];
+		callback: [ self createAnswer:question.seeR:=true.showB :=false.reply:='' ];
 		with:'Confirm post' .
 ]
 
@@ -91,11 +91,11 @@ reply:=aReply
 ]
 
 { #category : #accessing }
-AnswersComponent >> vamo [
-^vamo
+AnswersComponent >> showB [
+^showB
 ]
 
 { #category : #accessing }
-AnswersComponent >> vamo:vac [
-vamo:=vac
+AnswersComponent >> showB:aBollean [
+showB:=aBollean 
 ]

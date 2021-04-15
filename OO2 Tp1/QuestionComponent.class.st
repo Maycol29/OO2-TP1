@@ -2,7 +2,6 @@ Class {
 	#name : #QuestionComponent,
 	#superclass : #PostComponent,
 	#instVars : [
-		'reply',
 		'seeA'
 	],
 	#category : #'OO2 Tp1-ui'
