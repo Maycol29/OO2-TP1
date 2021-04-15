@@ -75,6 +75,6 @@ Topic >> scoreOfTheAnswersBy:aUser [
 ]
 
 { #category : #accessing }
-Topic >> scoreOfTheQuestionsBy:aUser [
-^questions sumNumbers:[:each | each score ]
+Topic >> scoreOfTheQuestionsBy: aUser [
+	^ (self questionsInTopicBy:aUser) sumNumbers: [ :each | each score ]
 ]

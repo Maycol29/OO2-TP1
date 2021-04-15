@@ -107,8 +107,38 @@ TestTopic >> testQuestionsInTopicsBy [
 
 { #category : #tests }
 TestTopic >> testScoreOfTheAnswersBy [
+
+t1 addQuestion: q1.
+t1 addQuestion:q2.
+
+self assert:[(t1 scoreOfTheAnswersBy:u1) = 0].
+
+	q1 addAnswer:a1.
+	q2 addAnswer:a2.
+	
+	a1 addVote: v1.
+	a2 addVote: v2.
+	a2 addVote:v3.
+
+self assert:[(t1 scoreOfTheAnswersBy:u1) = 1].
+self assert:((t1 scoreOfTheAnswersBy:u2)=(-2)).
+self assert:((t1 scoreOfTheAnswersBy:u3)=0).
 ]
 
 { #category : #tests }
 TestTopic >> testScoreOfTheQuestionsBy [
+
+t1 addQuestion: q1.
+t1 addQuestion:q2.
+
+self assert:[(t1 scoreOfTheQuestionsBy:u1) = 0].
+
+	q1 addVote: v1.
+	q2 addVote: v2.
+	q2 addVote:v3.
+
+self assert:[(t1 scoreOfTheQuestionsBy:u1) = 1].
+self assert:((t1 scoreOfTheQuestionsBy:u2)=(-2)).
+self assert:((t1 scoreOfTheQuestionsBy:u3)=0).
+
 ]
