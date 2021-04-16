@@ -8,8 +8,3 @@ Class {
 Answer >> deleteAllVotes [
 	votes removeAll .
 ]
-
-{ #category : #initialization }
-Answer >> initialize [ 
-super initialize.
-]
