@@ -1,21 +1,8 @@
 Class {
 	#name : #SingInComponent,
 	#superclass : #AccessComponent,
-	#instVars : [
-		'name'
-	],
 	#category : #'OO2 Tp1-ui'
 }
-
-{ #category : #accessing }
-SingInComponent >> name [
-	^ name
-]
-
-{ #category : #accessing }
-SingInComponent >> name: anObject [
-	name := anObject
-]
 
 { #category : #utility }
 SingInComponent >> registerAndLogin [
