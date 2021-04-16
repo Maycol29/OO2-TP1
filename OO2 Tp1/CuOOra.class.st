@@ -93,8 +93,6 @@ ord1 add:'OO1'.
 ord1 add:'Test de unidad'.
 ord2 add:'OO1'.
 ord2 add:'Smalltalk'.
-"sis createTopics: ord1.
-sis createTopics: ord2."
 q1:=Question newAuthor: u1 text:'Necesito aprender a hacer test pero no entiendo para q sirve este metodo.'  title: '¿Para qué sirve el método SetUp?'  topics: (self createTopics: ord1).
 q2:=Question newAuthor: u2 text:'Tengo este error y necesito ayuda.'  title: '¿Qué significa #messageNotUnderstood?'  topics: (self createTopics: ord2).
 a1 :=Answer newAuthor: u2 text:' Sirve para instanciar los objetos que son
@@ -106,10 +104,6 @@ self addQuestionToSistem: q1.
 self addQuestionToSistem: q2.
 q1 addAnswer: a1.
 q2 addAnswer: a2.
-
-
-
- 
 ]
 
 { #category : #accessing }
