@@ -23,6 +23,11 @@ CuOOra class >> soleInstance [
 
 ]
 
+{ #category : #'instance creation' }
+CuOOra class >> soleInstanceWithExample [
+soleInstance:=self new example.
+]
+
 { #category : #adding }
 CuOOra >> addQuestionToSistem: aQuestion [
 	(aQuestion topics) do: [ :topic | topic addQuestion: aQuestion ]
@@ -71,9 +76,45 @@ aQuestion answers removeAll.
 aQuestion votes removeAll.
 ]
 
+{ #category : #example }
+CuOOra >> example [ 
+| u1 u2 u3 q1 q2 a1 a2 ord1 ord2|
+u1:=User newUsername: 'pedro@cuoora.com' password:'asd'.
+u2:=User newUsername: 'diego@cuoora.com' password:'asd'.
+u3:=User newUsername: 'juan@cuoora.com' password:'asd'.
+self addUser: u1.
+self addUser: u2.
+self addUser: u3.
+u3 addFollowing: u2.
+u1 addFollowing: u3.
+ord1 :=OrderedCollection new.
+ord2:=OrderedCollection new.
+ord1 add:'OO1'.
+ord1 add:'Test de unidad'.
+ord2 add:'OO1'.
+ord2 add:'Smalltalk'.
+"sis createTopics: ord1.
+sis createTopics: ord2."
+q1:=Question newAuthor: u1 text:'Necesito aprender a hacer test pero no entiendo para q sirve este metodo.'  title: '¿Para qué sirve el método SetUp?'  topics: (self createTopics: ord1).
+q2:=Question newAuthor: u1 text:'Tengo este error y necesito ayuda.'  title: '¿Qué significa #messageNotUnderstood?'  topics: (self createTopics: ord2).
+a1 :=Answer newAuthor: u2 text:' Sirve para instanciar los objetos que son
+evaluados por el test en un único método y que se ejecute
+siempre antes de cada test.'. 
+a2 :=Answer newAuthor: u1 text:' Significa que el objeto que recibió el mensaje
+no encontró ningún método para ejecutar en respuesta.'. 
+self addQuestionToSistem: q1.
+self addQuestionToSistem: q2.
+q1 addAnswer: a1.
+q2 addAnswer: a2.
+
+
+
+ 
+]
+
 { #category : #accessing }
-CuOOra >> getRelevantQuestionOf: anUser [
-^((anUser interestTopics) flatCollect:[:topic|topic questions])
+CuOOra >> getRelevantQuestionOf: aUser [
+^((aUser interestTopics) flatCollect:[:topic|topic questionsInTopicExcept:aUser])
 
 
 

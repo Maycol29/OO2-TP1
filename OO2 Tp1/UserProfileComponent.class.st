@@ -46,6 +46,8 @@ UserProfileComponent >> renderContentOn: aCanvas [
 		with: [ aCanvas button: 'Back' ].
 	aCanvas space.
 	(self session user == profileUser) ifFalse:[self renderFollowButton: aCanvas].
+	aCanvas break.
+	((self model questionsBy: profileUser) size=0)ifTrue:[aCanvas break.aCanvas text:'The User doesnt have questions.'].
 	aCanvas
 		unorderedList: [ (self model questionsBy: profileUser)
 				do: [ :post | 

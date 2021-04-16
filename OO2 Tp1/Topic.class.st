@@ -10,12 +10,6 @@ Class {
 }
 
 { #category : #initialization }
-Topic class >> newName:aName [ "description:aDescription"
-
- ^self new name:aName "description:aDescription".
-]
-
-{ #category : #initialization }
 Topic class >> newName:aName description:aDescription [
 
  ^self new name:aName description:aDescription.
@@ -67,6 +61,11 @@ Topic >> questions [
 { #category : #accessing }
 Topic >> questionsInTopicBy:aUser [ 
 ^questions select:[:each | each author == aUser  ]
+]
+
+{ #category : #accessing }
+Topic >> questionsInTopicExcept:aUser [ 
+^questions reject:[:each | each author == aUser  ]
 ]
 
 { #category : #accessing }
