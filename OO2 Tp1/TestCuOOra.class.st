@@ -31,9 +31,9 @@ TestCuOOra >> setUp [
 	u2 := User newUsername: 'lucio' password: 4321.
 	u3 := User newUsername: 'luna' password: 'asdf'.
 	
-	t1 := Topic newName: 'programacion'.
-	t2 := Topic newName: 'Covid 19'.
-	t3 := Topic newName: 'Vacaciones'.
+	t1 := Topic newName: 'programacion' description:''.
+	t2 := Topic newName: 'Covid 19' description:''.
+	t3 := Topic newName: 'Vacaciones' description:''.
 	
 	topics := OrderedCollection new.
 	topics add: t2.
