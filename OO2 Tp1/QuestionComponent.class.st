@@ -9,7 +9,7 @@ Class {
 
 { #category : #initialization }
 QuestionComponent >> initialize [ 
-super initialize.
+super initialize .
 seeA:=false
 ]
 

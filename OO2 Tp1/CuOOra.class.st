@@ -96,7 +96,7 @@ ord2 add:'Smalltalk'.
 "sis createTopics: ord1.
 sis createTopics: ord2."
 q1:=Question newAuthor: u1 text:'Necesito aprender a hacer test pero no entiendo para q sirve este metodo.'  title: '¿Para qué sirve el método SetUp?'  topics: (self createTopics: ord1).
-q2:=Question newAuthor: u1 text:'Tengo este error y necesito ayuda.'  title: '¿Qué significa #messageNotUnderstood?'  topics: (self createTopics: ord2).
+q2:=Question newAuthor: u2 text:'Tengo este error y necesito ayuda.'  title: '¿Qué significa #messageNotUnderstood?'  topics: (self createTopics: ord2).
 a1 :=Answer newAuthor: u2 text:' Sirve para instanciar los objetos que son
 evaluados por el test en un único método y que se ejecute
 siempre antes de cada test.'. 
