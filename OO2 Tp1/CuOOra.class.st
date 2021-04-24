@@ -69,11 +69,9 @@ CuOOra >> createTopics: topicNames [
 ]
 
 { #category : #accessing }
-CuOOra >> deleteQuestion:aQuestion [
-(aQuestion topics)do:[:each | each questions remove:aQuestion].
-aQuestion deleteAnswersVotes .
-aQuestion answers removeAll.
-aQuestion votes removeAll.
+CuOOra >> deleteQuestion: aQuestion [
+	aQuestion topics do: [ :each | each removeQuestion: aQuestion ].
+	aQuestion cleanTheQuestion
 ]
 
 { #category : #example }
@@ -133,7 +131,7 @@ topics:=OrderedCollection new.
 ]
 
 { #category : #accessing }
-CuOOra >> mostThanFive:aCollection user:anUser [
+CuOOra >> latestPostInNetwork:aCollection user:anUser [
 |allQuestions|
 allQuestions :=OrderedCollection new.
 allQuestions addAll:(self getUsersQuestions: aCollection)."post de amigos"
@@ -169,7 +167,7 @@ CuOOra >> totalScoreOf: aUser [
 { #category : #accessing }
 CuOOra >> userWithUsername: anUsername protectedBy: aPassword [
 	^ users
-		detect: [ :each | each username  = anUsername  & (each password = aPassword) ]
+		detect: [ :each | each isThisUsername: anUsername password:aPassword  ]
 		ifNone: [ nil ]
 ]
 

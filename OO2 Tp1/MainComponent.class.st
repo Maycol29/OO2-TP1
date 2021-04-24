@@ -22,7 +22,7 @@ MainComponent >> createNewPost [
 
 { #category : #callbacks }
 MainComponent >> findFriend [
-	self call: (UserFinderComponent new parent:self) .
+	self call: (UserFinderComponent newParent:self) .
 ]
 
 { #category : #model }
@@ -68,10 +68,10 @@ MainComponent >> renderFriendsOn: aCanvas [
 MainComponent >> renderLastQuestions: aCanvas [
 	aCanvas
 		unorderedList: [ (self model
-				mostThanFive: (self session user following) user:(self session user) )
+				latestPostInNetwork: (self session user following) user:(self session user) )
 				do: [ :post | 
 					"QuestionComponent new question: post"
-					aCanvas render: (QuestionComponent new question: post parent: self)
+					aCanvas render: (QuestionComponent newQuestion: post parent: self)
 					"self viewAnswers: aCanvas question: post " ] ]
 ]
 
@@ -110,8 +110,7 @@ MainComponent >> renderPostsOn: aCanvas [
 { #category : #callbacks }
 MainComponent >> seeAnswers:aQuestion [
 | instance |
-	instance := AnswersComponent new.
-	instance question: aQuestion parent:self .
+	instance := AnswersComponent newQuestion: aQuestion parent:self .
 	self call: instance .
 	
 ]
@@ -119,9 +118,7 @@ MainComponent >> seeAnswers:aQuestion [
 { #category : #callbacks }
 MainComponent >> showProfileOf: aUser [
 |instance|
-
-instance := UserProfileComponent new .
-instance profileUser: aUser parent:self.
+instance := UserProfileComponent newProfileUser: aUser parent:self. 
 self call: instance.
 
 ]

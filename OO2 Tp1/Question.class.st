@@ -38,6 +38,13 @@ Question >> cantAnswers [
 ]
 
 { #category : #acccessing }
+Question >> cleanTheQuestion [
+	answers removeAll.
+	votes removeAll.
+	self deleteAnswersVotes
+]
+
+{ #category : #acccessing }
 Question >> deleteAnswersVotes [
 	answers do: [:answer| answer deleteAllVotes ]
 

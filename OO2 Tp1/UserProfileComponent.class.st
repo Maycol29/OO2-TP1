@@ -9,6 +9,14 @@ Class {
 	#category : #'OO2 Tp1-ui'
 }
 
+{ #category : #'instance creation' }
+UserProfileComponent class >> newProfileUser: aUser parent: aParent [
+	| instance |
+	instance := self new.
+	instance profileUser: aUser parent: aParent.
+	^ instance
+]
+
 { #category : #accessing }
 UserProfileComponent >> follow [
 ^follow

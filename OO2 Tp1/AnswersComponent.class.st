@@ -9,6 +9,16 @@ Class {
 	#category : #'OO2 Tp1-ui'
 }
 
+{ #category : #'instance creation' }
+AnswersComponent class >> newQuestion: aQuestion parent: aParent [
+	| instance |
+	instance := self new.
+	instance question: aQuestion parent: aParent.
+	^ instance
+	
+
+]
+
 { #category : #callback }
 AnswersComponent >> createAnswer: aQuestion [
 	aQuestion
@@ -55,13 +65,10 @@ AnswersComponent >> renderAnswers: aCanvas [
 
 { #category : #rendering }
 AnswersComponent >> renderContentOn: aCanvas [
-	|dato|
-	dato:=QuestionComponent new question: question parent:parent .
-	dato seeA:true.
 	aCanvas heading style:' background-color: black; color:white'; with:'CuOOra '.
 	aCanvas horizontalRule.
 	aCanvas
-		form: [ aCanvas render: (QuestionComponent new question: question parent:parent).
+		form: [ aCanvas render: (QuestionComponent newQuestion: question parent:parent).
 			self renderAnswers: aCanvas ]
 ]
 

@@ -69,6 +69,11 @@ Topic >> questionsInTopicExcept:aUser [
 ]
 
 { #category : #accessing }
+Topic >> removeQuestion: aQuestion [
+	questions remove: aQuestion
+]
+
+{ #category : #accessing }
 Topic >> scoreOfTheAnswersBy:aUser [
 ^questions sumNumbers: [:question | question scoreAnswersBy:aUser ].
 ]

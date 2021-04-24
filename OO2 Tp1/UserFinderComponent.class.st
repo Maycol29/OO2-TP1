@@ -8,6 +8,14 @@ Class {
 	#category : #'OO2 Tp1-ui'
 }
 
+{ #category : #'instance creation' }
+UserFinderComponent class >> newParent:aParent [
+|instance|
+instance:=self new.
+instance parent:aParent .
+^instance
+]
+
 { #category : #initialization }
 UserFinderComponent >> initialize [
 	super initialize.

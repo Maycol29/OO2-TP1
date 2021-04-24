@@ -58,6 +58,13 @@ User >> isFollowing: aUser [
 ]
 
 { #category : #accessing }
+User >> isThisUsername: aUsername password: aPassword [
+	((username = aUsername) & (password = aPassword))
+		ifTrue: [ ^ true ].
+	^ false
+]
+
+{ #category : #accessing }
 User >> password [
 	^ password
 ]

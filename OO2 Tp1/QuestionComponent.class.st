@@ -1,16 +1,20 @@
 Class {
 	#name : #QuestionComponent,
 	#superclass : #PostComponent,
-	#instVars : [
-		'seeA'
-	],
 	#category : #'OO2 Tp1-ui'
 }
+
+{ #category : #'instance creation' }
+QuestionComponent class >> newQuestion: aQuestion parent: aParent [
+	| instance |
+	instance := self new.
+	instance question: aQuestion parent: aParent.
+	^ instance
+]
 
 { #category : #initialization }
 QuestionComponent >> initialize [ 
 super initialize .
-seeA:=false
 ]
 
 { #category : #rendering }
@@ -46,16 +50,6 @@ QuestionComponent >> renderContentOn: aCanvas [
 			super renderFeedback: aCanvas value: question.
 			aCanvas break.
 			aCanvas horizontalRule]
-]
-
-{ #category : #accessing }
-QuestionComponent >> seeA [
-^seeA
-]
-
-{ #category : #accessing }
-QuestionComponent >> seeA:aBoolean [
-seeA:=aBoolean .
 ]
 
 { #category : #rendering }
