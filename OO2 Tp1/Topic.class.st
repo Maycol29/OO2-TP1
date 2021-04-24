@@ -35,6 +35,11 @@ Topic >> initialize [
 	questions:=OrderedCollection new.
 ]
 
+{ #category : #testing }
+Topic >> isThisTopic: aTopic [
+	^ name = aTopic name
+]
+
 { #category : #accessing }
 Topic >> name [ 
 ^name

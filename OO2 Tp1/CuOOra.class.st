@@ -60,7 +60,7 @@ CuOOra >> createTopics: topicNames [
 	(topicNames
 	do:[ :N | 
 			topics
-				detect: [ :each | each name = N ]
+				detect: [ :each | each isThisTopic:N ]
 				ifFound:[:it | topicExist add: it ]
 				ifNone: [ topicList add: (Topic newName: N description:'') ] ]).
 	self addTopicList:topicList .
