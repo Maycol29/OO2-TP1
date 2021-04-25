@@ -66,10 +66,8 @@ Question >> orderedAnswers [
 
 { #category : #acccessing }
 Question >> scoreAnswersBy: aUser [
-	| ans |
-	ans := self answersInQuestionBy: aUser.
-	ans ifNotEmpty: [ ^ ans sumNumbers: [ :a | a score ] ].
-	^ 0
+	^ ((self answersInQuestionBy: aUser) sumNumbers: [ :a | a score ])
+		ifNil: [ ^ 0 ]
 ]
 
 { #category : #acccessing }
