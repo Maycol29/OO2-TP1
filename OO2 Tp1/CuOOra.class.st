@@ -113,9 +113,8 @@ CuOOra >> getRelevantQuestionOf: aUser [
 ]
 
 { #category : #accessing }
-CuOOra >> getTopicQuestions:aTopic [    "deberia pasarla x parametro un topico q existe"
-^aTopic questions.
-
+CuOOra >> getTopicQuestions: aTopic [
+	^ aTopic questions
 ]
 
 { #category : #utility }
@@ -131,20 +130,35 @@ topics:=OrderedCollection new.
 ]
 
 { #category : #accessing }
-CuOOra >> latestPostInNetwork:aCollection user:anUser [
-|allQuestions|
-allQuestions :=OrderedCollection new.
-allQuestions addAll:(self getUsersQuestions: aCollection)."post de amigos"
-allQuestions addAll:(self getRelevantQuestionOf: anUser)."post de interes propios"
-allQuestions := (allQuestions asSet) asSortedCollection: [ :a :b | a date > b date ].
-^(allQuestions takeFirst:5).
-
+CuOOra >> latestPostInNetwork: aUserList user: aUser [
+	| allQuestions |
+	allQuestions := OrderedCollection new.
+	allQuestions addAll: (self getUsersQuestions: aUserList).	"post de amigos"
+	allQuestions addAll: (self getRelevantQuestionOf: aUser). "post de interes propios"
+	^ (allQuestions asSet asSortedCollection: [ :a :b | a date > b date ])
+		takeFirst: 5
 ]
 
 { #category : #accessing }
-CuOOra >> questionsBy: anUser [
-	^ (topics flatCollect: [ :topic | topic questionsInTopicBy: anUser ])
+CuOOra >> questionsBy: aUser [
+	^ (topics flatCollect: [ :topic | topic questionsInTopicBy: aUser ])
 		asSet asSortedCollection: [ :a :b | a score > b score ]
+]
+
+{ #category : #accessing }
+CuOOra >> scoreA: aUser [
+	^(self answersBy:aUser) size * 50.
+]
+
+{ #category : #accessing }
+CuOOra >> scoreQ: aUser [
+	^ (self questionsBy: aUser) size * 20
+]
+
+{ #category : #accessing }
+CuOOra >> scoreV: aUser [
+	^ (topics sumNumbers: [ :each | each scoreOfTheAnswersBy: aUser ])
+		+ (topics sumNumbers: [ :each | each scoreOfTheQuestionsBy: aUser ])
 ]
 
 { #category : #accessing }
@@ -155,13 +169,7 @@ CuOOra >> topics [
 
 { #category : #accessing }
 CuOOra >> totalScoreOf: aUser [
-	| scoreQ scoreA scoreV |
-	scoreQ :=(self questionsBy: aUser) size * 20.
-	scoreA := (self answersBy:aUser) size * 50.
-	scoreV := (topics
-		sumNumbers: [ :each | each scoreOfTheAnswersBy: aUser ])+(topics
-		sumNumbers: [ :each | each scoreOfTheQuestionsBy: aUser ]).
-	^ scoreA + scoreQ + scoreV
+	^ (self scoreA: aUser) + (self scoreQ: aUser) + (self scoreV: aUser)
 ]
 
 { #category : #accessing }
@@ -181,5 +189,5 @@ CuOOra >> users [
 CuOOra >> usersMatchingNamePart: aString [
 	^ users
 		select:
-			[ :each | each username asLowercase includesSubstring: aString asLowercase ]
+			[ :each | each usernameWith:aString ]
 ]

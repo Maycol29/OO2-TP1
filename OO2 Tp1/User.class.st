@@ -84,3 +84,8 @@ User >> username: aUsername password: aPassword [
 	username:= aUsername .
 	password := aPassword .
 ]
+
+{ #category : #accessing }
+User >> usernameWith: aString [
+	^ username asLowercase includesSubstring: aString asLowercase
+]

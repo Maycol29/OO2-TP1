@@ -22,7 +22,7 @@ Topic >> addQuestion: aQuestion [
 
 { #category : #accessing }
 Topic >> answersInTopicBy:aUser [ 
-^questions flatCollect: [:each | each answersBy:aUser ].
+^questions flatCollect: [:each | each answersInQuestionBy:aUser ].
 ]
 
 { #category : #accessing }
@@ -65,12 +65,12 @@ Topic >> questions [
 
 { #category : #accessing }
 Topic >> questionsInTopicBy:aUser [ 
-^questions select:[:each | each author == aUser  ]
+^questions select:[:each | each isThisAuthor: aUser  ]
 ]
 
 { #category : #accessing }
 Topic >> questionsInTopicExcept:aUser [ 
-^questions reject:[:each | each author == aUser  ]
+^questions reject:[:each | each isThisAuthor: aUser  ]
 ]
 
 { #category : #accessing }

@@ -47,6 +47,11 @@ Post >> initialize [
 	votes := OrderedCollection new.
 ]
 
+{ #category : #testing }
+Post >> isThisAuthor: aUser [
+	^ author == aUser
+]
+
 { #category : #accessing }
 Post >> negativeScore [ 
 	^(votes size - (self positiveScore)).

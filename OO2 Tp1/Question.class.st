@@ -28,8 +28,8 @@ Question >> answers [
 ]
 
 { #category : #acccessing }
-Question >> answersBy:aUser [ 
-^answers select:[:each | each author == aUser  ]
+Question >> answersInQuestionBy:aUser [ 
+^answers select:[:each | each isThisAuthor:aUser ]
 ]
 
 { #category : #acccessing }
@@ -67,7 +67,7 @@ Question >> orderedAnswers [
 { #category : #acccessing }
 Question >> scoreAnswersBy: aUser [
 	| ans |
-	ans := self answersBy: aUser.
+	ans := self answersInQuestionBy: aUser.
 	ans ifNotEmpty: [ ^ ans sumNumbers: [ :a | a score ] ].
 	^ 0
 ]

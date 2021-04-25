@@ -45,9 +45,9 @@ TestQuestion >> testAddAnswer [
 { #category : #tests }
 TestQuestion >> testAnswersBy [ 
 	question addAnswer: answer1 .
-	self assert: [(question answersBy: user1) anySatisfy: [:answer| answer author == user1]].
+	self assert: [(question answersInQuestionBy: user1) anySatisfy: [:answer| answer author == user1]].
 	
-	self assert: (question answersBy: user2) isEmpty.
+	self assert: (question answersInQuestionBy: user2) isEmpty.
 	
 ]
 
