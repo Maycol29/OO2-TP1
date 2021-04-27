@@ -182,19 +182,6 @@ TestCuOOra >> testDeleteQuestion [
 	self assert: t2 questions size equals: 0 .
 ]
 
-{ #category : #acccessing }
-TestCuOOra >> testGetRelevantQuestionOf [
-self assert:[(sis getRelevantQuestionOf: u2)includes: q1].
-self deny: [( sis getRelevantQuestionOf: u2 ) includes: q2].
-self deny: [( sis getRelevantQuestionOf: u2 ) includes: q3].
-
-
-
-
-
-
-]
-
 { #category : #tests }
 TestCuOOra >> testGetTopicQuestions [
 	|collection |

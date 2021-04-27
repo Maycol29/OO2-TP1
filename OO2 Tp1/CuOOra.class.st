@@ -105,14 +105,6 @@ q2 addAnswer: a2.
 ]
 
 { #category : #accessing }
-CuOOra >> getRelevantQuestionOf: aUser [
-^((aUser interestTopics) flatCollect:[:topic|topic questionsInTopicExcept:aUser])
-
-
-
-]
-
-{ #category : #accessing }
 CuOOra >> getTopicQuestions: aTopic [
 	^ aTopic questions
 ]
@@ -134,7 +126,7 @@ CuOOra >> latestPostInNetwork: aUserList user: aUser [
 	| allQuestions |
 	allQuestions := OrderedCollection new.
 	allQuestions addAll: (self getUsersQuestions: aUserList).	"post de amigos"
-	allQuestions addAll: (self getRelevantQuestionOf: aUser). "post de interes propios"
+	allQuestions addAll: (aUser getRelevantQuestions). "post de interes propios"
 	^ (allQuestions asSet asSortedCollection: [ :a :b | a date > b date ])
 		takeFirst: 5
 ]

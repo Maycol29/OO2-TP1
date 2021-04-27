@@ -31,6 +31,11 @@ User >> following [
 ^following 
 ]
 
+{ #category : #accessing }
+User >> getRelevantQuestions [
+^interestTopics flatCollect:[:topic|topic questionsInTopicExcept:self]
+]
+
 { #category : #initialization }
 User >> initialize [ 
 	following := OrderedCollection new.
