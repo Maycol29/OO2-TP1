@@ -249,17 +249,9 @@ self deny:((sis getUsersQuestions:following)includes:q3).
 
 { #category : #acccessing }
 TestCuOOra >> testLatestPostInNetwork [
-|topicList|
-topicList := OrderedCollection new.
-topicList add: t1.
-topicList add: t2.
-topicList add: t3.
-
-t1 addQuestion: q2.
-
-u1 interestTopics: topicList .
-
-self assert:(sis equals: q1)
+self assert:((sis latestPostInNetwork:(u3 following) user:u3)includes:q2). 
+self assert:((sis latestPostInNetwork:(u2 following) user:u2)includes:q1). 
+self deny:((sis latestPostInNetwork:(u1 following) user:u1)includes:q1). 
 
 
 ]
