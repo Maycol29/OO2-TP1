@@ -141,68 +141,44 @@ self assert:(sis users includes: u4).
 
 { #category : #tests }
 TestCuOOra >> testAnswersBy [
-|topicList collection|
-	topicList := OrderedCollection new.	"Crea una lista de Topic y los agrega en sistema"
-	topicList add: t1.
-	sis addTopicList: topicList.
-	
-	t1 addQuestion: q2.	"Agrega las Question a un Topic existente en CuOOra"
-	t1 addQuestion: q3.
-	
-	
-	q2 addAnswer:a1.
-	q2 addAnswer:a3.
-		
-	self assert:((sis answersBy:u1)includes:a1).
-	self deny:((sis answersBy:u1)includes:a3).
-	self assert: (sis answersBy: u2) isEmpty.
-
+	self assert: (sis answersBy: u3) size equals: 0.
+	self assert: (sis answersBy: u1) size equals: 1.
+	self assert: ((sis answersBy: u1) includes: a2).
+	self assert: (sis answersBy: u2) size equals: 1.
+	self assert: ((sis answersBy: u2) includes: a1).
 ]
 
 { #category : #tests }
 TestCuOOra >> testCreateTopics [
-	|string|
+	|string topics|
 	string:= 'Tecnologia,programacion,pc'.
-	sis addTopicList:(sis createTopics: (string findTokens: ',')). "Ingreso una Collection de Strings"
+	topics := (sis createTopics: (string findTokens: ',')).
 	
-	self assert: (sis topics anySatisfy: [:topic| topic name = 'programacion' ]) .
+	
+	self assert: (topics anySatisfy: [:topic| topic name = 'programacion' ]) .
 		
-	self assert: (sis topics anySatisfy: [:topic| topic name = 'pc' ]) .
+	self assert: (topics anySatisfy: [:topic| topic name = 'pc' ]) .
 	
-	self assert: (sis topics anySatisfy: [:topic| topic name = 'Tecnologia' ]) .
+	self assert: (topics anySatisfy: [:topic| topic name = 'Tecnologia' ]) .
 	
-	self deny: (sis topics anySatisfy: [:topic| topic name = 'cocina' ]) .
+	self deny: (topics anySatisfy: [:topic| topic name = 'cocina' ]) .
 
 
 ]
 
 { #category : #tests }
 TestCuOOra >> testDeleteQuestion [
-	| topicList collection |
-	topicList := OrderedCollection new.	"Crea una lista de Topic y los agrega en sistema"
-	topicList add: t2. "Covid 19"
-	topicList add: t3. "Vacaciones"
-	sis addTopicList: topicList.	
-		
-	t2 addQuestion: q3. 	"Topic 'Covid 19' tiene solo una Question"					
-	t3 addQuestion: q3.	"Topic Vacaciones tiene dos Question"
-	t3 addQuestion: q2.
+	self assert: (t1 questions includes: q1).
+	self assert: t1 questions size equals: 2 .
+	self assert: (t2 questions includes: q1).
+	self assert: t2 questions size equals: 1 .
 	
-	collection := OrderedCollection new. "Collection con solo q2(relacionada con 'Vacaciones')"
-	collection add: q2.
+	sis deleteQuestion: q1.
 	
-	sis deleteQuestion: q3 . 
-	"Si elimino q3 (relacionada con 'Covid 19' y 'Vacaciones' ), el Topic 'Vacaciones' debería tener solo q2"
-	self assertCollection: (t3 questions ) equals: collection . 
-	
-	"Si elimino q3, el Topic 'Covid 19' no deberia tener ninguna Question"
-	self assert: (t2 questions ) isEmpty 
-	
-	
-	
-	
-	
-	
+	self deny: (t1 questions includes: q1).
+	self assert: t1 questions size equals: 1 .
+	self deny: (t2 questions includes: q1).
+	self assert: t2 questions size equals: 0 .
 ]
 
 { #category : #acccessing }
