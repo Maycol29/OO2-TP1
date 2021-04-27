@@ -52,6 +52,19 @@ TestQuestion >> testAnswersBy [
 ]
 
 { #category : #tests }
+TestQuestion >> testCleanTheQuestion [
+question addAnswer: answer1 .
+question addAnswer: answer2 .
+question addVote: vote1.
+answer1 addVote:vote2.
+question cleanTheQuestion.
+
+self assert:((question answers)isEmpty) .
+self assert:((question votes)isEmpty) .
+self assert:((answer1 votes)isEmpty).
+]
+
+{ #category : #tests }
 TestQuestion >> testDeleteAnswersVotes [
 	question answers  do: [:answer| self assert: (answer votes) isEmpty ].
 
