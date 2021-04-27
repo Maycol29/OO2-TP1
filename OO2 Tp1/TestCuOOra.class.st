@@ -196,9 +196,6 @@ TestCuOOra >> testGetRelevantQuestionOf [
 topicList := OrderedCollection new.
 topicList add: t1.
 topicList add: t2.
-topicList add: t3.
-
-t1 addQuestion: q2.
 
 u1 interestTopics: topicList .
 
@@ -213,39 +210,22 @@ self assert: [( sis getRelevantQuestionOf: u1 ) includes: q2]
 
 { #category : #tests }
 TestCuOOra >> testGetTopicQuestions [
-	| topicList collection |
-	topicList := OrderedCollection new.	"Crea una lista de Topic y los agrega en sistema"
-	topicList add: t1.
-	sis addTopicList: topicList.
-	
-	t1 addQuestion: q2.	"Agrega las Question a un Topic existente en CuOOra"
-	t1 addQuestion: q3.
-	
+	|collection |
 	collection := OrderedCollection new.	"Creo la coleccion esperada"
+	collection add: q1.
 	collection add: q2.
-	collection add: q3.
 	
 	self assertCollection: (sis getTopicQuestions: t1) equals: collection.
 	
-	self assert: (sis getTopicQuestions: t2) isEmpty
+	self assert: ((sis getTopicQuestions: t2)size=1)
 ]
 
 { #category : #acccessing }
 TestCuOOra >> testGetUsersQuestions [
-|following topicList |
+|following|
 following:=OrderedCollection new.
 following add:u2.
 following add:u1.
-
-topicList := OrderedCollection new.	"Crea una lista de Topic y los agrega en sistema"
-topicList add: t1.
-sis addTopicList: topicList.
-	
-t1 addQuestion: q1.
-t1 addQuestion: q2.	"Agrega las Question a un Topic existente en CuOOra"
-t1 addQuestion: q3.
-
-	
 
 self assert:((sis getUsersQuestions:following)includes:q1).
 self assert:((sis getUsersQuestions:following)includes:q2).
@@ -275,21 +255,9 @@ self assert:(sis equals: q1)
 
 { #category : #tests }
 TestCuOOra >> testQuestionsBy [
-	| topicList collection |
-	topicList := OrderedCollection new.	"Crea una lista de Topic y los agrega en sistema"
-	topicList add: t1.
-	sis addTopicList: topicList.
-	
-	t1 addQuestion: q2.	"Agrega las Question a un Topic existente en CuOOra"
-	t1 addQuestion: q3.
-	
-	collection := OrderedCollection new.	"Creo la coleccion esperada"
-	collection add: q2.
-	
-	
 	self assert:((sis questionsBy:u2)includes:q2).
-	self deny:((sis questionsBy:u2)includes:q3).
-	self assert: (sis questionsBy: u1) isEmpty.
+	self deny:((sis questionsBy:u2)includes:q1).
+	self assert: (sis questionsBy: u3) isEmpty.
 	
 
 	
@@ -299,16 +267,9 @@ TestCuOOra >> testQuestionsBy [
 
 { #category : #acccessing }
 TestCuOOra >> testTotalScoreOf [
-|ord|
-ord:= OrderedCollection new.
-ord add:t1.
-sis addTopicList: ord.
-t1 addQuestion: q1.
-q1 addAnswer:a1.
-a1 addVote: v1.
 
-self assert:((sis totalScoreOf:u1 )= 71).
-self assert:((sis totalScoreOf:u2 )= 0).
+self assert:((sis totalScoreOf:u1 )= 72).
+self assert:((sis totalScoreOf:u3 )= 0).
 
 ]
 
