@@ -6,6 +6,7 @@ Class {
 		'u1',
 		'u2',
 		'u3',
+		'u4',
 		't1',
 		't2',
 		't3',
@@ -86,14 +87,17 @@ no encontró ningún método para ejecutar en respuesta.'.
 
 	"------------------------------"
 	q3 := Question
-		newAuthor: u2
+		newAuthor: u3
 		text: 'text'
 		title: 'title'
 		topics: ord1.
 	t4 := Topic newName: 'OO2' description: 'Orientacion a Objetos 2'.
 	t5 := Topic
 		newName: 'CADP'
-		description: 'Conceptos de Algoritmos Datos y Programas'
+		description: 'Conceptos de Algoritmos Datos y Programas'.
+		
+	u4 := User newUsername: 'Osbourne' password:'CrazyTrain'.
+	 
 ]
 
 { #category : #tests }
@@ -101,29 +105,38 @@ TestCuOOra >> testAddQuestionToSistem [
 	self deny: sis topics isEmpty.
 	self assert: t1 questions size equals: 2.
 	self assert: t2 questions size equals: 1.
+	self deny: (t1 questions includes: q3).
+	self deny: (t2 questions includes: q3).
 	sis addQuestionToSistem: q3.
 	self assert: t1 questions size equals: 3.
 	self assert: t2 questions size equals: 2.
+	self assert: (t1 questions includes: q3).
+	self assert: (t2 questions includes: q3).
 ]
 
 { #category : #tests }
 TestCuOOra >> testAddTopicList [
-|ord|
-ord:=OrderedCollection new.
-self assert:(sis topics size) equals: 3 .
-
-"ord add:t1.
-ord add:t2.
-sis addTopicList:ord.
-self assert: (sis topics) size equals: 2."
+	| ord |
+	ord := OrderedCollection new.
+	self assert: sis topics size equals: 3.
+	self deny: (sis topics includes: t4).
+	self deny: (sis topics includes: t5).
+	ord add: t4.
+	ord add: t5.
+	sis addTopicList: ord.
+	self assert: sis topics size equals: 5.
+	self assert: (sis topics includes: t4).
+	self assert:	 (sis topics includes: t5).
 ]
 
 { #category : #acccessing }
 TestCuOOra >> testAddUser [ 
-self assert: (sis users isEmpty) .
-sis addUser:u1. 
-self assert:sis users size equals:1.
-self assert:(sis users anySatisfy:[:user|user == u1]). 
+self deny: (sis users isEmpty) .
+self assert:sis users size equals:3.
+self deny:(sis users includes: u4). 
+sis addUser:u4. 
+self assert:sis users size equals:4.
+self assert:(sis users includes: u4). 
 ]
 
 { #category : #tests }
