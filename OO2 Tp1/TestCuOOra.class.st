@@ -86,6 +86,7 @@ no encontró ningún método para ejecutar en respuesta.'.
 	a1 addVote: v2.
 
 	"------------------------------"
+	u2 addInterestTopic: t1.
 	q3 := Question
 		newAuthor: u3
 		text: 'text'
@@ -183,14 +184,9 @@ TestCuOOra >> testDeleteQuestion [
 
 { #category : #acccessing }
 TestCuOOra >> testGetRelevantQuestionOf [
-|topicList|
-topicList := OrderedCollection new.
-topicList add: t1.
-topicList add: t2.
-
-u1 interestTopics: topicList .
-
-self assert: [( sis getRelevantQuestionOf: u1 ) includes: q2]
+self assert:[(sis getRelevantQuestionOf: u2)includes: q1].
+self deny: [( sis getRelevantQuestionOf: u2 ) includes: q2].
+self deny: [( sis getRelevantQuestionOf: u2 ) includes: q3].
 
 
 
