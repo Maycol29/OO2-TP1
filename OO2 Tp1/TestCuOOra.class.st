@@ -9,6 +9,8 @@ Class {
 		't1',
 		't2',
 		't3',
+		't4',
+		't5',
 		'q1',
 		'q2',
 		'q3',
@@ -41,13 +43,13 @@ TestCuOOra >> setUp [
 		description: 'Testeo de programas'.
 	ord1 add: t1.
 	ord1 add: t2.
+	sis addTopicList: ord1.
 	ord2 := OrderedCollection new.
 	t3 := Topic
 		newName: 'Smalltalk'
 		description: 'Lenguaje de Programacion'.
 	ord2 add: t1.
 	ord2 add: t3.
-	sis addTopicList: ord1.
 	aux := OrderedCollection new.
 	aux add: t3.
 	sis addTopicList: aux.
@@ -80,29 +82,38 @@ no encontró ningún método para ejecutar en respuesta.'.
 	v1 := Vote newBelongsTo: u2 value: true.
 	v2 := Vote newBelongsTo: u1 value: true.
 	q1 addVote: v1.
-	a1 addVote: v2
+	a1 addVote: v2.
 
 	"------------------------------"
+	q3 := Question
+		newAuthor: u2
+		text: 'text'
+		title: 'title'
+		topics: ord1.
+	t4 := Topic newName: 'OO2' description: 'Orientacion a Objetos 2'.
+	t5 := Topic
+		newName: 'CADP'
+		description: 'Conceptos de Algoritmos Datos y Programas'
 ]
 
 { #category : #tests }
 TestCuOOra >> testAddQuestionToSistem [
-self assert:sis topics isEmpty .
-sis addTopicList: (q3 topics).
-sis addQuestionToSistem: q3.
-self assert:t2 questions size equals: 1.
-self assert:t3 questions size equals: 1.
+	self deny: sis topics isEmpty.
+	sis addQuestionToSistem: q3.
+	self assert: t1 questions size equals: 3.
+	self assert: t2 questions size equals: 2.
 ]
 
 { #category : #tests }
 TestCuOOra >> testAddTopicList [
 |ord|
 ord:=OrderedCollection new.
-self assert:sis topics isEmpty .
-ord add:t1.
+self assert:(sis topics size) equals: 3 .
+
+"ord add:t1.
 ord add:t2.
 sis addTopicList:ord.
-self assert: (sis topics) size equals: 2.
+self assert: (sis topics) size equals: 2."
 ]
 
 { #category : #acccessing }
