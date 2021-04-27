@@ -78,14 +78,16 @@ TestQuestion >> testDeleteAnswersVotes [
 
 { #category : #tests }
 TestQuestion >> testOrderedAnswers [
-|ord|
-ord:=OrderedCollection new.
-ord add:answer2.
-ord addLast:answer1.
-question addAnswer: answer1.
-question addAnswer: answer2.
-self assert:(((question orderedAnswers)at:1)=answer1).
-self assert:(((question orderedAnswers)at:2)=answer2).
+	| ord |
+	ord := OrderedCollection new.
+	ord add: answer2.
+	ord addLast: answer1.
+	question addAnswer: answer1.
+	question addAnswer: answer2.
+	self
+		assert:
+			(question orderedAnswers
+				isSortedBy: [ :dato1 :dato2 | dato1 score >= dato2 score ])
 ]
 
 { #category : #tests }
