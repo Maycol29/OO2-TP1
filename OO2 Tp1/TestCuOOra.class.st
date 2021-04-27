@@ -99,6 +99,8 @@ no encontró ningún método para ejecutar en respuesta.'.
 { #category : #tests }
 TestCuOOra >> testAddQuestionToSistem [
 	self deny: sis topics isEmpty.
+	self assert: t1 questions size equals: 2.
+	self assert: t2 questions size equals: 1.
 	sis addQuestionToSistem: q3.
 	self assert: t1 questions size equals: 3.
 	self assert: t2 questions size equals: 2.
