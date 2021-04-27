@@ -39,9 +39,9 @@ Question >> cantAnswers [
 
 { #category : #acccessing }
 Question >> cleanTheQuestion [
+	self deleteAnswersVotes.
 	answers removeAll.
-	votes removeAll.
-	self deleteAnswersVotes
+	votes removeAll
 ]
 
 { #category : #acccessing }

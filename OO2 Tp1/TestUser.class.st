@@ -12,8 +12,8 @@ Class {
 { #category : #running }
 TestUser >> setUp [
 	"Hooks that subclasses may override to define the fixture of test."
-	u1 := User newUsername: 'tobias' password: 1234.
-	u2 := User newUsername: 'lucio' password: 4321.
+	u1 := User newUsername: 'tobias' password: 'asd'.
+	u2 := User newUsername: 'lucio' password: 'dsa'.
 	u3 := User newUsername: 'luna' password: 'asdf'. 
 
 ]
@@ -43,6 +43,13 @@ self assert:(u1 isFollowing: u2).
 self deny:(u1 isFollowing: u3).
 self assert:(u1 isFollowing: u1).
 
+]
+
+{ #category : #tests }
+TestUser >> testIsThisUsername [
+self assert:(u1 isThisUsername: 'tobias' password: 'asd' ).
+self assert:(u2 isThisUsername:'lucio' password: 'dsa').
+self deny:(u3 isThisUsername:'lucio' password: 'dsa').
 ]
 
 { #category : #tests }

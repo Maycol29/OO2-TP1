@@ -91,6 +91,13 @@ TestTopic >> testAnswersInTopicsBy [
 ]
 
 { #category : #tests }
+TestTopic >> testIsThisTopic [
+self assert:(t1 isThisTopic:'programacion').
+self assert:(t2 isThisTopic:'Covid 19').
+self deny:(t3 isThisTopic:'programacion').
+]
+
+{ #category : #tests }
 TestTopic >> testQuestionsInTopicsBy [
 	|collection|
 	t1 addQuestion: q2.	"Agrega las Question a un Topic existente en CuOOra"

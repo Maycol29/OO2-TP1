@@ -316,26 +316,18 @@ self assert:((sis totalScoreOf:u2 )= 0).
 
 { #category : #tests }
 TestCuOOra >> testUserWithUsernameProtectedBy [
-sis addUser: u1 .
-sis addUser: u2 .
-sis addUser: u3 .
+self assert: (sis userWithUsername: 'diego@cuoora.com' protectedBy: 'asd') equals: u2.
 
-self assert: (sis userWithUsername: 'lucio' protectedBy: 'asdf') equals: u2.
+self deny: (sis userWithUsername: 'pedro@cuoora.com' protectedBy: 'fdsa')  equals: u1.
 
-self deny: (sis userWithUsername: 'lucio' protectedBy: 'fdsa')  equals: u1.
-
-self assert: (sis userWithUsername: 'gerardo' protectedBy: 'aguanteVelez') equals: nil.
+self assert: (sis userWithUsername: 'gerardo' protectedBy: 'holaMundo') equals: nil.
 ]
 
 { #category : #acccessing }
 TestCuOOra >> testUsersMatchingNamePart [
-sis addUser: u1 .
-sis addUser: u2 .
-sis addUser: u3 .
-
-self assert: [(sis usersMatchingNamePart: 'l') includes: u2] .
-self assert: [(sis usersMatchingNamePart: 'l') includes: u3] .
-self deny: [(sis usersMatchingNamePart: 'l') includes: u1] .
+self assert: [(sis usersMatchingNamePart: 'e') includes: u1] .
+self assert: [(sis usersMatchingNamePart: 'e') includes: u2] .
+self deny: [(sis usersMatchingNamePart: 'e') includes: u3] .
 
 
 

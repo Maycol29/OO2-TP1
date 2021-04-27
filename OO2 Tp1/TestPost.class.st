@@ -77,6 +77,15 @@ self assert:((q1 votes ) anySatisfy:[:vote|vote == v1]).
 ]
 
 { #category : #tests }
+TestPost >> testIsThisAuthor [
+
+self assert:(q1 isThisAuthor:u1).
+self assert:(q2 isThisAuthor:u2).
+self deny:(a1 isThisAuthor:u3).
+self assert:(a2 isThisAuthor: u2)
+]
+
+{ #category : #tests }
 TestPost >> testNegativeScore [
 q1 addVote: v1.
 q1 addVote:v2.
