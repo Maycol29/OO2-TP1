@@ -51,7 +51,7 @@ TestQuestion >> testAnswersBy [
 	
 ]
 
-{ #category : #acccessing }
+{ #category : #tests }
 TestQuestion >> testDeleteAnswersVotes [
 	question answers  do: [:answer| self assert: (answer votes) isEmpty ].
 
@@ -61,6 +61,19 @@ TestQuestion >> testDeleteAnswersVotes [
 	
 	question answers  do: [:answer| self assert: (answer votes) isEmpty ]
 	
+]
+
+{ #category : #tests }
+TestQuestion >> testOrderedAnswers [
+|ord|
+ord:=OrderedCollection new.
+ord add:answer2.
+ord addLast:answer1.
+question addAnswer: answer1.
+question addAnswer: answer2.
+self assert:(question orderedAnswers)=ord.
+self assert:((question orderedAnswers)includes:answer1).
+self assert:((question orderedAnswers)includes:answer2).
 ]
 
 { #category : #tests }

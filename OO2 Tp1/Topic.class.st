@@ -36,8 +36,8 @@ Topic >> initialize [
 ]
 
 { #category : #testing }
-Topic >> isThisTopic: aName [
-	^ (name = aName)
+Topic >> isThisTopic: aTopicName [
+	^(name = aTopicName )
 ]
 
 { #category : #accessing }

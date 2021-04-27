@@ -82,6 +82,8 @@ q1 addVote: v1.
 q1 addVote:v2.
 q1 addVote:v3.
 self assert:(q1 negativeScore) = 2.
+self deny:(q1 negativeScore)=0.
+self assert:(q2 negativeScore)=0.
 ]
 
 { #category : #tests }
@@ -90,6 +92,8 @@ q1 addVote: v1.
 q1 addVote:v2.
 q1 addVote:v3.
 self assert:[(q1 positiveScore) = 1].
+self deny:(q1 positiveScore)=0.
+self assert:(q2 positiveScore)=0.
 ]
 
 { #category : #tests }
@@ -98,4 +102,6 @@ q1 addVote: v1.
 q1 addVote:v2.
 q1 addVote:v3.
 self assert:(q1 score) =(-1).
+self deny:(q1 score)=0.
+self assert:(q2 score)=0.
 ]

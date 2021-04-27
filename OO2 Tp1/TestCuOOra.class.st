@@ -24,90 +24,87 @@ Class {
 
 { #category : #running }
 TestCuOOra >> setUp [
-	| ord1 ord2 aux |
+	"Hooks that subclasses may override to define the fixture of test."
+	|topics|
 	sis := CuOOra new.
-	u1 := User newUsername: 'pedro@cuoora.com' password: 'asd'.
-	u2 := User newUsername: 'diego@cuoora.com' password: 'asd'.
-	u3 := User newUsername: 'juan@cuoora.com' password: 'asd'.
-	sis addUser: u1.
-	sis addUser: u2.
-	sis addUser: u3.
-	u3 addFollowing: u2.
-	u1 addFollowing: u3.
-	ord1 := OrderedCollection new.
-	t1 := Topic newName: 'OO1' description: 'Orientacion a Objetos 1'.
-	t2 := Topic
-		newName: 'Test de unidad'
-		description: 'Testeo de programas'.
-	ord1 add: t1.
-	ord1 add: t2.
-	ord2 := OrderedCollection new.
-	t3 := Topic
-		newName: 'Smalltalk'
-		description: 'Lenguaje de Programacion'.
-	ord2 add: t1.
-	ord2 add: t3.
-	sis addTopicList: ord1.
-	aux := OrderedCollection new.
-	aux add: t3.
-	sis addTopicList: aux.
+	u1 := User newUsername: 'tobias' password: 1234.
+	u2 := User newUsername: 'lucio' password: 4321.
+	u3 := User newUsername: 'luna' password: 'asdf'.
+	
+	t1 := Topic newName: 'programacion' description:''.
+	t2 := Topic newName: 'Covid 19' description:''.
+	t3 := Topic newName: 'Vacaciones' description:''.
+	
+	topics := OrderedCollection new.
+	topics add: t2.
+	topics add: t3.
+	
 	q1 := Question
 		newAuthor: u1
-		text:
-			'Necesito aprender a hacer test pero no entiendo para q sirve este metodo.'
-		title: '¿Para qué sirve el método SetUp?'
-		topics: ord1.
+		text: 'Como programar mejor en ruby?'
+		title: 'Como mejorar la programacion en ruby?'
+		topics: (t1) asOrderedCollection  .
 	q2 := Question
 		newAuthor: u2
-		text: 'Tengo este error y necesito ayuda.'
-		title: '¿Qué significa #messageNotUnderstood?'
-		topics: ord2.
-	a1 := Answer
-		newAuthor: u2
-		text:
-			' Sirve para instanciar los objetos que son
-evaluados por el test en un único método y que se ejecute
-siempre antes de cada test.'.
-	a2 := Answer
-		newAuthor: u1
-		text:
-			' Significa que el objeto que recibió el mensaje
-no encontró ningún método para ejecutar en respuesta.'.
-	sis addQuestionToSistem: q1.
-	sis addQuestionToSistem: q2.
-	q1 addAnswer: a1.
-	q2 addAnswer: a2
+		text: 'Tengo esta duda ya que quiero ir en temporada alta'
+		title: 'Cuando son vacaciones en EEUU?'
+		topics: (t3) asOrderedCollection.
+	q3 := Question
+		newAuthor: u3
+		text: 'Quiero irme de vacaciones y necesito saber el estado del lugar'
+		title: 'Como esta el estado del covid en Francia?'
+		topics: topics.
+	a1:=Answer newAuthor:u1   text: 'Esta complicada la cosa en francia'.
+	a2:=Answer newAuthor:u2  text:'La temporada alta es en nuestras vacaciones de invierno si no me equivoco'.
+	a3:=Answer newAuthor:u3 text:'Ruby es un lenguaje complejo pero te recomiendo q leas la documentancion de francis drake'.
+	v1:=Vote newBelongsTo: u1 value: true.
+	v2:=Vote newBelongsTo: u2 value: false.
+	v3:=Vote newBelongsTo: u3 value: false.
+	 
 ]
 
 { #category : #tests }
 TestCuOOra >> testAddQuestionToSistem [
-	self deny: (sis topics) isEmpty.
-	self assert: t1 questions size equals: 2.
-	self assert:t2 questions size equals: 1.
+self assert:sis topics isEmpty .
+sis addTopicList: (q3 topics).
+sis addQuestionToSistem: q3.
+self assert:t2 questions size equals: 1.
+self assert:t3 questions size equals: 1.
 ]
 
 { #category : #tests }
 TestCuOOra >> testAddTopicList [
-
-self deny:sis topics isEmpty .
+|ord|
+ord:=OrderedCollection new.
+self assert:sis topics isEmpty .
+ord add:t1.
+ord add:t2.
+sis addTopicList:ord.
 self assert: (sis topics) size equals: 2.
-
-
 ]
 
 { #category : #acccessing }
 TestCuOOra >> testAddUser [ 
-self deny: (sis users isEmpty) .
-self assert: (sis users size )equals:3.
-
+self assert: (sis users isEmpty) .
+sis addUser:u1. 
+self assert:sis users size equals:1.
 self assert:(sis users anySatisfy:[:user|user == u1]). 
-self assert:(sis users anySatisfy:[:user|user == u2]). 
-self assert:(sis users anySatisfy:[:user|user == u3]). 
 ]
 
 { #category : #tests }
 TestCuOOra >> testAnswersBy [
-
+|topicList collection|
+	topicList := OrderedCollection new.	"Crea una lista de Topic y los agrega en sistema"
+	topicList add: t1.
+	sis addTopicList: topicList.
+	
+	t1 addQuestion: q2.	"Agrega las Question a un Topic existente en CuOOra"
+	t1 addQuestion: q3.
+	
+	
+	q2 addAnswer:a1.
+	q2 addAnswer:a3.
+		
 	self assert:((sis answersBy:u1)includes:a1).
 	self deny:((sis answersBy:u1)includes:a3).
 	self assert: (sis answersBy: u2) isEmpty.
@@ -117,18 +114,16 @@ TestCuOOra >> testAnswersBy [
 { #category : #tests }
 TestCuOOra >> testCreateTopics [
 	|string|
-	sis topics add: t1 . "Topic 'programacion' (debería usar addTopicList)"
-	
 	string:= 'Tecnologia,programacion,pc'.
-	sis createTopics: (string findTokens: ','). "Ingreso una Collection de Strings"
+	sis addTopicList:(sis createTopics: (string findTokens: ',')). "Ingreso una Collection de Strings"
 	
-	" 'programacion' es un Topic existente y no debería crearlo denuevo"
-	self assert: (sis topics includes: t1)	.
+	self assert: (sis topics anySatisfy: [:topic| topic name = 'programacion' ]) .
 		
-	"Se debe crear un Topic 'pc' y otro 'Tecnologia' "
 	self assert: (sis topics anySatisfy: [:topic| topic name = 'pc' ]) .
 	
 	self assert: (sis topics anySatisfy: [:topic| topic name = 'Tecnologia' ]) .
+	
+	self deny: (sis topics anySatisfy: [:topic| topic name = 'cocina' ]) .
 
 
 ]
@@ -224,7 +219,7 @@ TestCuOOra >> testGetTopicQuestions [
 { #category : #acccessing }
 TestCuOOra >> testGetUsersQuestions [
 
-
+self assert:(sis equals: q1)
 
 
 
@@ -233,6 +228,7 @@ TestCuOOra >> testGetUsersQuestions [
 { #category : #acccessing }
 TestCuOOra >> testMoreThanFive [
 
+self assert:(sis equals: q1)
 
 
 ]
