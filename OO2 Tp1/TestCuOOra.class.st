@@ -225,7 +225,15 @@ self deny:((sis getUsersQuestions:following)includes:q3).
 
 { #category : #acccessing }
 TestCuOOra >> testLatestPostInNetwork [
+|topicList|
+topicList := OrderedCollection new.
+topicList add: t1.
+topicList add: t2.
+topicList add: t3.
 
+t1 addQuestion: q2.
+
+u1 interestTopics: topicList .
 
 self assert:(sis equals: q1)
 
