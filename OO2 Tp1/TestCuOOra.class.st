@@ -27,8 +27,8 @@ TestCuOOra >> setUp [
 	"Hooks that subclasses may override to define the fixture of test."
 	|topics|
 	sis := CuOOra new.
-	u1 := User newUsername: 'tobias' password: 1234.
-	u2 := User newUsername: 'lucio' password: 4321.
+	u1 := User newUsername: 'tobias' password: 'asdf'.
+	u2 := User newUsername: 'lucio' password: 'asdf'.
 	u3 := User newUsername: 'luna' password: 'asdf'.
 	
 	t1 := Topic newName: 'programacion' description:''.
@@ -130,39 +130,20 @@ TestCuOOra >> testCreateTopics [
 
 { #category : #tests }
 TestCuOOra >> testDeleteQuestion [
-
 	| topicList collection |
 	topicList := OrderedCollection new.	"Crea una lista de Topic y los agrega en sistema"
 	topicList add: t2. "Covid 19"
 	topicList add: t3. "Vacaciones"
-	sis addTopicList: topicList.
-	
-
-	q2 := Question
-		newAuthor: u2
-		text: 'Tengo esta duda ya que quiero ir en temporada alta'
-		title: 'Cuando son vacaciones en EEUU?'
-		topics: (t3) asOrderedCollection. "Vacaciones"
+	sis addTopicList: topicList.	
 		
-	q3 := Question
-		newAuthor: u3
-		text: 'Quiero irme de vacaciones y necesito saber el estado del lugar'
-		title: 'Como esta el estado del covid en Francia?'
-		topics: topicList.  "Vacaciones, Covid 19"
-	
-	
-	
-	t2 addQuestion: q3. 	"Topic 'Covid 19' tiene solo una Question"
-								
+	t2 addQuestion: q3. 	"Topic 'Covid 19' tiene solo una Question"					
 	t3 addQuestion: q3.	"Topic Vacaciones tiene dos Question"
 	t3 addQuestion: q2.
 	
 	collection := OrderedCollection new. "Collection con solo q2(relacionada con 'Vacaciones')"
 	collection add: q2.
 	
-	
 	sis deleteQuestion: q3 . 
-	
 	"Si elimino q3 (relacionada con 'Covid 19' y 'Vacaciones' ), el Topic 'Vacaciones' debería tener solo q2"
 	self assertCollection: (t3 questions ) equals: collection . 
 	
@@ -218,15 +199,33 @@ TestCuOOra >> testGetTopicQuestions [
 
 { #category : #acccessing }
 TestCuOOra >> testGetUsersQuestions [
+|following topicList |
+following:=OrderedCollection new.
+following add:u2.
+following add:u1.
 
-self assert:(sis equals: q1)
+topicList := OrderedCollection new.	"Crea una lista de Topic y los agrega en sistema"
+topicList add: t1.
+sis addTopicList: topicList.
+	
+t1 addQuestion: q1.
+t1 addQuestion: q2.	"Agrega las Question a un Topic existente en CuOOra"
+t1 addQuestion: q3.
+
+	
+
+self assert:((sis getUsersQuestions:following)includes:q1).
+self assert:((sis getUsersQuestions:following)includes:q2).
+self deny:((sis getUsersQuestions:following)includes:q3).
+
 
 
 
 ]
 
 { #category : #acccessing }
-TestCuOOra >> testMoreThanFive [
+TestCuOOra >> testLatestPostInNetwork [
+
 
 self assert:(sis equals: q1)
 
@@ -278,9 +277,9 @@ sis addUser: u1 .
 sis addUser: u2 .
 sis addUser: u3 .
 
-self assert: (sis userWithUsername: 'lucio' protectedBy: 4321) equals: u2.
+self assert: (sis userWithUsername: 'lucio' protectedBy: 'asdf') equals: u2.
 
-self deny: (sis userWithUsername: 'lucio' protectedBy: 4321)  equals: u1.
+self deny: (sis userWithUsername: 'lucio' protectedBy: 'fdsa')  equals: u1.
 
 self assert: (sis userWithUsername: 'gerardo' protectedBy: 'aguanteVelez') equals: nil.
 ]
