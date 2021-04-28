@@ -9,16 +9,6 @@ Class {
 	#category : #'OO2 Tp1-ui'
 }
 
-{ #category : #'instance creation' }
-AnswersComponent class >> newQuestion: aQuestion parent: aParent [
-	| instance |
-	instance := self new.
-	instance question: aQuestion parent: aParent.
-	^ instance
-	
-
-]
-
 { #category : #callback }
 AnswersComponent >> createAnswer: aQuestion [
 	aQuestion
