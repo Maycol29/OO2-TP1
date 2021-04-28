@@ -231,6 +231,26 @@ TestCuOOra >> testQuestionsBy [
 	
 ]
 
+{ #category : #tests }
+TestCuOOra >> testScoreA [
+self assert:((sis scoreA:u1)=50).
+self assert:(sis scoreA:u3)=0.
+]
+
+{ #category : #tests }
+TestCuOOra >> testScoreQ [
+self assert:((sis scoreQ:u1)=20).
+self deny:(sis scoreQ:u3)=20.
+self assert:((sis scoreQ:u1)=20).
+]
+
+{ #category : #tests }
+TestCuOOra >> testScoreV [
+self assert:((sis scoreV:u1)=2).
+self assert:(sis scoreV:u3)=0.
+self deny:((sis scoreV:u2)=1).
+]
+
 { #category : #acccessing }
 TestCuOOra >> testTotalScoreOf [
 
