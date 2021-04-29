@@ -30,7 +30,8 @@ soleInstance:=self new example.
 
 { #category : #adding }
 CuOOra >> addQuestionToSistem: aQuestion [
-	(aQuestion topics) do: [ :topic | topic addQuestion: aQuestion ]
+	aQuestion addQuestionToTopics.
+	"(aQuestion topics) do: [ :topic | topic addQuestion: aQuestion ]"
 ]
 
 { #category : #adding }
@@ -70,7 +71,6 @@ CuOOra >> createTopics: topicNames [
 
 { #category : #accessing }
 CuOOra >> deleteQuestion: aQuestion [
-	aQuestion topics do: [ :each | each removeQuestion: aQuestion ].
 	aQuestion cleanTheQuestion
 ]
 

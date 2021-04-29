@@ -62,10 +62,8 @@ TestUser >> setUp [
 
 { #category : #tests }
 TestUser >> testAddFollowing [
-self assert: ( u1 following isEmpty) .
-u1 addFollowing:u2. 
 self assert:u1 following size equals:1.
-self assert:(u1 following anySatisfy:[:user|user == u2]). 
+self assert:(u1 following anySatisfy:[:user|user == u3]). 
 ]
 
 { #category : #tests }
@@ -87,18 +85,17 @@ self deny: (( u2 getRelevantQuestions)includes: q2).
 
 { #category : #tests }
 TestUser >> testIsFollowing [
-u1 addFollowing: u2.
-self assert:(u1 isFollowing: u2).
-self deny:(u1 isFollowing: u3).
+self assert:(u1 isFollowing: u3).
+self deny:(u1 isFollowing: u2).
 self assert:(u1 isFollowing: u1).
 
 ]
 
 { #category : #tests }
 TestUser >> testIsThisUsername [
-self assert:(u1 isThisUsername: 'tobias' password: 'asd' ).
-self assert:(u2 isThisUsername:'lucio' password: 'dsa').
-self deny:(u3 isThisUsername:'lucio' password: 'dsa').
+self assert:(u1 isThisUsername: 'pedro@cuoora.com' password: 'asd' ).
+self deny:(u2 isThisUsername:'diego@cuoora.com' password: 'dsa').
+self deny:(u3 isThisUsername:'juan@cuoora.com' password: 'dsa').
 ]
 
 { #category : #tests }

@@ -23,6 +23,11 @@ answers add: anAnswer .
 ]
 
 { #category : #acccessing }
+Question >> addQuestionToTopics [
+	topics do: [ :topic | topic addQuestion: self ].
+]
+
+{ #category : #acccessing }
 Question >> answers [ 
 ^answers
 ]
@@ -39,6 +44,7 @@ Question >> cantAnswers [
 
 { #category : #acccessing }
 Question >> cleanTheQuestion [
+	topics do: [ :topic | topic removeQuestion: self ].
 	self deleteAnswersVotes.
 	answers removeAll.
 	votes removeAll

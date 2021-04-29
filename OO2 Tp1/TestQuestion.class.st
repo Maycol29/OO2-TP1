@@ -33,6 +33,8 @@ TestQuestion >> setUp [
 	answer1 addVote: vote2.
 	
 	answer2 := Answer newAuthor: user1  text: 'Y... es todo un tema'.
+	
+	question addQuestionToTopics.
 ]
 
 { #category : #tests }
@@ -40,6 +42,12 @@ TestQuestion >> testAddAnswer [
 	self assert: question answers isEmpty.
  	question addAnswer: answer1 .
 	self assert: [(question answers) includes: answer1 ].
+]
+
+{ #category : #tests }
+TestQuestion >> testAddQuestionToTopics [
+	self assert:((topic1 questions)includes:question).
+	self assert:((topic1 questions)size=1).
 ]
 
 { #category : #tests }
@@ -62,6 +70,7 @@ question cleanTheQuestion.
 self assert:((question answers)isEmpty) .
 self assert:((question votes)isEmpty) .
 self assert:((answer1 votes)isEmpty).
+self assert:((topic1 questions) isEmpty).
 ]
 
 { #category : #tests }
