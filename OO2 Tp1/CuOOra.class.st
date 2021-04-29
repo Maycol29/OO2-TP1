@@ -31,7 +31,6 @@ soleInstance:=self new example.
 { #category : #adding }
 CuOOra >> addQuestionToSistem: aQuestion [
 	aQuestion addQuestionToTopics.
-	"(aQuestion topics) do: [ :topic | topic addQuestion: aQuestion ]"
 ]
 
 { #category : #adding }
